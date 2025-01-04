@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mehmet12ws</title>
+    <title>Kimki - Yaratıcı Tasarım</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         * {
@@ -48,29 +48,36 @@
         }
 
         .gallery {
-            display: grid;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 30px;
             margin-top: 40px;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            justify-content: center;
-            align-items: center;
+            position: relative;
+            z-index: 10;
         }
 
         .image-container {
             position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 15px;
+            width: 350px;
+            height: 350px;
+            margin: 20px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             background-color: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
+            transform: rotate(10deg);
+        }
+
+        .image-container:nth-child(odd) {
+            transform: rotate(-10deg);
         }
 
         .image-container:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(0deg);
             box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
         }
 
@@ -79,10 +86,11 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            border-radius: 15px;
         }
 
         .image-container:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         /* Tam ekran modunun stili */
@@ -92,7 +100,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -101,8 +109,8 @@
         }
 
         .fullscreen img {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
             object-fit: contain;
             border-radius: 15px;
         }
