@@ -98,38 +98,44 @@
             transform: translate(-50%, -50%);
             z-index: -1;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
             width: 100%;
             height: 100%;
-            animation: shapeMove 20s infinite linear;
         }
 
         .shape {
             position: absolute;
-            border-radius: 50%;
             opacity: 0.2;
             animation: shapePulse 3s infinite ease-in-out;
+            animation-duration: 3s;
         }
 
         .shape1 {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background-color: rgba(255, 255, 255, 0.3);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Kalp şekli */
             animation-delay: 0s;
+            animation-name: moveShape1;
         }
 
         .shape2 {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             background-color: rgba(255, 255, 255, 0.2);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Kalp şekli */
             animation-delay: 1s;
+            animation-name: moveShape2;
         }
 
         .shape3 {
-            width: 250px;
-            height: 250px;
+            width: 300px;
+            height: 300px;
             background-color: rgba(255, 255, 255, 0.1);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Kalp şekli */
             animation-delay: 2s;
+            animation-name: moveShape3;
         }
 
         @keyframes shapePulse {
@@ -137,14 +143,32 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.1);
+                transform: scale(1.2);
             }
             100% {
                 transform: scale(1);
             }
         }
 
-        @keyframes shapeMove {
+        @keyframes moveShape1 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes moveShape2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+            }
+        }
+
+        @keyframes moveShape3 {
             0% {
                 transform: translate(-50%, -50%) rotate(0deg);
             }
