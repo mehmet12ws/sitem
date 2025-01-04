@@ -177,6 +177,35 @@
             }
         }
 
+        /* Görsel Çerçevesi */
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 40px;
+            border: 8px solid #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            animation: frameGlow 3s infinite alternate;
+        }
+
+        @keyframes frameGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .image-container img {
+            border-radius: 15px;
+            width: 300px;
+            height: auto;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -184,6 +213,13 @@
     <div class="container">
         <h1>Hayat Olmasada</h1>
         <p>Seninle Güzel</p>
+    </div>
+
+    <!-- Görseli özel çerçeve içinde yerleştirdik -->
+    <div class="image-container">
+        <a href="https://hizliresim.com/3tq28bc" target="_blank">
+            <img src="https://i.hizliresim.com/3tq28bc.jpg" alt="Resim Yükle">
+        </a>
     </div>
 
     <div class="background-shapes">
