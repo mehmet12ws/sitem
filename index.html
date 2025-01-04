@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kimki</title>
+    <title>Kimki</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -16,6 +16,7 @@
             background: linear-gradient(45deg, #ff9a8b, #ff6a00, #ff9e2c);
             background-size: 300% 300%;
             animation: gradientBG 10s ease infinite;
+            overflow: hidden;
         }
 
         @keyframes gradientBG {
@@ -33,29 +34,33 @@
         .container {
             text-align: center;
             color: white;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInContainer 2s ease-out;
+        }
+
+        @keyframes fadeInContainer {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
+            font-size: 4rem;
             letter-spacing: 2px;
-            animation: fadeInText 3s ease-out;
-        }
-
-        p {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            letter-spacing: 1px;
-            opacity: 0;
-            animation: fadeInText 3s ease-out 1s forwards;
+            animation: fadeInText 3s ease-out, glowText 1.5s infinite alternate;
+            color: #fff;
         }
 
         @keyframes fadeInText {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(50px);
             }
             100% {
                 opacity: 1;
@@ -63,40 +68,104 @@
             }
         }
 
-        /* Scroll animation */
-        .scroll-down {
-            margin-top: 40px;
-            font-size: 1.2rem;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-            animation: scrollFade 1.5s ease-out infinite alternate;
-        }
-
-        @keyframes scrollFade {
+        @keyframes glowText {
             0% {
-                opacity: 0.5;
-                transform: translateY(10px);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 1);
             }
             100% {
-                opacity: 1;
-                transform: translateY(0);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.7);
             }
         }
 
-        .scroll-down:hover {
-            color: #ff9e2c;
+        p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8rem;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInText 3s ease-out 1s forwards;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
+
+        .background-shapes {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            animation: shapeMove 20s infinite linear;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: shapePulse 3s infinite ease-in-out;
+        }
+
+        .shape1 {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.3);
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.2);
+            animation-delay: 1s;
+        }
+
+        .shape3 {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(255, 255, 255, 0.1);
+            animation-delay: 2s;
+        }
+
+        @keyframes shapePulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shapeMove {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
     </style>
-    <!-- Google Fonts for custom fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Hayat Olmasada</h1>
         <p>Seninle Güzel</p>
+    </div>
+
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
     </div>
 </body>
 </html>
