@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kimki - Yaratıcı Tasarım</title>
+    <title>mehmet12ws</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,21 +14,21 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #121212;
+            background-color: #0a0a0a;
             color: white;
-            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             overflow: hidden;
             position: relative;
             text-align: center;
+            padding: 20px;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: #fff;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
             animation: fadeInText 2s ease-out;
@@ -40,7 +40,7 @@
         }
 
         p {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.8);
             margin-top: 20px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
@@ -48,37 +48,32 @@
         }
 
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
             margin-top: 40px;
+            width: 80%;
             position: relative;
-            z-index: 10;
         }
 
         .image-container {
             position: relative;
-            width: 350px;
-            height: 350px;
+            width: 250px;
+            height: 250px;
             margin: 20px;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             background-color: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transform: rotate(10deg);
-        }
-
-        .image-container:nth-child(odd) {
-            transform: rotate(-10deg);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transform: rotate(5deg);
         }
 
         .image-container:hover {
-            transform: scale(1.1) rotate(0deg);
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
         }
 
         .image-container img {
@@ -90,7 +85,7 @@
         }
 
         .image-container:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         /* Tam ekran modunun stili */
@@ -141,21 +136,23 @@
 </head>
 <body>
 
-    <h1>Hayat Olmasada</h1>
-    <p>Seninle Güzel</p>
+    <div>
+        <h1>Hayat Olmasada</h1>
+        <p>Seninle Güzel</p>
 
-    <div class="gallery">
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
-        </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/qbfg756.jpg" alt="Resim 2" onclick="openFullscreen(this)">
-        </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
-        </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+        <div class="gallery">
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
+            </div>
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/qbfg756.jpg" alt="Resim 2" onclick="openFullscreen(this)">
+            </div>
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
+            </div>
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+            </div>
         </div>
     </div>
 
