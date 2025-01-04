@@ -177,8 +177,8 @@
             }
         }
 
-        /* Görsel Çerçevesi */
-        .image-container {
+        /* Video Çerçevesi */
+        .video-container {
             position: relative;
             display: inline-block;
             margin-top: 40px;
@@ -201,13 +201,12 @@
             }
         }
 
-        .image-container img {
+        .video-container iframe {
             border-radius: 15px;
-            width: 300px;
-            height: auto;
+            width: 100%;
+            height: 400px;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -215,11 +214,9 @@
         <p>Seninle Güzel</p>
     </div>
 
-    <!-- Görseli özel çerçeve içinde yerleştirdik -->
-    <div class="image-container">
-        <a href="https://hizliresim.com/3tq28bc" target="_blank">
-            <img src="https://i.hizliresim.com/3tq28bc.jpg" alt="Resim Yükle">
-        </a>
+    <!-- Videoyu özel çerçeve içinde yerleştirdik -->
+    <div class="video-container">
+        <iframe src="https://www.tiktok.com/embed/7336868433235053830" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <div class="background-shapes">
