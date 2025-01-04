@@ -3,95 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Güzel Bir Web Sayfası</title>
+  <title>mehmet12ws</title>
   <style>
     /* Temel Ayarlar */
-    body, html {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f9;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif; /* Google Fonts - Modern bir yazı tipi */
+      color: #333;
+      background-color: #f3f4f6;
+      line-height: 1.6;
+    }
+
+    /* Arka Plan Yazısı */
+    body::before {
+      content: "mehmet12ws";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10rem;
+      color: rgba(0, 0, 0, 0.05); /* Yumuşak bir görünüm */
+      z-index: -1;
+      white-space: nowrap;
+    }
+
+    /* Ana Banner */
+    .hero {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-    }
-
-    /* Sayfa başlığı ve container ayarları */
-    .container {
       text-align: center;
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-      width: 90%;
-    }
-
-    h1 {
-      color: #333;
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    p {
-      color: #777;
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    /* Buton tasarımı */
-    .btn {
-      background-color: #3498db;
+      min-height: 100vh;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
       color: white;
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .hero a {
+      display: inline-block;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      background-color: white;
+      color: #4facfe;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .btn:hover {
-      background-color: #2980b9;
+    .hero a:hover {
+      background-color: #4facfe;
+      color: white;
     }
 
-    /* Resim tasarımı */
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
+    /* Hakkımda Bölümü */
+    .about {
+      padding: 60px 20px;
+      text-align: center;
+      background-color: #fff;
     }
 
-    /* Mobil uyumlu tasarım */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 28px;
-      }
-      
-      p {
-        font-size: 16px;
-      }
+    .about h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #4facfe;
+    }
 
-      .btn {
-        padding: 10px 20px;
-        font-size: 16px;
-      }
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      margin-top: 50px;
+      font-size: 1rem;
+    }
+
+    footer a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="container">
-    <h1>Merhaba, Web Sayfamıza Hoş Geldiniz!</h1>
-    <p>Bu, HTML ve CSS ile oluşturulmuş şık bir web sayfasıdır. Hem masaüstü hem de mobil cihazlarda mükemmel çalışır.</p>
-    <a href="#" class="btn">Bizi Takip Et</a>
-    <img src="https://via.placeholder.com/700x400" alt="Placeholder Image">
-  </div>
+  <!-- Ana Banner -->
+  <section class="hero">
+    <h1>mehmet12ws</h1>
+    <p>Merhaba! Bu benim modern, minimalist ve benzersiz web sayfam. Siz de kendi projelerinizi paylaşabilirsiniz!</p>
+    <a href="#about">Hakkımda</a>
+  </section>
+
+  <!-- Hakkımda Bölümü -->
+  <section id="about" class="about">
+    <h2>Hakkımda</h2>
+    <p>
+      test için
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 mehmet12ws. Tüm Hakları Saklıdır. <a href="#hero">Yukarı Çık</a></p>
+  </footer>
 
 </body>
 </html>
