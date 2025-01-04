@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mehmet12ws</title>
+  <title>mehmet12ws | Modern Tasarım</title>
   <style>
     /* Temel Ayarlar */
     * {
@@ -13,48 +13,88 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif; /* Google Fonts - Modern bir yazı tipi */
-      color: #333;
-      background-color: #f3f4f6;
-      line-height: 1.6;
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #f3f3f3;
+      overflow-x: hidden;
     }
 
-    /* Arka Plan Yazısı */
-    body::before {
-      content: "mehmet12ws";
+    /* Navbar */
+    nav {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 10rem;
-      color: rgba(0, 0, 0, 0.05); /* Yumuşak bir görünüm */
-      z-index: -1;
-      white-space: nowrap;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: all 0.3s ease-in-out;
     }
 
-    /* Ana Banner */
+    nav.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #4facfe;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4facfe;
+    }
+
+    /* Hero */
     .hero {
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      min-height: 100vh;
       background: linear-gradient(to right, #4facfe, #00f2fe);
       color: white;
-      padding: 20px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://source.unsplash.com/1600x900/?technology');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      z-index: -1;
     }
 
     .hero h1 {
       font-size: 4rem;
       margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 1s ease;
     }
 
     .hero p {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       max-width: 700px;
-      margin-bottom: 20px;
+      margin: 20px auto;
+      animation: fadeInUp 1s ease;
     }
 
     .hero a {
@@ -68,6 +108,7 @@
       font-weight: bold;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s, color 0.3s;
+      animation: fadeInUp 1.5s ease;
     }
 
     .hero a:hover {
@@ -75,32 +116,89 @@
       color: white;
     }
 
-    /* Hakkımda Bölümü */
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hakkımda */
     .about {
-      padding: 60px 20px;
+      padding: 100px 20px;
       text-align: center;
-      background-color: #fff;
+      background-color: #1e1e1e;
+      color: #ccc;
     }
 
     .about h2 {
       font-size: 3rem;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       color: #4facfe;
+      position: relative;
+      display: inline-block;
+    }
+
+    .about h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 4px;
+      background-color: #4facfe;
+      border-radius: 2px;
     }
 
     .about p {
       max-width: 800px;
       margin: 0 auto;
       font-size: 1.2rem;
-      color: #555;
       line-height: 1.8;
+    }
+
+    /* Kartlar */
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #2a2a2a;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card h3 {
+      color: #4facfe;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #bbb;
     }
 
     /* Footer */
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #333;
+      background-color: #0f0f0f;
       color: white;
       margin-top: 50px;
       font-size: 1rem;
@@ -120,25 +218,58 @@
 </head>
 <body>
 
-  <!-- Ana Banner -->
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="logo">mehmet12ws</div>
+    <div>
+      <a href="#">Ana Sayfa</a>
+      <a href="#about">Hakkımda</a>
+      <a href="#contact">İletişim</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
   <section class="hero">
     <h1>mehmet12ws</h1>
-    <p>Hayat seninle güzel</p>
-    <a href="#about">Hakkımda</a>
+    <p>Hayat olmasa da seninle güzel.</p>
+    <a href="#about">Hakkımda Daha Fazla</a>
   </section>
 
-  <!-- Hakkımda Bölümü -->
+  <!-- Hakkımda -->
   <section id="about" class="about">
     <h2>Hakkımda</h2>
-    <p>
-      test için
-    </p>
+    <p>Merhaba! Ben Mehmet. Web tasarımı ve yazılım geliştirme alanında çalışıyorum. Teknolojiye olan ilgimle her zaman yaratıcı ve yenilikçi projeler geliştirmek için çalışıyorum.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Web Tasarımı</h3>
+        <p>Kullanıcı dostu ve modern web siteleri oluşturuyorum.</p>
+      </div>
+      <div class="card">
+        <h3>Yazılım Geliştirme</h3>
+        <p>Farklı platformlar için etkili çözümler geliştiriyorum.</p>
+      </div>
+      <div class="card">
+        <h3>SEO ve Optimizasyon</h3>
+        <p>Web sitenizin arama motorlarında üst sıralara çıkmasına yardımcı oluyorum.</p>
+      </div>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>© 2025 mehmet12ws. Tüm Hakları Saklıdır. <a href="#hero">Yukarı Çık</a></p>
+    <<p>© 2025 mehmet12ws. Tüm Hakları Saklıdır. <a href="#navbar">Yukarı Çık</a></p>
   </footer>
 
+  <script>
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
 </html>
