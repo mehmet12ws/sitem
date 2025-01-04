@@ -183,28 +183,60 @@
             display: inline-block;
             margin-top: 40px;
             border: 8px solid #fff;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
             animation: frameGlow 3s infinite alternate;
+            transform: scale(1);
         }
 
         @keyframes frameGlow {
             0% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+                transform: scale(1);
             }
             50% {
-                box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+                box-shadow: 0 0 40px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.9);
+                transform: scale(1.05);
             }
             100% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+                transform: scale(1);
             }
         }
 
-        .video-container iframe {
+        .video-container video {
             border-radius: 15px;
-            width: 100%;
-            height: 400px;
+            width: 800px; /* Video boyutunu artırdık */
+            height: 450px; /* Yüksekliği de artırdık */
+        }
+
+        /* Metin animasyonu ve buton */
+        .scroll-down {
+            margin-top: 40px;
+            font-size: 1.2rem;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            animation: scrollFade 1.5s ease-out infinite alternate;
+        }
+
+        @keyframes scrollFade {
+            0% {
+                opacity: 0.5;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-down:hover {
+            color: #ff9e2c;
         }
     </style>
 </head>
@@ -216,7 +248,10 @@
 
     <!-- Videoyu özel çerçeve içinde yerleştirdik -->
     <div class="video-container">
-        <iframe src="https://www.tiktok.com/embed/7336868433235053830" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <video controls>
+            <source src="https://v77.tiktokcdn.com/ed04949055da6846e0f21461f3f9ea1c/677a0306/video/tos/useast2a/tos-useast2a-ve-0068c002/ogCfBL5CFkVIIyLjXGEQCJASXygefbVR4XoIwG/?a=1233&bti=NDU3ZjAwOg%3D%3D&ch=0&cr=3&dr=0&lr=tiktok_m&cd=0%7C0%7C1%7C&cv=1&br=1808&bt=904&cs=0&ds=3&ft=pfEgdMlh8Zmo0hJc5b4jVRzhJpWrKsd.&mime_type=video_mp4&qs=0&rc=NDtlZDw6ZDozOTs2Ozw0N0BpajZpcW85cmV2cTMzNzczM0AzMzFgM2JhNmAxLy5hNGFfYSNjMXE1MmRjaTVgLS1kMTZzcw%3D%3D&vvpl=1&l=20250104215636A6E0EDBB407A69CB2668&btag=e000b8000&cc=13" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <div class="background-shapes">
