@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Galeri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>Halloween Madness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,65 +14,100 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #0a0a0a;
+            background: linear-gradient(45deg, #0a0a0a, #3d0b3d);
             color: white;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            justify-content: center;
             text-align: center;
-            padding: 20px;
+            animation: background-glow 6s infinite alternate;
+        }
+
+        @keyframes background-glow {
+            0% { background: linear-gradient(45deg, #0a0a0a, #3d0b3d); }
+            50% { background: linear-gradient(45deg, #1c0c1c, #5e1f5e); }
+            100% { background: linear-gradient(45deg, #0a0a0a, #3d0b3d); }
         }
 
         h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            font-family: 'Creepster', cursive;
+            font-size: 4rem;
+            color: #ff7300;
+            text-shadow: 0 0 30px rgba(255, 115, 0, 0.8), 0 0 60px rgba(255, 115, 0, 0.4);
             margin-bottom: 10px;
+            animation: text-flicker 3s infinite alternate;
+        }
+
+        @keyframes text-flicker {
+            0% { opacity: 1; text-shadow: 0 0 40px rgba(255, 115, 0, 0.9); }
+            50% { opacity: 0.8; text-shadow: 0 0 20px rgba(255, 115, 0, 0.6); }
+            100% { opacity: 1; text-shadow: 0 0 50px rgba(255, 115, 0, 1); }
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            animation: fade-in 2s ease-in-out forwards;
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            position: relative;
             width: 100%;
-            max-width: 1200px;
-            margin-bottom: 30px;
+            max-width: 1000px;
+            transform: rotate(-2deg);
         }
 
         .image-container {
             position: relative;
-            width: 100%;
-            padding-bottom: 100%; /* Kare oranı */
-            border-radius: 10px;
+            width: 250px;
+            height: 250px;
             overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 5px solid #ff7300;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7);
+            transform: rotate(calc(var(--angle, 0deg)));
+            animation: float 4s ease-in-out infinite alternate;
         }
 
-        .image-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        .image-container:nth-child(odd) {
+            --angle: 5deg;
+        }
+
+        .image-container:nth-child(even) {
+            --angle: -5deg;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(calc(var(--angle, 0deg))) translateY(0px); }
+            100% { transform: rotate(calc(var(--angle, 0deg))) translateY(-15px); }
         }
 
         .image-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Tam ekran görünümü */
         .fullscreen {
             position: fixed;
             top: 0;
@@ -87,70 +122,73 @@
             display: none;
         }
 
-        .fullscreen img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
         .fullscreen.active {
             display: flex;
+        }
+
+        .fullscreen img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
         }
 
         .close-btn {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 30px;
+            font-size: 40px;
             color: white;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 0, 0, 0.7);
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            padding: 5px 10px;
+            z-index: 2000;
         }
 
-        .video-container {
-            width: 100%;
-            max-width: 700px;
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            background-color: rgba(255, 255, 255, 0.1);
+        .close-btn:hover {
+            background: rgba(255, 0, 0, 1);
         }
 
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
+        /* Hareketli Duman */
+        .smoke {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: move-smoke 6s infinite ease-in-out;
         }
 
-        /* Mobil cihazlar için */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
+        .smoke:nth-child(1) {
+            top: 10%;
+            left: 30%;
+            animation-delay: 0s;
+        }
 
-            p {
-                font-size: 1rem;
-            }
+        .smoke:nth-child(2) {
+            top: 50%;
+            left: 60%;
+            animation-delay: 2s;
+        }
 
-            .gallery {
-                gap: 10px;
-            }
+        .smoke:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
 
-            .video-container {
-                width: 90%;
-            }
+        @keyframes move-smoke {
+            0% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-20px) translateX(30px); opacity: 0.5; }
+            100% { transform: translateY(0) translateX(0); opacity: 0.3; }
         }
     </style>
 </head>
 <body>
 
-    <h1>Hayat Olmasada</h1>
-    <p>Seninle Güzel</p>
+    <h1>Korkunç Halloween!</h1>
+    <p>Cadılar Bayramı'nın karanlık ruhuna hazır olun...</p>
 
     <!-- Galeri -->
     <div class="gallery">
@@ -168,15 +206,12 @@
         </div>
     </div>
 
-    <!-- Video -->
-    <div class="video-container">
-        <video controls>
-            <source src="https://cdn.discordapp.com/attachments/1196885529845829674/1316820602002079805/inter_tecavuz.mp4" type="video/mp4">
-            Tarayıcınız video oynatmayı desteklemiyor.
-        </video>
-    </div>
+    <!-- Duman Efektleri -->
+    <div class="smoke"></div>
+    <div class="smoke"></div>
+    <div class="smoke"></div>
 
-    <!-- Tam ekran görüntüleme -->
+    <!-- Tam ekran -->
     <div class="fullscreen" id="fullscreen-container">
         <button class="close-btn" onclick="closeFullscreen()">×</button>
         <img id="fullscreen-image" src="" alt="Fullscreen Image">
