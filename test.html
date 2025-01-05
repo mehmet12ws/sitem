@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Galeri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            flex-direction: column; /* Dikey yerleşim */
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            animation: fadeInText 2s ease-out;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%; /* Kare oranı */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .fullscreen img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .fullscreen.active {
+            display: flex;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px 10px;
+            z-index: 2000;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Mobil cihazlar için */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .gallery {
+                gap: 10px;
+            }
+
+            .image-container {
+                padding-bottom: 120%;
+            }
+
+            .video-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Hayat Olmasada</h1>
+    <p>Seninle Güzel</p>
+
+    <div class="gallery">
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
+        </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/qbfg756.jpg" alt="Resim 2" onclick="openFullscreen(this)">
+        </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
+        </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+        </div>
+    </div>
+
+    <div class="video-container">
+        <video controls>
+            <source src="https://cdn.discordapp.com/attachments/1196885529845829674/1316820602002079805/inter_tecavuz.mp4" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+    </div>
+
+    <div class="fullscreen" id="fullscreen-container">
+        <button class="close-btn" onclick="closeFullscreen()">×</button>
+        <img id="fullscreen-image" src="" alt="Fullscreen Image">
+    </div>
+
+    <script>
+        function openFullscreen(imgElement) {
+            var fullscreenContainer = document.getElementById('fullscreen-container');
+            var fullscreenImage = document.getElementById('fullscreen-image');
+            fullscreenImage.src = imgElement.src;
+            fullscreenContainer.classList.add('active');
+        }
+
+        function closeFullscreen() {
+            var fullscreenContainer = document.getElementById('fullscreen-container');
+            fullscreenContainer.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
