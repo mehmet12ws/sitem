@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -54,7 +53,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 300px; /* Karelerin boyutu büyütüldü */
+            height: 300px;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
@@ -81,7 +80,6 @@
             transform: scale(1.2);
         }
 
-        /* Başlık Resminin Üzerinde Görünmesi */
         .news-item .title {
             position: absolute;
             bottom: 15px;
@@ -103,7 +101,6 @@
             transform: translateX(-50%) translateY(-10px);
         }
 
-        /* Haber içeriği küçük ve şık olacak şekilde ayarlandı */
         .news-content {
             display: none;
             color: white;
@@ -116,15 +113,15 @@
             max-width: 80%;
             margin: 20px auto;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.4); /* Çerçeve eklendi */
-            transform: scale(0.8); /* Animasyon başlangıç */
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transform: scale(0.8);
             opacity: 0;
             transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
         .news-content.active {
             display: block;
-            transform: scale(1); /* Büyüme efekti */
+            transform: scale(1);
             opacity: 1;
         }
 
@@ -153,10 +150,17 @@
             <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Haber 1">
             <div class="title">Durdurulamaz!</div>
         </div>
-        <!-- Haber 2 -->
+
+        <!-- Yeni Haber -->
         <div class="news-item" onclick="showContent(2)">
-            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Haber 2">
-            <div class="title">O Bir Lider</div>
+            <img src="https://i.hizliresim.com/b3ktk7g.jpg" alt="Haber 2">
+            <div class="title">Yeni Futbol Transferi</div>
+        </div>
+
+        <!-- Yeni Haber 2 -->
+        <div class="news-item" onclick="showContent(3)">
+            <img src="https://i.hizliresim.com/c2kzk4g.jpg" alt="Haber 3">
+            <div class="title">Basketbol Şampiyonu!</div>
         </div>
     </div>
 
@@ -165,9 +169,15 @@
         <h2>Durdurulamaz</h2>
         <p>A Tierden B Tiere Düşen mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor. Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor.</p>
     </div>
+
     <div class="news-content" id="content-2">
-        <h2>O Bir Lider</h2>
-        <p>Aldığı Ödüller Ve Attığı Goller İle Rakiplerini Kışkırtan Sicardi Bu Sezon Gol Krallığına Oynuyor.</p>
+        <h2>Yeni Futbol Transferi</h2>
+        <p>Yeni futbol transferi takıma büyük katkı sağlayacak. Futbol dünyasında ses getiren bu transferle ilgili detaylar...</p>
+    </div>
+
+    <div class="news-content" id="content-3">
+        <h2>Basketbol Şampiyonu!</h2>
+        <p>Basketbol takımı, sezonu şampiyon olarak tamamladı. Finaldeki büyük zaferi ve oyuncu performanslarını tüm spor severler konuşuyor...</p>
     </div>
 
     <script>
@@ -181,5 +191,3 @@
     </script>
 </body>
 </html>
-
-bunda sadece         <p>Aldığı Ödüller Ve Attığı Goller İle Rakiplerini Kışkırtan Sicardi Bu Sezon Gol Krallığına Oynuyor.</p>
