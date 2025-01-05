@@ -24,6 +24,7 @@
             position: relative;
             text-align: center;
             padding: 20px;
+            flex-direction: column; /* Dikey yerleşim */
         }
 
         h1 {
@@ -132,6 +133,24 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+        /* Video Stili */
+        .video-container {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 50px;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -154,6 +173,15 @@
                 <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
             </div>
         </div>
+        
+        <!-- Video Ekleme Alanı -->
+        <div class="video-container">
+            <video controls>
+                <source src="https://cdn.discordapp.com/attachments/1196885529845829674/1316820602002079805/inter_tecavuz.mp4?ex=677ac2c0&is=67797140&hm=cc2498b7fd51b4a923c80e07c2d31d75b3b28f17a1241d27f48b319f3f59a41e&" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
     </div>
 
     <div class="fullscreen" id="fullscreen-container">
