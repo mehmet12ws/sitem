@@ -19,100 +19,94 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
+            justify-content: center;
+            min-height: 100vh;
             overflow: hidden;
-            position: relative;
             text-align: center;
             padding: 20px;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 2.5rem;
             color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            animation: fadeInText 2s ease-out;
-        }
-
-        @keyframes fadeInText {
-            0% { opacity: 0; transform: translateY(-50px); }
-            100% { opacity: 1; transform: translateY(0); }
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            margin-bottom: 20px;
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-top: 20px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-            animation: fadeInText 3s ease-out 1s forwards;
+            margin-bottom: 40px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
         }
 
         .news-container {
-            width: 80%;
-            margin-top: 30px;
+            width: 90%;
+            max-width: 900px;
         }
 
         .news-item {
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .news-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .news-item img {
             width: 100%;
-            height: 300px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
         .news-item h2 {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             color: #fff;
             margin-bottom: 10px;
         }
 
         .news-item p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.8);
         }
-
+        
     </style>
 </head>
 <body>
 
     <h1>Haberler</h1>
-    <p>FFA | HABERLER</p>
+    <p>Son Dakika ve Önemli Gelişmeler</p>
 
     <div class="news-container">
         <!-- İlk Haber -->
         <div class="news-item">
-            <img src="https://via.placeholder.com/800x300" alt="Haber 1">
-            <h2>Başlık: test1</h2>
-            <p>İçerik: test1</p>
+            <img src="https://via.placeholder.com/800x200" alt="Haber 1">
+            <h2>Başlık: Haber 1</h2>
+            <p>İçerik: Burada ilk haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
         </div>
 
         <!-- İkinci Haber -->
         <div class="news-item">
-            <img src="https://via.placeholder.com/800x300" alt="Haber 2">
-            <h2>Başlık: test 2</h2>
-            <p>İçerik: test2</p>
+            <img src="https://via.placeholder.com/800x200" alt="Haber 2">
+            <h2>Başlık: Haber 2</h2>
+            <p>İçerik: Burada ikinci haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
         </div>
 
         <!-- Üçüncü Haber -->
         <div class="news-item">
-            <img src="https://via.placeholder.com/800x300" alt="Haber 3">
-            <h2>Başlık: test 3</h2>
-            <p>İçerik: test3</p>
+            <img src="https://via.placeholder.com/800x200" alt="Haber 3">
+            <h2>Başlık: Haber 3</h2>
+            <p>İçerik: Burada üçüncü haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
         </div>
     </div>
 
