@@ -71,7 +71,7 @@
 
         .image-container {
             position: relative;
-            width: 180px; /* Daha büyük resim boyutu */
+            width: 180px;
             height: 180px;
             overflow: hidden;
             border: 4px solid rgba(255, 115, 0, 0.8);
@@ -80,7 +80,7 @@
             transform: rotate(calc(-10deg + 20deg * random()));
             box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
             transition: transform 0.3s, box-shadow 0.3s;
-            animation: move-around 6s infinite ease-in-out; /* Fotoğraflar bağımsız hareket ediyor */
+            animation: move-around 6s infinite ease-in-out;
         }
 
         @keyframes move-around {
@@ -163,12 +163,17 @@
             width: 90%;
             max-width: 800px;
             margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 115, 0, 0.7);
+            overflow: hidden; /* Video boyutunu sınırla */
         }
 
         video {
             width: 100%;
+            height: auto; /* Yüksekliğini otomatik yaparak orantıyı korur */
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 115, 0, 0.7);
+            display: block;
+            background-color: black;
         }
     </style>
 </head>
@@ -204,7 +209,7 @@
     <div class="video-container">
         <video controls>
             <source src="https://cdn.discordapp.com/attachments/1304891541021528146/1325450298357059614/bddzoo.mp4?ex=677bd548&is=677a83c8&hm=3ce22e67ffb721ea4d4ede772fef5db24474968ff44d1e4c88a5f09687b43ab0&" type="video/mp4">
-            Your browser does not support the video tag.
+            sıkıntı
         </video>
     </div>
 
