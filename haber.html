@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haberler - Dinamik ve Şık Tasarım</title>
+    <title>mertens</title></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,22 +14,21 @@
 
         body {
             font-family: 'Raleway', sans-serif;
-            background-color: #0a0a0a;
+            background-color: #121212;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
-            position: relative;
-            text-align: center;
             flex-direction: column;
-            padding: 40px;
+            padding: 20px;
+            text-align: center;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #fff;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
             animation: fadeInText 1.5s ease-out;
@@ -42,7 +41,7 @@
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 40px;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
@@ -51,32 +50,32 @@
 
         .news-gallery {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            width: 85%;
+            width: 80%;
             margin-top: 40px;
             position: relative;
         }
 
         .news-item {
             position: relative;
-            width: 250px;
-            height: 250px;
+            width: 100%;
+            height: 280px;
             margin: 10px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
             background-color: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            transform: rotate(5deg);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            overflow: hidden;
+            opacity: 0.9;
         }
 
         .news-item:hover {
-            transform: scale(1.1) rotate(0deg);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            opacity: 1;
         }
 
         .news-item img {
@@ -91,29 +90,70 @@
             transform: scale(1.1);
         }
 
+        /* Başlık Resminin Üzerinde Görünmesi */
+        .news-item .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .news-item:hover .title {
+            transform: translateY(-10px);
+            background-color: rgba(0, 0, 0, 0.85);
+        }
+
         .news-content {
             display: none;
             color: white;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             padding: 20px;
             margin-top: 20px;
             border-radius: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 1.2rem;
+            line-height: 1.7;
             max-width: 80%;
             margin: 20px auto;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease, transform 0.3s ease;
         }
 
         .news-content.active {
             display: block;
-            animation: fadeInContent 1s ease-out;
+            animation: growContent 0.8s ease-out;
         }
 
-        @keyframes fadeInContent {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes growContent {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Mobil uyumluluk */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .news-item {
+                height: 220px;
+            }
+
+            .news-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
         }
 
         /* Tam ekran modunun stili */
@@ -159,62 +199,57 @@
         .close-btn:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-
     </style>
 </head>
 <body>
 
-    <h1>Haberler</h1>
-    <p>Güncel Gelişmeler ve Son Dakika</p>
+    <h1>Güncel Haberler</h1>
+    <p>En Son Gelişmeler ve Öne Çıkanlar</p>
 
     <div class="news-gallery">
         <div class="news-item" onclick="showContent(1)">
-            <img src="https://via.placeholder.com/250" alt="Haber 1">
+            <img src="https://via.placeholder.com/300" alt="Haber 1">
+            <div class="title">Haber Başlığı 1</div>
         </div>
         <div class="news-item" onclick="showContent(2)">
-            <img src="https://via.placeholder.com/250" alt="Haber 2">
+            <img src="https://via.placeholder.com/300" alt="Haber 2">
+            <div class="title">Haber Başlığı 2</div>
         </div>
         <div class="news-item" onclick="showContent(3)">
-            <img src="https://via.placeholder.com/250" alt="Haber 3">
+            <img src="https://via.placeholder.com/300" alt="Haber 3">
+            <div class="title">Haber Başlığı 3</div>
         </div>
         <div class="news-item" onclick="showContent(4)">
-            <img src="https://via.placeholder.com/250" alt="Haber 4">
+            <img src="https://via.placeholder.com/300" alt="Haber 4">
+            <div class="title">Haber Başlığı 4</div>
         </div>
     </div>
 
-    <div id="news-content-1" class="news-content">
-        <h2>Haber Başlık 1</h2>
-        <p>Bu haberin detayları burada olacak. Konuyla ilgili önemli bilgiler yer alacak.</p>
+    <div class="news-content" id="content-1">
+        <h2>Haber 1 Detayı</h2>
+        <p>Haber 1 içeriği burada olacak...</p>
     </div>
-
-    <div id="news-content-2" class="news-content">
-        <h2>Haber Başlık 2</h2>
-        <p>Bu haberin detayları burada olacak. Konuyla ilgili önemli bilgiler yer alacak.</p>
+    <div class="news-content" id="content-2">
+        <h2>Haber 2 Detayı</h2>
+        <p>Haber 2 içeriği burada olacak...</p>
     </div>
-
-    <div id="news-content-3" class="news-content">
-        <h2>Haber Başlık 3</h2>
-        <p>Bu haberin detayları burada olacak. Konuyla ilgili önemli bilgiler yer alacak.</p>
+    <div class="news-content" id="content-3">
+        <h2>Haber 3 Detayı</h2>
+        <p>Haber 3 içeriği burada olacak...</p>
     </div>
-
-    <div id="news-content-4" class="news-content">
-        <h2>Haber Başlık 4</h2>
-        <p>Bu haberin detayları burada olacak. Konuyla ilgili önemli bilgiler yer alacak.</p>
+    <div class="news-content" id="content-4">
+        <h2>Haber 4 Detayı</h2>
+        <p>Haber 4 içeriği burada olacak...</p>
     </div>
 
     <script>
         function showContent(newsId) {
-            // Tüm haber içeriklerini gizle
-            var allContents = document.querySelectorAll('.news-content');
-            allContents.forEach(function(content) {
-                content.classList.remove('active');
+            const content = document.querySelectorAll('.news-content');
+            content.forEach((item) => {
+                item.classList.remove('active');
             });
-
-            // Tıklanan haberin içeriğini göster
-            var selectedContent = document.getElementById('news-content-' + newsId);
-            selectedContent.classList.add('active');
+            document.getElementById('content-' + newsId).classList.add('active');
         }
     </script>
-
 </body>
 </html>
