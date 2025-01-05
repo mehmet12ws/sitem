@@ -50,10 +50,11 @@
             position: relative;
         }
 
+        /* Haber kutuları için düzenleme */
         .news-item {
             position: relative;
             width: 100%;
-            height: 220px;
+            height: 200px; /* Kare boyut için yüksekliği eşit yapıyoruz */
             margin: 10px;
             border-radius: 10px;
             overflow: hidden;
@@ -66,23 +67,13 @@
             border-radius: 10px;
         }
 
+        /* Haber kutusunun hover efekti */
         .news-item:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
 
-        .news-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            border-radius: 10px;
-        }
-
-        .news-item:hover img {
-            transform: scale(1.1);
-        }
-
+        /* Haber başlıkları */
         .news-item .title {
             position: absolute;
             top: 5px;
@@ -104,6 +95,19 @@
             transform: translateX(-50%) translateY(-8px);
         }
 
+        /* Resimlerin kare olması için ayarlamalar */
+        .news-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmin kare olmasını sağlıyoruz */
+            transition: transform 0.3s ease;
+        }
+
+        .news-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* İçerik kısmı */
         .news-content {
             display: none;
             color: white;
@@ -129,6 +133,7 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
+        /* Mobil cihazlar için düzenleme */
         @media (max-width: 768px) {
             body {
                 padding: 20px;
@@ -139,7 +144,7 @@
             }
 
             .news-item {
-                height: 180px;
+                height: 200px; /* Kare yapmaya devam ediyoruz */
             }
 
             .news-gallery {
@@ -161,7 +166,7 @@
             <div class="title">Durdurlamaz!</div>
         </div>
 
-        <!-- Haber 2 (Yeni haber ekledik) -->
+        <!-- Haber 2 -->
         <div class="news-item" onclick="showContent(2)">
             <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Haber 2">
             <div class="title">O Bir Lider</div>
@@ -175,7 +180,7 @@
     </div>
 
     <div class="news-content" id="content-2">
-        <h2>O Bir Lide</h2>
+        <h2>O Bir Lider</h2>
         <p>Aldığı Ödüller Ve Attığı Goller İle Rakiplerini Kışkırtan Sicardi Bu Sezon Gol Krallığınıa Oynuyor</p>
     </div>
 
