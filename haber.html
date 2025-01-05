@@ -64,13 +64,24 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             object-fit: cover;
-            border-radius: 10px;
         }
 
         /* Haber kutusunun hover efekti */
         .news-item:hover {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Resimlerin kare olması için ayarlamalar */
+        .news-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmin kare olmasını sağlıyoruz */
+            transition: transform 0.3s ease;
+        }
+
+        .news-item:hover img {
+            transform: scale(1.1);
         }
 
         /* Haber başlıkları */
@@ -93,18 +104,6 @@
         .news-item:hover .title {
             background-color: rgba(0, 0, 0, 0.85);
             transform: translateX(-50%) translateY(-8px);
-        }
-
-        /* Resimlerin kare olması için ayarlamalar */
-        .news-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Resmin kare olmasını sağlıyoruz */
-            transition: transform 0.3s ease;
-        }
-
-        .news-item:hover img {
-            transform: scale(1.1);
         }
 
         /* İçerik kısmı */
