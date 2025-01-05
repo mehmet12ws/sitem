@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween Fest!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Spooky&family=Limbo&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>Halloween Efsanesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Limbo&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,49 +13,45 @@
         }
 
         body {
-            font-family: 'Spooky', sans-serif;
-            background: radial-gradient(circle, #0a0a0a, #3d0b3d, #000);
+            font-family: 'Creepster', cursive;
+            background: radial-gradient(circle, #000, #2e0132, #000);
             color: white;
             overflow: hidden;
             height: 100vh;
+            position: relative;
+            animation: bg-change 8s infinite alternate;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            animation: background-glow 6s infinite alternate;
-            position: relative;
+            align-items: center;
         }
 
-        /* Arkaplan ışık animasyonu */
-        @keyframes background-glow {
-            0% { background: radial-gradient(circle, #0a0a0a, #3d0b3d); }
-            50% { background: radial-gradient(circle, #1c0c1c, #700d70); }
-            100% { background: radial-gradient(circle, #0a0a0a, #3d0b3d); }
+        @keyframes bg-change {
+            0% { background: radial-gradient(circle, #000, #2e0132, #000); }
+            50% { background: radial-gradient(circle, #1e0031, #5b003f, #000); }
+            100% { background: radial-gradient(circle, #000, #2e0132, #000); }
         }
 
         h1 {
-            font-family: 'Creepster', cursive;
-            font-size: 4.5rem;
+            font-size: 4rem;
             color: #ff7300;
-            text-shadow: 0 0 30px rgba(255, 115, 0, 0.8), 0 0 60px rgba(255, 115, 0, 0.4);
+            text-shadow: 0 0 20px #ff7300, 0 0 40px #ff3300;
             margin-bottom: 10px;
-            animation: text-flicker 3s infinite alternate;
+            animation: flicker 3s infinite alternate;
         }
 
-        @keyframes text-flicker {
-            0% { opacity: 1; text-shadow: 0 0 40px rgba(255, 115, 0, 0.9); }
-            50% { opacity: 0.8; text-shadow: 0 0 20px rgba(255, 115, 0, 0.6); }
-            100% { opacity: 1; text-shadow: 0 0 50px rgba(255, 115, 0, 1); }
+        @keyframes flicker {
+            0% { text-shadow: 0 0 20px #ff7300, 0 0 40px #ff3300; }
+            50% { text-shadow: 0 0 40px #ff7300, 0 0 80px #ff3300; }
+            100% { text-shadow: 0 0 30px #ff7300, 0 0 50px #ff3300; }
         }
 
         p {
-            font-size: 1.8rem;
-            font-family: 'Dancing Script', cursive;
-            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.5rem;
             margin-bottom: 30px;
-            animation: fade-in 2s ease-in-out forwards;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            animation: fade-in 2s ease-in-out;
         }
 
         @keyframes fade-in {
@@ -63,92 +59,83 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Emoji Animasyonları */
-        .emoji {
-            position: absolute;
-            font-size: 3rem;
-            animation: float-emoji 5s ease-in-out infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes float-emoji {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(-50px) rotate(20deg); opacity: 0.8; }
-            100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-        }
-
-        .emoji:nth-child(1) {
-            top: 10%; left: 20%;
-            animation-delay: 0s;
-        }
-
-        .emoji:nth-child(2) {
-            top: 30%; left: 70%;
-            animation-delay: 2s;
-        }
-
-        .emoji:nth-child(3) {
-            top: 60%; left: 40%;
-            animation-delay: 4s;
-        }
-
-        .emoji:nth-child(4) {
-            top: 50%; left: 10%;
-            animation-delay: 1s;
-        }
-
-        /* Galeri */
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 40px;
             position: relative;
-            max-width: 1200px;
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
 
         .image-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            border: 5px solid #ff7300;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
+            width: 100%;
+            padding-top: 100%; /* Kare oranı */
             overflow: hidden;
-            transform: rotate(calc(var(--angle, 0deg)));
-            animation: shake 6s ease-in-out infinite alternate;
+            border: 3px solid rgba(255, 115, 0, 0.8);
+            border-radius: 15px;
+            background: rgba(255, 115, 0, 0.2);
+            transform: rotate(calc(-3deg + 6deg * random()));
+            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        @keyframes shake {
-            0% { transform: rotate(calc(var(--angle, 0deg))) translateY(0px); }
-            50% { transform: rotate(calc(var(--angle, 0deg))) translateY(-15px); }
-            100% { transform: rotate(calc(var(--angle, 0deg))) translateY(0px); }
+        .image-container:hover {
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 0 0 40px rgba(255, 115, 0, 1);
         }
 
         .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s;
         }
 
         .image-container:hover img {
             transform: scale(1.1);
         }
 
-        /* Tam ekran görünümü */
+        .emoji {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.8;
+            animation: emoji-float 8s ease-in-out infinite;
+        }
+
+        @keyframes emoji-float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(20deg); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .emoji:nth-child(1) { top: 10%; left: 20%; animation-delay: 1s; }
+        .emoji:nth-child(2) { top: 20%; left: 60%; animation-delay: 2s; }
+        .emoji:nth-child(3) { top: 70%; left: 40%; animation-delay: 3s; }
+        .emoji:nth-child(4) { top: 50%; left: 80%; animation-delay: 0s; }
+        .emoji:nth-child(5) { top: 30%; left: 10%; animation-delay: 1.5s; }
+
         .fullscreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             display: none;
+            justify-content: center;
+            align-items: center;
         }
 
         .fullscreen.active {
@@ -158,39 +145,44 @@
         .fullscreen img {
             max-width: 90%;
             max-height: 90%;
-            object-fit: contain;
         }
 
         .close-btn {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 40px;
+            font-size: 30px;
             color: white;
-            background: rgba(255, 0, 0, 0.7);
-            border: none;
-            border-radius: 50%;
             cursor: pointer;
-            z-index: 2000;
         }
 
-        .close-btn:hover {
-            background: rgba(255, 0, 0, 1);
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            .gallery {
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>🎃 Halloween Madness! 👻</h1>
-    <p>Karanlık, korku ve eğlence bir arada! Gelin ve katılın...</p>
+    <h1>🎃 Halloween Party 👻</h1>
+    <p>Korku, eğlence ve unutulmaz anlar burada başlıyor!</p>
 
-    <!-- Emoji Animasyonları -->
+    <!-- Animasyonlu Emojiler -->
     <div class="emoji">🎃</div>
-    <div class="emoji">👻</div>
     <div class="emoji">🕸️</div>
+    <div class="emoji">👻</div>
     <div class="emoji">🕷️</div>
+    <div class="emoji">💀</div>
 
-    <!-- Galeri -->
+    <!-- Fotoğraf Galerisi -->
     <div class="gallery">
         <div class="image-container">
             <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
@@ -201,24 +193,30 @@
         <div class="image-container">
             <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
         </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+        </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/vzrydf6.jpg" alt="Resim 5" onclick="openFullscreen(this)">
+        </div>
     </div>
 
-    <!-- Tam ekran -->
+    <!-- Tam Ekran Görüntüleme -->
     <div class="fullscreen" id="fullscreen-container">
-        <button class="close-btn" onclick="closeFullscreen()">×</button>
+        <span class="close-btn" onclick="closeFullscreen()">✖</span>
         <img id="fullscreen-image" src="" alt="Fullscreen Image">
     </div>
 
     <script>
         function openFullscreen(imgElement) {
-            var fullscreenContainer = document.getElementById('fullscreen-container');
-            var fullscreenImage = document.getElementById('fullscreen-image');
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            const fullscreenImage = document.getElementById('fullscreen-image');
             fullscreenImage.src = imgElement.src;
             fullscreenContainer.classList.add('active');
         }
 
         function closeFullscreen() {
-            var fullscreenContainer = document.getElementById('fullscreen-container');
+            const fullscreenContainer = document.getElementById('fullscreen-container');
             fullscreenContainer.classList.remove('active');
         }
     </script>
