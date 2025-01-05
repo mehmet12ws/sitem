@@ -1,190 +1,37 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mertens</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 mehmet12ws. Tüm Hakları Saklıdır. <a href="#navbar">Yukarı Çık</a></p>
+  </footer>
 
-        body {
-            font-family: 'Raleway', sans-serif;
-            background-color: #121212;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            flex-direction: column;
-            padding: 20px;
-            text-align: center;
-        }
+  <!-- Hero Bölümüne Arka Plan Videosu -->
+  <style>
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.6; /* Videonun görünümünü yumuşatır */
+    }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            margin-bottom: 20px;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 
-        p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 40px;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-        }
-
-        .news-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            width: 80%;
-            margin-top: 40px;
-            position: relative;
-        }
-
-        .news-item {
-            position: relative;
-            width: 100%;
-            height: 250px; /* Kare şekli için yükseklik */
-            margin: 10px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            opacity: 0.9;
-            object-fit: contain; /* Resmin tamamının görünmesi için */
-        }
-
-        .news-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
-            opacity: 1;
-        }
-
-        .news-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Resmi kareye uyumlu şekilde yerleştirir */
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .news-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Başlık Resminin Üzerinde Görünmesi */
-        .news-item .title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            font-size: 1.5rem;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-family: 'Poppins', sans-serif;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .news-item:hover .title {
-            transform: translateY(-10px);
-            background-color: rgba(0, 0, 0, 0.85);
-        }
-
-        /* Haber içeriği kare yapılmış */
-        .news-content {
-            display: none;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            line-height: 1.7;
-            max-width: 80%;
-            margin: 20px auto;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            transition: opacity 0.5s ease, transform 0.3s ease;
-            width: 100%;
-            height: 250px; /* Kare yapmak için yükseklik */
-            overflow: hidden;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .news-content.active {
-            display: flex;
-            animation: growContent 0.8s ease-out;
-        }
-
-        @keyframes growContent {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Mobil uyumluluk */
-        @media (max-width: 768px) {
-            body {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .news-item {
-                height: 220px;
-            }
-
-            .news-gallery {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-            }
-        }
-
-    </style>
-</head>
-<body>
-
-    <h1>Güncel Haberler</h1>
-    <p>En Son Gelişmeler ve Öne Çıkanlar</p>
-
-    <div class="news-gallery">
-        <div class="news-item" onclick="showContent(1)">
-            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Haber 1">
-            <div class="title">Durdurlamaz!</div>
-        </div>
+  <section class="hero">
+    <video autoplay muted loop class="hero-video">
+      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+      Tarayıcınız video etiketini desteklemiyor.
+    </video>
+    <div class="hero-content">
+      <h1>mehmet12ws</h1>
+      <p>Hayat olmasa da seninle güzel.</p>
+      <a href="#about">Hakkımda Daha Fazla</a>
     </div>
-
-    <div class="news-content" id="content-1">
-        <h2>Durdurulamaz</h2>
-        <p>A Tierden B Tiere Düşen mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor</p>
-    </div>
-
-    <script>
-        function showContent(newsId) {
-            const content = document.querySelectorAll('.news-content');
-            content.forEach((item) => {
-                item.classList.remove('active');
-            });
-            document.getElementById('content-' + newsId).classList.add('active');
-        }
-    </script>
+  </section>
 </body>
 </html>
