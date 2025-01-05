@@ -54,7 +54,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 300px; /* Haber kutusunun yüksekliğini belirledik */
+            height: 350px; /* Haber kutusunun yüksekliğini belirledik */
             margin: 10px;
             border-radius: 10px;
             overflow: hidden;
@@ -63,6 +63,9 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         /* Haber kutusunun hover efekti */
@@ -109,6 +112,7 @@
             transform: translateX(-50%) translateY(-8px);
         }
 
+        /* Haber içeriği */
         .news-content {
             display: none;
             color: white;
