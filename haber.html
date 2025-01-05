@@ -109,26 +109,52 @@
             z-index: -1;
             animation: glow 1.5s infinite alternate;
         }
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
-        @keyframes slideIn {
-            0% {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+.animated-title {
+    display: inline-block;
+    animation: slideInLeft 1s ease-out;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    color: #FFD700; /* Altın rengi */
+    margin-bottom: 15px;
+}
 
-        @keyframes glow {
-            0% {
-                filter: blur(5px);
-            }
-            100% {
-                filter: blur(10px);
-            }
-        }
+/* Haber İçeriği Metin Animasyonu */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animated-text {
+    display: inline-block;
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8));
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    color: white;
+    line-height: 1.6;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Çerçeve */
+}
 
     </style>
 </head>
@@ -149,14 +175,15 @@
     </div>
 
     <!-- Haber İçerikleri -->
-    <div class="news-content" id="content-1">
-        <h2>Durdurulamaz</h2>
-        <p>A Tierden B Tiere Düşen mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor. Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor.</p>
-    </div>
-    <div class="news-content" id="content-2">
-        <h2>O Bir Lider</h2>
-        <p>Aldığı Ödüller Ve Attığı Goller İle Rakiplerini Kışkırtan Sicardi Bu Sezon Gol Krallığına Oynuyor.</p>
-    </div>
+<div class="news-content" id="content-1">
+    <h2 class="animated-title">Durdurulamaz</h2>
+    <p class="animated-text">A Tierden B Tiere Düşen mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor. Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor.</p>
+</div>
+<div class="news-content" id="content-2">
+    <h2 class="animated-title">O Bir Lider</h2>
+    <p class="animated-text">Aldığı Ödüller Ve Attığı Goller İle Rakiplerini Kışkırtan Sicardi Bu Sezon Gol Krallığına Oynuyor.</p>
+</div>
+
 
     <script>
         function showContent(newsId) {
