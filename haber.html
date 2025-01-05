@@ -53,7 +53,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 250px;
+            height: 250px; /* Kare şekli için yükseklik */
             margin: 10px;
             border-radius: 15px;
             overflow: hidden;
@@ -63,7 +63,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             opacity: 0.9;
-            object-fit: cover;
+            object-fit: contain; /* Resmin tamamının görünmesi için */
         }
 
         .news-item:hover {
@@ -75,7 +75,7 @@
         .news-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Resmi kareye uyumlu şekilde yerleştirir */
             border-radius: 15px;
             transition: transform 0.3s ease;
         }
@@ -105,6 +105,7 @@
             background-color: rgba(0, 0, 0, 0.85);
         }
 
+        /* Haber içeriği kare yapılmış */
         .news-content {
             display: none;
             color: white;
@@ -118,10 +119,17 @@
             margin: 20px auto;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
             transition: opacity 0.5s ease, transform 0.3s ease;
+            width: 100%;
+            height: 250px; /* Kare yapmak için yükseklik */
+            overflow: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .news-content.active {
-            display: block;
+            display: flex;
             animation: growContent 0.8s ease-out;
         }
 
@@ -150,49 +158,6 @@
             }
         }
 
-        /* Tam ekran modunun stili */
-        .fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            display: none;
-        }
-
-        .fullscreen img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            border-radius: 15px;
-        }
-
-        .fullscreen.active {
-            display: flex;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 40px;
-            color: white;
-            background: rgba(0, 0, 0, 0.6);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 2000;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
     </style>
 </head>
 <body>
@@ -221,6 +186,5 @@
             document.getElementById('content-' + newsId).classList.add('active');
         }
     </script>
-
 </body>
 </html>
