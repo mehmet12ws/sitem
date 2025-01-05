@@ -101,11 +101,12 @@
             transform: translateX(-50%) translateY(-10px);
         }
 
+        /* Haber içeriği küçültülüp animasyon eklendi */
         .news-content {
             display: none;
             color: white;
             background-color: rgba(0, 0, 0, 0.85);
-            padding: 20px;
+            padding: 15px;
             margin-top: 20px;
             border-radius: 15px;
             font-size: 1rem;
@@ -119,10 +120,39 @@
             transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
+        /* Yazı tipi ve animasyon için */
+        .news-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #FFEB3B;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.3s;
+        }
+
+        .news-content p {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+
         .news-content.active {
             display: block;
             transform: scale(1);
             opacity: 1;
+        }
+
+        /* Yazının Fade In animasyonu */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Mobil uyumluluk */
@@ -153,32 +183,23 @@
 
         <!-- Yeni Haber -->
         <div class="news-item" onclick="showContent(2)">
-            <img src="https://i.hizliresim.com/b3ktk7g.jpg" alt="Haber 2">
-            <div class="title">Yeni Futbol Transferi</div>
+            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Haber 2">
+            <div class="title">O Bir Lider!</div>
         </div>
 
-        <!-- Yeni Haber 2 -->
-        <div class="news-item" onclick="showContent(3)">
-            <img src="https://i.hizliresim.com/c2kzk4g.jpg" alt="Haber 3">
-            <div class="title">Basketbol Şampiyonu!</div>
-        </div>
-    </div>
+
 
     <!-- Haber İçeriği -->
     <div class="news-content" id="content-1">
         <h2>Durdurulamaz</h2>
-        <p>A Tierden B Tiere Düşen mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor. Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor.</p>
+        <p>mehmet12ws Diğer Sezon Yükselmek İçin Son Gücüyle Efor Sarfediyor. Attığı Mosslar İle Takıma Gol Ve Defansif Olarak Katkı Sağlayan mehmet12ws Herkesi Heyecanlandırıyor.</p>
     </div>
 
     <div class="news-content" id="content-2">
-        <h2>Yeni Futbol Transferi</h2>
-        <p>Yeni futbol transferi takıma büyük katkı sağlayacak. Futbol dünyasında ses getiren bu transferle ilgili detaylar...</p>
+        <h2>O Bir Lider</h2>
+        <p>Aldığı Ödüller Ve Attığı Goller İle Rakibini Kışkırtan Sicardi Bu Sezon Gol Krallığınıa Oynuyor </p>
     </div>
 
-    <div class="news-content" id="content-3">
-        <h2>Basketbol Şampiyonu!</h2>
-        <p>Basketbol takımı, sezonu şampiyon olarak tamamladı. Finaldeki büyük zaferi ve oyuncu performanslarını tüm spor severler konuşuyor...</p>
-    </div>
 
     <script>
         function showContent(newsId) {
