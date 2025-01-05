@@ -17,20 +17,20 @@
             background-color: #0a0a0a;
             color: white;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
+            position: relative;
             text-align: center;
-            padding: 20px;
+            flex-direction: column;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
             margin-bottom: 20px;
         }
 
@@ -41,45 +41,104 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
         }
 
-        .news-container {
-            width: 90%;
-            max-width: 900px;
+        .news-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            width: 80%;
+            margin-top: 40px;
+            position: relative;
         }
 
         .news-item {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transform: rotate(5deg);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
         .news-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
         }
 
         .news-item img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
         }
 
-        .news-item h2 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            color: #fff;
-            margin-bottom: 10px;
+        .news-item:hover img {
+            transform: scale(1.1);
         }
 
-        .news-item p {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
+        .news-content {
+            display: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
         }
-        
+
+        .news-content.active {
+            display: block;
+        }
+
+        /* Tam ekran modunun stili */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .fullscreen img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        .fullscreen.active {
+            display: flex;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 2000;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
     </style>
 </head>
 <body>
@@ -87,28 +146,52 @@
     <h1>Haberler</h1>
     <p>Son Dakika ve Önemli Gelişmeler</p>
 
-    <div class="news-container">
-        <!-- İlk Haber -->
-        <div class="news-item">
-            <img src="https://via.placeholder.com/800x200" alt="Haber 1">
-            <h2>Başlık: Haber 1</h2>
-            <p>İçerik: Burada ilk haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
+    <div class="news-gallery">
+        <div class="news-item" onclick="showContent(1)">
+            <img src="https://via.placeholder.com/150" alt="Haber 1">
         </div>
-
-        <!-- İkinci Haber -->
-        <div class="news-item">
-            <img src="https://via.placeholder.com/800x200" alt="Haber 2">
-            <h2>Başlık: Haber 2</h2>
-            <p>İçerik: Burada ikinci haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
+        <div class="news-item" onclick="showContent(2)">
+            <img src="https://via.placeholder.com/150" alt="Haber 2">
         </div>
-
-        <!-- Üçüncü Haber -->
-        <div class="news-item">
-            <img src="https://via.placeholder.com/800x200" alt="Haber 3">
-            <h2>Başlık: Haber 3</h2>
-            <p>İçerik: Burada üçüncü haberin detaylarını yazabilirsiniz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu neque.</p>
+        <div class="news-item" onclick="showContent(3)">
+            <img src="https://via.placeholder.com/150" alt="Haber 3">
+        </div>
+        <div class="news-item" onclick="showContent(4)">
+            <img src="https://via.placeholder.com/150" alt="Haber 4">
         </div>
     </div>
+
+    <div id="news-content-1" class="news-content">
+        <h2>Haber Başlık 1</h2>
+        <p>Haber 1 içerikleri burada olacak. Bu yazı haberle ilgili açıklamayı içeriyor.</p>
+    </div>
+
+    <div id="news-content-2" class="news-content">
+        <h2>Haber Başlık 2</h2>
+        <p>Haber 2 içerikleri burada olacak. Bu yazı haberle ilgili açıklamayı içeriyor.</p>
+    </div>
+
+    <div id="news-content-3" class="news-content">
+        <h2>Haber Başlık 3</h2>
+        <p>Haber 3 içerikleri burada olacak. Bu yazı haberle ilgili açıklamayı içeriyor.</p>
+    </div>
+
+    <div id="news-content-4" class="news-content">
+        <h2>Haber Başlık 4</h2>
+        <p>Haber 4 içerikleri burada olacak. Bu yazı haberle ilgili açıklamayı içeriyor.</p>
+    </div>
+
+    <script>
+        function showContent(newsId) {
+            var allContents = document.querySelectorAll('.news-content');
+            allContents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+
+            var selectedContent = document.getElementById('news-content-' + newsId);
+            selectedContent.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
