@@ -16,14 +16,15 @@
             font-family: 'Creepster', cursive;
             background: linear-gradient(135deg, #1a001a, #330033, #000);
             color: white;
-            overflow: hidden;
-            height: 100vh;
+            overflow-y: scroll; /* Sayfa kaydırılabilir olacak */
+            height: auto;
             animation: bg-glow 10s infinite alternate;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
+            min-height: 100vh; /* Sayfanın minimum yüksekliği ekran boyutuna eşit olacak */
         }
 
         @keyframes bg-glow {
@@ -161,11 +162,11 @@
         .video-container {
             position: relative;
             width: 90%;
-            max-width: 800px;
+            max-width: 600px; /* Daha küçük video boyutu */
             margin-top: 40px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 115, 0, 0.7);
-            overflow: hidden; /* Video boyutunu sınırla */
+            overflow: hidden;
         }
 
         video {
@@ -209,7 +210,7 @@
     <div class="video-container">
         <video controls>
             <source src="https://cdn.discordapp.com/attachments/1304891541021528146/1325450298357059614/bddzoo.mp4?ex=677bd548&is=677a83c8&hm=3ce22e67ffb721ea4d4ede772fef5db24474968ff44d1e4c88a5f09687b43ab0&" type="video/mp4">
-            sıkıntı
+            skıkıtn
         </video>
     </div>
 
