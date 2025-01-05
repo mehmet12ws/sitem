@@ -16,7 +16,7 @@
             font-family: 'Creepster', cursive;
             background: linear-gradient(135deg, #1a001a, #330033, #000);
             color: white;
-            overflow-y: scroll; /* Sayfa kaydırılabilir olacak */
+            overflow-y: scroll;
             height: auto;
             animation: bg-glow 10s infinite alternate;
             display: flex;
@@ -24,7 +24,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 100vh; /* Sayfanın minimum yüksekliği ekran boyutuna eşit olacak */
+            min-height: 100vh;
         }
 
         @keyframes bg-glow {
@@ -162,19 +162,25 @@
         .video-container {
             position: relative;
             width: 90%;
-            max-width: 600px; /* Daha küçük video boyutu */
+            max-width: 700px; /* Video boyutunu biraz daha küçük yapıyoruz */
             margin-top: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 115, 0, 0.7);
+            border-radius: 15px; /* Köşe yuvarlama */
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Gölgelendirme */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .video-container:hover {
+            transform: scale(1.05); /* Hover efekti ile büyütme */
         }
 
         video {
             width: 100%;
-            height: auto; /* Yüksekliğini otomatik yaparak orantıyı korur */
-            border-radius: 10px;
+            height: auto; /* Orantılı büyüklük */
+            border-radius: 15px;
             display: block;
             background-color: black;
+            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7); /* Video kenarında ışıltılı gölge */
         }
     </style>
 </head>
@@ -210,7 +216,7 @@
     <div class="video-container">
         <video controls>
             <source src="https://cdn.discordapp.com/attachments/1304891541021528146/1325450298357059614/bddzoo.mp4?ex=677bd548&is=677a83c8&hm=3ce22e67ffb721ea4d4ede772fef5db24474968ff44d1e4c88a5f09687b43ab0&" type="video/mp4">
-            skıkıtn
+            Your browser does not support the video tag.
         </video>
     </div>
 
