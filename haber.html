@@ -28,7 +28,7 @@
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #fff;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
             margin-bottom: 20px;
@@ -43,7 +43,7 @@
 
         .news-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             width: 80%;
             margin-top: 40px;
@@ -53,7 +53,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 250px; /* Kare şekli için yükseklik */
+            height: 250px; /* Kare görsel boyutu */
             margin: 10px;
             border-radius: 15px;
             overflow: hidden;
@@ -62,20 +62,17 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            opacity: 0.9;
-            object-fit: cover; /* Resmin kenarlardan taşmasını engeller */
         }
 
         .news-item:hover {
             transform: scale(1.05);
             box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
-            opacity: 1;
         }
 
         .news-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Resmi düzgün yerleştirir */
+            object-fit: cover; /* Resmi kare yapmak için */
             border-radius: 15px;
             transition: transform 0.3s ease;
         }
@@ -106,7 +103,7 @@
             transform: translateX(-50%) translateY(-10px);
         }
 
-        /* Haber içeriği kare yapılmış */
+        /* Haber içeriği küçük ve şık olacak şekilde ayarlandı */
         .news-content {
             display: none;
             color: white;
@@ -114,23 +111,18 @@
             padding: 20px;
             margin-top: 20px;
             border-radius: 10px;
-            font-size: 1.2rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
             max-width: 80%;
             margin: 20px auto;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
             transition: opacity 0.5s ease, transform 0.3s ease;
             width: 100%;
-            height: 250px; /* Kare yapmak için yükseklik */
-            overflow: hidden;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: auto;
         }
 
         .news-content.active {
-            display: flex;
+            display: block;
             animation: growContent 0.8s ease-out;
         }
 
