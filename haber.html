@@ -31,13 +31,7 @@
             font-size: 3.5rem;
             color: #fff;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            animation: fadeInText 1.5s ease-out;
             margin-bottom: 20px;
-        }
-
-        @keyframes fadeInText {
-            0% { opacity: 0; transform: translateY(-50px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
 
         p {
@@ -45,7 +39,6 @@
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 40px;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-            animation: fadeInText 2s ease-out;
         }
 
         .news-gallery {
@@ -60,7 +53,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 250px;
             margin: 10px;
             border-radius: 15px;
             overflow: hidden;
@@ -70,7 +63,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             opacity: 0.9;
-            background-color: rgba(0, 0, 0, 0.3); /* Karanlık bir arka plan */
+            object-fit: cover;
         }
 
         .news-item:hover {
@@ -79,19 +72,16 @@
             opacity: 1;
         }
 
-        /* Resim için özel çerçeve ve stil */
         .news-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            border: 4px solid #fff; /* Beyaz çerçeve */
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
         }
 
         .news-item:hover img {
             transform: scale(1.1);
-            border-color: #ffcc00; /* Hoverda çerçeve rengini değiştirme */
         }
 
         /* Başlık Resminin Üzerinde Görünmesi */
@@ -231,5 +221,6 @@
             document.getElementById('content-' + newsId).classList.add('active');
         }
     </script>
+
 </body>
 </html>
