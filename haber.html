@@ -54,7 +54,7 @@
         .news-item {
             position: relative;
             width: 100%;
-            height: 200px; /* Kare boyut için yüksekliği eşit yapıyoruz */
+            height: 300px; /* Haber kutusunun yüksekliğini belirledik */
             margin: 10px;
             border-radius: 10px;
             overflow: hidden;
@@ -63,7 +63,6 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            object-fit: cover;
         }
 
         /* Haber kutusunun hover efekti */
@@ -72,27 +71,31 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
         }
 
-        /* Resimlerin kare olması için ayarlamalar */
+        /* Resim çerçevesi için özel düzenleme */
+        .news-item .image-container {
+            position: relative;
+            width: 100%;
+            height: 180px; /* Resim için yükseklik */
+            overflow: hidden;
+            border: 3px solid #fff; /* Beyaz çerçeve */
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
         .news-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Resmin kare olmasını sağlıyoruz */
-            transition: transform 0.3s ease;
+            object-fit: cover; /* Resmin tam görünmesini sağlıyoruz */
         }
 
-        .news-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Haber başlıkları */
         .news-item .title {
             position: absolute;
-            top: 5px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             padding: 8px;
             text-align: center;
             font-weight: bold;
@@ -106,7 +109,6 @@
             transform: translateX(-50%) translateY(-8px);
         }
 
-        /* İçerik kısmı */
         .news-content {
             display: none;
             color: white;
@@ -143,7 +145,7 @@
             }
 
             .news-item {
-                height: 200px; /* Kare yapmaya devam ediyoruz */
+                height: 300px; /* Haber kutusunun yüksekliği mobilde de aynı kalacak */
             }
 
             .news-gallery {
@@ -161,13 +163,17 @@
     <div class="news-gallery">
         <!-- Haber 1 -->
         <div class="news-item" onclick="showContent(1)">
-            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Haber 1">
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Haber 1">
+            </div>
             <div class="title">Durdurlamaz!</div>
         </div>
 
         <!-- Haber 2 -->
         <div class="news-item" onclick="showContent(2)">
-            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Haber 2">
+            <div class="image-container">
+                <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Haber 2">
+            </div>
             <div class="title">O Bir Lider</div>
         </div>
     </div>
