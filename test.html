@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween Chaos 🎃</title>
+    <title>JEGE53 🎃</title>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Limbo&display=swap" rel="stylesheet">
     <style>
         * {
@@ -71,8 +71,8 @@
 
         .image-container {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 180px; /* Daha büyük resim boyutu */
+            height: 180px;
             overflow: hidden;
             border: 4px solid rgba(255, 115, 0, 0.8);
             border-radius: 15px;
@@ -80,6 +80,15 @@
             transform: rotate(calc(-10deg + 20deg * random()));
             box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
             transition: transform 0.3s, box-shadow 0.3s;
+            animation: move-around 6s infinite ease-in-out; /* Fotoğraflar bağımsız hareket ediyor */
+        }
+
+        @keyframes move-around {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(20px) rotate(-5deg); }
+            75% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
 
         .image-container:hover {
@@ -152,16 +161,14 @@
 <body>
 
     <h1>🎃 Halloween Kaosu 👻</h1>
-    <p>Korku ve eğlencenin çılgın karışımı burada!</p>
+    <p>JEGE53 BURAYA UĞRADI</p>
 
-    <!-- Animasyonlu Emojiler -->
     <div class="emoji">🎃</div>
     <div class="emoji">🕸️</div>
     <div class="emoji">👻</div>
     <div class="emoji">🕷️</div>
     <div class="emoji">💀</div>
 
-    <!-- Fotoğraf Galerisi -->
     <div class="gallery">
         <div class="image-container">
             <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
@@ -175,10 +182,6 @@
         <div class="image-container">
             <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
         </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/vzrydf6.jpg" alt="Resim 5" onclick="openFullscreen(this)">
-        </div>
-    </div>
 
     <div class="fullscreen" id="fullscreen-container">
         <span class="close-btn" onclick="closeFullscreen()">✖</span>
