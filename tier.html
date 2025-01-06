@@ -3,143 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFA Maç Kuralları</title>
+    <title>FFA Maç Kuralları - Halloween</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Genel Ayarlar */
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+            font-family: 'Roboto Slab', serif;
+            background: #111;
             color: #fff;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/black-tile.png');
         }
 
+        /* Başlık */
         header {
-            background: #34495e;
             text-align: center;
-            padding: 40px;
-            font-size: 2em;
-            font-weight: bold;
+            padding: 80px;
+            background: #222;
+            color: #ff4500; /* Karanlık turuncu - Halloween teması */
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), 0 0 25px #ff4500, 0 0 5px #ff4500;
         }
 
+        /* Kural Listesi */
         .container {
             padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            color: #ecf0f1;
-            text-align: center;
-            font-size: 1.8em;
-            margin-top: 30px;
+            max-width: 900px;
+            margin: 40px auto;
         }
 
         .rules {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
             margin: 0;
         }
 
         .rules li {
-            background: #34495e;
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #333;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 12px;
             position: relative;
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-left: 8px solid #ff6347; /* Koyu kırmızı */
+            background-image: url('https://www.transparenttextures.com/patterns/triangle.png');
+            background-size: 200px 200px;
         }
 
         .rules li:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
-        .rules li::before {
-            content: "⚽";
-            font-size: 1.2em;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        .rules li p {
-            font-size: 1.1em;
-            line-height: 1.5em;
-            margin: 0;
-        }
-
-        .highlight {
-            color: #f39c12;
+        .rule-number {
+            background: #ff6347;
+            color: #fff;
+            font-size: 1.8em;
             font-weight: bold;
+            padding: 12px 15px;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #ff6347, 0 0 10px #ff6347, 0 0 15px #ff6347, 0 0 20px #ff6347;
+            }
+            100% {
+                text-shadow: 0 0 10px #ff6347, 0 0 20px #ff6347, 0 0 30px #ff6347, 0 0 40px #ff6347;
+            }
         }
 
         .rule-title {
-            font-size: 1.4em;
-            color: #e74c3c;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #ffeb3b; /* Sarımtırak renk */
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
         }
 
+        .rule-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .highlight {
+            color: #ff4500;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Korkutucu İkonlar */
+        .rule-icon {
+            font-size: 2.5em;
+            color: #ff6347;
+            margin-right: 15px;
+        }
+
+        /* Footer */
         footer {
-            background: #34495e;
+            background-color: #222;
+            color: #777;
             padding: 20px;
             text-align: center;
-            font-size: 0.9em;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            font-size: 1.2em;
         }
 
-        /* Animation */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
+        footer a {
+            color: #ff4500;
+            text-decoration: none;
+        }
+
+        /* Mobil uyumluluk */
+        @media screen and (max-width: 768px) {
+            header {
+                font-size: 2.5em;
             }
-            100% {
-                opacity: 1;
+
+            .rules li {
+                padding: 20px;
+                font-size: 1em;
+            }
+
+            footer {
+                font-size: 1em;
             }
         }
 
-        .container {
-            animation: fadeIn 2s ease-out;
-        }
-
-        .rules li {
-            animation: fadeIn 1.5s ease-out;
-        }
     </style>
 </head>
 <body>
-    <header>
-        FFA Maç Kuralları
-    </header>
 
-    <div class="container">
-        <h2>Kurallar</h2>
-        <ul class="rules">
-            <li>
-                <div class="rule-title">1. Emergency Rule</div>
-                <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma +2 goal verilir.</p>
-            </li>
-            <li>
-                <div class="rule-title">2. Loan Rule</div>
-                <p>Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma auto verilir.</p>
-            </li>
-            <li>
-                <div class="rule-title">3. 3. Parti Yazılım</div>
-                <p>Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
-            </li>
-            <li>
-                <div class="rule-title">4. PB</div>
-                <p>Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa 1/2 dir. 2 kere yapılırsa +1’dir.</p>
-            </li>
-            <!-- Burada diğer kuralları da benzer şekilde ekleyebilirsiniz. -->
-        </ul>
-    </div>
+<header>
+    FFA Maç Kuralları - Halloween
+</header>
 
-    <footer>
-        © 2025 FFA - Tüm Hakları Saklıdır.
-    </footer>
+<div class="container">
+    <ul class="rules">
+        <li>
+            <div class="rule-number">1</div>
+            <div class="rule-title">Emergency Rule</div>
+            <p class="rule-description">Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma <span class="highlight">+2 goal</span> verilir.</p>
+        </li>
+
+        <li>
+            <div class="rule-number">2</div>
+            <div class="rule-title">Loan Rule</div>
+            <p class="rule-description">Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma <span class="highlight">auto</span> verilir.</p>
+        </li>
+
+        <li>
+            <div class="rule-number">3</div>
+            <div class="rule-title">3. Parti Yazılım</div>
+            <p class="rule-description">Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
+        </li>
+
+        <li>
+            <div class="rule-number">4</div>
+            <div class="rule-title">PB</div>
+            <p class="rule-description">Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa <span class="highlight">1/2</span> dir. 2 kere yapılırsa +1’dir.</p>
+        </li>
+
+        <li>
+            <div class="rule-number">5</div>
+            <div class="rule-title">CK Rush</div>
+            <p class="rule-description">Korner kullanan oyuncuya rush <span class="highlight">1/2</span>dir. 2. yapımında <span class="highlight">yc</span> verilir. 3. yapımında 2. <span class="highlight">yc</span> verilir.</p>
+        </li>
+    </ul>
+</div>
+
+<footer>
+    © 2025 FFA - Tüm Hakları Saklıdır. | <a href="#">Gizlilik Politikası</a>
+</footer>
+
 </body>
 </html>
