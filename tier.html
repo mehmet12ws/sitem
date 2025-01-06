@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFA Maç Kuralları - Halloween</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <title>FFA Maç Kuralları </title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         /* Genel Ayarlar */
         body {
-            font-family: 'Roboto Slab', serif;
-            background: #111;
-            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #ff66b2; /* Pembe Arka Plan */
+            color: #ffffff;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            background-image: url('https://www.transparenttextures.com/patterns/black-tile.png');
+            box-sizing: border-box;
         }
 
         /* Başlık */
         header {
             text-align: center;
-            padding: 80px;
+            padding: 50px;
             background: #222;
-            color: #ff4500; /* Karanlık turuncu - Halloween teması */
-            font-size: 3.5em;
-            font-weight: 700;
+            color: #00ff00; /* Neon Yeşil */
+            font-size: 3em;
             letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7), 0 0 25px #ff4500, 0 0 5px #ff4500;
+            text-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
         }
 
         /* Kural Listesi */
         .container {
             padding: 20px;
-            max-width: 900px;
+            max-width: 800px;
             margin: 40px auto;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .rules {
@@ -46,72 +47,67 @@
 
         .rules li {
             background-color: #333;
-            margin: 20px 0;
-            padding: 30px;
-            border-radius: 12px;
+            margin: 15px 0;
+            padding: 25px;
+            border-radius: 10px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            border-left: 8px solid #ff6347; /* Koyu kırmızı */
-            background-image: url('https://www.transparenttextures.com/patterns/triangle.png');
-            background-size: 200px 200px;
+            border-left: 8px solid #00ff00;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            font-size: 1.2em;
+            transition: all 0.3s ease;
         }
 
         .rules li:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            background-color: #444;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
         }
 
         .rule-number {
-            background: #ff6347;
-            color: #fff;
-            font-size: 1.8em;
-            font-weight: bold;
-            padding: 12px 15px;
-            border-radius: 50%;
             position: absolute;
             top: -20px;
             left: -20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            animation: glow 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 5px #ff6347, 0 0 10px #ff6347, 0 0 15px #ff6347, 0 0 20px #ff6347;
-            }
-            100% {
-                text-shadow: 0 0 10px #ff6347, 0 0 20px #ff6347, 0 0 30px #ff6347, 0 0 40px #ff6347;
-            }
+            background: #ff66b2;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
         }
 
         .rule-title {
-            font-size: 1.6em;
-            font-weight: 700;
-            color: #ffeb3b; /* Sarımtırak renk */
-            margin-bottom: 10px;
+            font-size: 1.4em;
+            color: #00ff00;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;
         }
 
         .rule-description {
-            font-size: 1.1em;
-            line-height: 1.6;
             color: #ddd;
+            font-size: 1em;
+            line-height: 1.6;
         }
 
         .highlight {
-            color: #ff4500;
+            color: #ffcc00;
             font-weight: bold;
             text-decoration: underline;
         }
 
-        /* Korkutucu İkonlar */
-        .rule-icon {
-            font-size: 2.5em;
-            color: #ff6347;
-            margin-right: 15px;
+        /* Neon Efekti */
+        @keyframes neonGlow {
+            0% {
+                text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 40px #ff66b2;
+            }
+            100% {
+                text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00, 0 0 50px #ff66b2;
+            }
+        }
+
+        .rule-title {
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
         }
 
         /* Footer */
@@ -124,7 +120,7 @@
         }
 
         footer a {
-            color: #ff4500;
+            color: #ffcc00;
             text-decoration: none;
         }
 
@@ -135,8 +131,8 @@
             }
 
             .rules li {
+                font-size: 1.1em;
                 padding: 20px;
-                font-size: 1em;
             }
 
             footer {
@@ -149,7 +145,7 @@
 <body>
 
 <header>
-    FFA Maç Kuralları - Halloween
+    FFA Maç Kuralları - Atari Teması
 </header>
 
 <div class="container">
