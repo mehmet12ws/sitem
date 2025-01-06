@@ -1,164 +1,165 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFA Maç Kuralları</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Genel Ayarlar */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Zilla+Slab+Highlight:wght@700&display=swap');
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #1a1a1a;
             margin: 0;
-            padding: 0;
-            color: white;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #120078, #9d0191, #fd3a69, #ffb30f);
+            background-size: 400% 400%;
+            animation: gradientMove 8s ease infinite;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* Başlık */
-        header {
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
             text-align: center;
-            padding: 60px;
-            background: #111;
-            color: #fff;
-            font-size: 3em;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            font-size: 4rem;
+            margin-top: 20px;
+            color: #ffeb3b;
+            text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800;
+            animation: pulse 3s infinite;
         }
 
-        /* Kural Listesi */
+        @keyframes pulse {
+            0% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800; }
+            50% { text-shadow: 0 0 30px #ffc107, 0 0 60px #ff5722; }
+            100% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800; }
+        }
+
         .container {
-            padding: 20px;
-            max-width: 900px;
+            max-width: 1400px;
             margin: 40px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 20px;
+            border: 4px solid #ff9800;
+            box-shadow: 0 0 30px #ff5722;
         }
 
-        .rules {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .rules li {
-            background-color: #2b2b2b;
-            margin: 20px 0;
-            padding: 30px;
-            border-radius: 8px;
+        .rule {
+            background: rgba(255, 87, 34, 0.85);
+            border: 2px solid #ffcc00;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            border-left: 8px solid #ff5722;
+            transition: transform 0.4s, box-shadow 0.4s;
+            color: #ffffff;
+            font-family: 'Zilla Slab Highlight', cursive;
         }
 
-        .rules li:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        .rule:hover {
+            transform: scale(1.1) rotate(1deg);
+            box-shadow: 0 0 40px #ff5722, 0 0 60px #ff9800;
+        }
+
+        .rule h2 {
+            margin: 0;
+            color: #ffeb3b;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800;
+        }
+
+        .rule p {
+            margin: 10px 0 0;
+            font-size: 1.4rem;
+            line-height: 1.8;
         }
 
         .rule-number {
-            background: #ff5722;
-            color: #fff;
-            font-size: 1.8em;
-            font-weight: bold;
-            padding: 10px 15px;
-            border-radius: 50%;
             position: absolute;
             top: -20px;
             left: -20px;
-        }
-
-        .rule-title {
-            font-size: 1.5em;
-            font-weight: 600;
+            background: #ff5722;
             color: #fff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ff5722, 0 0 30px #ffcc00;
         }
 
-        .rule-description {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #bbb;
-        }
-
-        .highlight {
-            color: #ffeb3b;
-            font-weight: bold;
-        }
-
-        /* Footer */
         footer {
-            background-color: #111;
-            color: #777;
-            padding: 20px;
             text-align: center;
-            font-size: 1.2em;
+            padding: 20px 0;
+            background: #1b0033;
+            color: #ffcc00;
+            font-size: 1.2rem;
+            border-top: 4px solid #ff5722;
+            text-shadow: 0 0 10px #ffcc00;
         }
-
-        /* Mobil uyumluluk */
-        @media screen and (max-width: 768px) {
-            header {
-                font-size: 2.5em;
-            }
-
-            .rules li {
-                padding: 20px;
-                font-size: 1em;
-            }
-
-            footer {
-                font-size: 1em;
-            }
-        }
-
     </style>
 </head>
 <body>
+    <h1>FFA Maç Kuralları</h1>
 
-<header>
-    FFA Maç Kuralları
-</header>
-
-<div class="container">
-    <ul class="rules">
-        <li>
+    <div class="container">
+        <div class="rule">
             <div class="rule-number">1</div>
-            <div class="rule-title">Emergency Rule</div>
-            <p class="rule-description">Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma <span class="highlight">+2 goal</span> verilir.</p>
-        </li>
-
-        <li>
+            <h2>Emergency Rule</h2>
+            <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma +2 gol verilir.</p>
+        </div>
+        <div class="rule">
             <div class="rule-number">2</div>
-            <div class="rule-title">Loan Rule</div>
-            <p class="rule-description">Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma <span class="highlight">auto</span> verilir.</p>
-        </li>
-
-        <li>
+            <h2>Loan Rule</h2>
+            <p>Sadece maçın kaderini değiştirmeyecek belli kişiler loan alınabilir ve her sezon takım başına ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma auto verilir.</p>
+        </div>
+        <div class="rule">
             <div class="rule-number">3</div>
-            <div class="rule-title">3. Parti Yazılım</div>
-            <p class="rule-description">Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
-        </li>
-
-        <li>
+            <h2>3. Parti Yazılım</h2>
+            <p>Clumsy, VPN, Script, FastFlag gibi yazılımlar yasaktır. (Roblox’un Yasaklanması gibi olağan şeyler dışında)</p>
+        </div>
+        <div class="rule">
             <div class="rule-number">4</div>
-            <div class="rule-title">PB</div>
-            <p class="rule-description">Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa <span class="highlight">1/2</span> dir. 2 kere yapılırsa +1’dir.</p>
-        </li>
-
-        <li>
+            <h2>PB</h2>
+            <p>Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa 1/2. Eğer 2 kere yapılırsa +1.</p>
+        </div>
+        <div class="rule">
             <div class="rule-number">5</div>
-            <div class="rule-title">CK Rush</div>
-            <p class="rule-description">Korner kullanan oyuncuya rush <span class="highlight">1/2</span>dir. 2. yapımında <span class="highlight">yc</span> verilir. 3. yapımında 2. <span class="highlight">yc</span> verilir.</p>
-        </li>
-    </ul>
-</div>
+            <h2>CK Rush</h2>
+            <p>Korner kullanan oyuncuya rush yapmak 1/2'dir. 2. kez yapılırsa yc, 3. kez yapılırsa 2. yc verilir.</p>
+        </div>
+        <div class="rule">
+            <div class="rule-number">6</div>
+            <h2>Last</h2>
+            <p>Eğer gole giden bir oyuncuya karşı takım kayarsa (önünde başka oyuncu olmama şartıyla) +1 gol ve yc verilir.</p>
+        </div>
+        <div class="rule">
+            <div class="rule-number">7</div>
+            <h2>Leave Ball</h2>
+            <p>Eğer rakip takımdan bir oyuncuya kayıp topu alırsanız geri bırakmak zorundasınız. Eğer dokunursanız veya 3 saniye dolmadan topu alırsanız yc verilir.</p>
+        </div>
+        <div class="rule">
+            <div class="rule-number">8</div>
+            <h2>Last CB</h2>
+            <p>Eğer ataktayken karşı takımın stoperine kayıp gol atarsanız gol iptali ve yc verilir.</p>
+        </div>
+        <div class="rule">
+            <div class="rule-number">9</div>
+            <h2>Visu, 3x, 4x, 5x</h2>
+            <p>Bunun gibi kombinasyonlar hem şutta hem de pasta yasaktır. 1/2'dir, 2. yapılışında yc verilir.</p>
+        </div>
+        <div class="rule">
+            <div class="rule-number">36</div>
+            <h2>GK Combo</h2>
+            <p>GK'da her türlü kombinasyon yasaktır. (örneğin: x lmb). Cezası yc'dir.</p>
+        </div>
+    </div>
 
-<footer>
-    © 2025 FFA - Tüm Hakları Saklıdır.
-</footer>
-
+    <footer>
+        © 2025 FFA Maç Kuralları. Tüm hakları saklıdır.
+    </footer>
 </body>
 </html>
