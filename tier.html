@@ -1,215 +1,112 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFA Maç Kuralları</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Genel Ayarlar */
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom right, #FF5E62, #FF9966); /* Güçlü renk geçişi */
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
 
-        /* Ana Konteyner */
-        .container {
-            background-color: rgba(0, 0, 0, 0.75); /* Yarı saydam siyah arka plan */
-            width: 80%;
-            max-width: 1200px;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        /* Başlık */
-        header {
+        h1 {
             text-align: center;
-            margin-bottom: 50px;
+            font-size: 3rem;
+            margin-top: 20px;
+            color: #38bdf8;
+            animation: glow 2s infinite;
         }
 
-        header h1 {
-            font-size: 4em;
-            color: #FFEB3B; /* Sarı renk */
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px rgba(255, 235, 59, 0.8), 0 0 30px rgba(255, 235, 59, 0.5);
-            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8, 0 0 30px #38bdf8;
+            }
+            50% {
+                text-shadow: 0 0 20px #0ea5e9, 0 0 40px #0ea5e9, 0 0 50px #0ea5e9;
+            }
         }
 
-        /* Kural Listesi */
-        .rules {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .rules li {
-            background-color: #1A2226;
-            margin: 20px 0;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
+        }
+
+        .rule {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            padding: 15px;
             border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 15px;
+            transition: transform 0.3s, background 0.3s;
         }
 
-        .rules li:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        .rule:hover {
+            transform: scale(1.02);
+            background: rgba(51, 65, 85, 0.9);
         }
 
-        .rules li:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -40%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(to right, #FF5E62, #FF9966);
-            animation: slideIn 1s ease-out infinite;
-            z-index: -1;
+        .rule h2 {
+            margin: 0;
+            color: #38bdf8;
+            font-size: 1.5rem;
         }
 
-        /* Kural Numarası */
-        .rule-number {
-            position: absolute;
-            top: 10px;
-            left: -25px;
-            background-color: #FFEB3B;
-            color: #1A2226;
-            font-size: 2.5em;
-            padding: 10px;
-            border-radius: 50%;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(255, 235, 59, 0.7);
+        .rule p {
+            margin: 10px 0 0;
+            font-size: 1rem;
         }
 
-        /* Kural Başlık */
-        .rule-title {
-            font-size: 1.6em;
-            color: #FFEB3B;
-            font-weight: 500;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #0f172a;
+            color: #64748b;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
-
-        /* Kural Açıklaması */
-        .rule-description {
-            font-size: 1.1em;
-            color: #bdc3c7;
-            line-height: 1.6;
-            text-align: justify;
-        }
-
-        /* Vurgulanan Kısımlar */
-        .highlight {
-            color: #FFEB3B;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-        /* Animasyonlar */
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 20px rgba(255, 235, 59, 0.6), 0 0 30px rgba(255, 235, 59, 0.3);
-            }
-            100% {
-                text-shadow: 0 0 30px rgba(255, 235, 59, 0.6), 0 0 40px rgba(255, 235, 59, 0.8);
-            }
-        }
-
-        @keyframes slideIn {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* Mobil Uyumluluk */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-
-            header h1 {
-                font-size: 2.5em;
-            }
-
-            .rules li {
-                padding: 15px;
-            }
-
-            .rule-number {
-                font-size: 2em;
-                padding: 8px;
-            }
-        }
-
     </style>
 </head>
 <body>
+    <h1>FFA Maç Kuralları</h1>
 
-<div class="container">
-    <header>
-        <h1>FFA Maç Kuralları</h1>
-    </header>
+    <div class="container">
+        <div class="rule">
+            <h2>1. Emergency Rule</h2>
+            <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma +2 gol verilir.</p>
+        </div>
+        <div class="rule">
+            <h2>2. Loan Rule</h2>
+            <p>Sadece maçın kaderini değiştirmeyecek belli kişiler loan alınabilir ve her sezon takım başına ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma auto verilir.</p>
+        </div>
+        <div class="rule">
+            <h2>3. 3. Parti Yazılım</h2>
+            <p>Clumsy, VPN, Script, FastFlag gibi yazılımlar yasaktır.</p>
+        </div>
+        <div class="rule">
+            <h2>4. PB</h2>
+            <p>Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa 1/2, 2 kere yapılırsa +1’dir.</p>
+        </div>
+        <div class="rule">
+            <h2>5. CK Rush</h2>
+            <p>Korner kullanan oyuncuya rush yapmak 1/2'dir. 2. kez yapılırsa yc, 3. kez yapılırsa 2. yc verilir.</p>
+        </div>
+        <!-- Kuralları devam ettirin -->
 
-    <ul class="rules">
-        <li>
-            <div class="rule-number">1</div>
-            <div class="rule-title">Emergency Rule</div>
-            <p class="rule-description">Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma <span class="highlight">+2 goal</span> verilir.</p>
-        </li>
+        <div class="rule">
+            <h2>36. GK Combo</h2>
+            <p>GK'da her türlü kombinasyon yasaktır. (örneğin: x lmb). Cezası yc'dir.</p>
+        </div>
+    </div>
 
-        <li>
-            <div class="rule-number">2</div>
-            <div class="rule-title">Loan Rule</div>
-            <p class="rule-description">Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma <span class="highlight">auto</span> verilir.</p>
-        </li>
-
-        <li>
-            <div class="rule-number">3</div>
-            <div class="rule-title">3. Parti Yazılım</div>
-            <p class="rule-description">Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
-        </li>
-
-        <li>
-            <div class="rule-number">4</div>
-            <div class="rule-title">PB</div>
-            <p class="rule-description">Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa <span class="highlight">1/2</span>dir. 2 kere yapılırsa +1’dir.</p>
-        </li>
-
-        <li>
-            <div class="rule-number">5</div>
-            <div class="rule-title">CK Rush</div>
-            <p class="rule-description">Korner kullanan oyuncuya rush <span class="highlight">1/2</span>dir. 2. yapımında <span class="highlight">yc</span> verilir. 3. yapımında 2. <span class="highlight">yc</span> verilir.</p>
-        </li>
-    </ul>
-</div>
-
+    <footer>
+        © 2025 FFA Maç Kuralları. Tüm hakları saklıdır.
+    </footer>
 </body>
 </html>
