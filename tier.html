@@ -4,45 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFA Maç Kuralları</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Genel Ayarlar */
         body {
             font-family: 'Poppins', sans-serif;
+            background: #1a1a1a;
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
             color: white;
-            overflow-x: hidden;
         }
 
-        /* Başlık ve Arka Plan */
+        /* Başlık */
         header {
-            background: linear-gradient(45deg, #ff6a00, #ee0979);
             text-align: center;
-            padding: 80px 20px;
-            font-size: 4em;
-            font-weight: 700;
-            color: white;
+            padding: 60px;
+            background: #111;
+            color: #fff;
+            font-size: 3em;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            text-shadow: 3px 3px 15px rgba(255, 255, 255, 0.6);
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         /* Kural Listesi */
         .container {
-            padding: 30px;
-            margin: 20px auto;
-            max-width: 1000px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            max-width: 900px;
+            margin: 40px auto;
         }
 
         .rules {
@@ -52,83 +42,75 @@
         }
 
         .rules li {
-            background: rgba(255, 255, 255, 0.1);
-            margin: 25px 0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(255, 193, 7, 0.7);
+            background-color: #2b2b2b;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 8px;
             position: relative;
-            font-size: 1.2em;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            border: 2px solid transparent;
+            border-left: 8px solid #ff5722;
         }
 
-        /* Hover ve Animasyon Efektleri */
         .rules li:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 193, 7, 1);
-            border: 2px solid #ffeb3b;
-        }
-
-        .rules li:before {
-            content: "⚡";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 2.5em;
-            color: #ffeb3b;
-            transform: rotate(-10deg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .rule-number {
             background: #ff5722;
-            color: white;
-            font-size: 1.5em;
-            padding: 15px;
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: bold;
+            padding: 10px 15px;
             border-radius: 50%;
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: -20px;
+            left: -20px;
         }
 
         .rule-title {
-            font-size: 1.8em;
-            color: #ffeb3b;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .rule-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #bbb;
         }
 
         .highlight {
-            color: #ff5722;
+            color: #ffeb3b;
             font-weight: bold;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
+        /* Footer */
         footer {
-            background-color: #222;
+            background-color: #111;
+            color: #777;
+            padding: 20px;
             text-align: center;
-            padding: 30px;
             font-size: 1.2em;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            color: #ccc;
         }
 
         /* Mobil uyumluluk */
         @media screen and (max-width: 768px) {
             header {
                 font-size: 2.5em;
-                padding: 60px 20px;
             }
 
             .rules li {
-                width: 100%;
+                padding: 20px;
                 font-size: 1em;
             }
 
             footer {
-                font-size: 0.9em;
+                font-size: 1em;
             }
         }
 
@@ -145,34 +127,32 @@
         <li>
             <div class="rule-number">1</div>
             <div class="rule-title">Emergency Rule</div>
-            <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma <span class="highlight">+2 goal</span> verilir.</p>
+            <p class="rule-description">Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma <span class="highlight">+2 goal</span> verilir.</p>
         </li>
 
         <li>
             <div class="rule-number">2</div>
             <div class="rule-title">Loan Rule</div>
-            <p>Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma <span class="highlight">auto</span> verilir.</p>
+            <p class="rule-description">Sadece maçın kaderini değiştirmicek belli kişiler loan alınabilir. Ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma <span class="highlight">auto</span> verilir.</p>
         </li>
 
         <li>
             <div class="rule-number">3</div>
             <div class="rule-title">3. Parti Yazılım</div>
-            <p>Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
+            <p class="rule-description">Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un Yasaklanması gibi Olağan şeyler dışında)</p>
         </li>
 
         <li>
             <div class="rule-number">4</div>
             <div class="rule-title">PB</div>
-            <p>Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa <span class="highlight">1/2</span> dir. 2 kere yapılırsa +1’dir.</p>
+            <p class="rule-description">Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa <span class="highlight">1/2</span> dir. 2 kere yapılırsa +1’dir.</p>
         </li>
 
         <li>
             <div class="rule-number">5</div>
             <div class="rule-title">CK Rush</div>
-            <p>Korner kullanan oyuncuya rush <span class="highlight">1/2</span>dir. 2. yapımında <span class="highlight">yc</span> verilir. 3. yapımında 2. <span class="highlight">yc</span> verilir.</p>
+            <p class="rule-description">Korner kullanan oyuncuya rush <span class="highlight">1/2</span>dir. 2. yapımında <span class="highlight">yc</span> verilir. 3. yapımında 2. <span class="highlight">yc</span> verilir.</p>
         </li>
-
-        <!-- Diğer kurallar burada devam eder -->
     </ul>
 </div>
 
