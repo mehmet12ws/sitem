@@ -5,90 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFA Maç Kuralları</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Mono+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Zilla+Slab+Highlight:wght@700&display=swap');
 
         body {
             margin: 0;
-            font-family: 'Press Start 2P', cursive;
-            background: radial-gradient(circle, #3b0764, #1e0035);
-            color: #e2e8f0;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #120078, #9d0191, #fd3a69, #ffb30f);
+            background-size: 400% 400%;
+            animation: gradientMove 8s ease infinite;
+            color: #ffffff;
             overflow-x: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1 {
             text-align: center;
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-top: 20px;
-            color: #ff79c6;
-            animation: neonGlow 3s infinite alternate;
+            color: #ffeb3b;
+            text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800;
+            animation: pulse 3s infinite;
         }
 
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 5px #ff79c6, 0 0 10px #ff79c6, 0 0 20px #bd93f9, 0 0 30px #bd93f9;
-            }
-            100% {
-                text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #bd93f9, 0 0 50px #bd93f9;
-            }
+        @keyframes pulse {
+            0% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800; }
+            50% { text-shadow: 0 0 30px #ffc107, 0 0 60px #ff5722; }
+            100% { text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ff9800; }
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1400px;
+            margin: 40px auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #ff79c6;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #ff79c6;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 20px;
+            border: 4px solid #ff9800;
+            box-shadow: 0 0 30px #ff5722;
         }
 
         .rule {
-            background: rgba(60, 0, 85, 0.9);
-            border: 2px solid #bd93f9;
+            background: rgba(255, 87, 34, 0.85);
+            border: 2px solid #ffcc00;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            transition: transform 0.4s, box-shadow 0.4s;
+            color: #ffffff;
+            font-family: 'Zilla Slab Highlight', cursive;
         }
 
         .rule:hover {
-            transform: rotate(-1deg) scale(1.05);
-            box-shadow: 0 0 20px #ff79c6;
+            transform: scale(1.1) rotate(1deg);
+            box-shadow: 0 0 40px #ff5722, 0 0 60px #ff9800;
         }
 
         .rule h2 {
             margin: 0;
-            color: #ffb86c;
+            color: #ffeb3b;
             font-size: 1.8rem;
             text-transform: uppercase;
+            text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800;
         }
 
         .rule p {
             margin: 10px 0 0;
-            font-size: 1.2rem;
-            line-height: 1.6;
+            font-size: 1.4rem;
+            line-height: 1.8;
         }
 
         .rule-number {
             position: absolute;
-            top: -15px;
-            left: -15px;
-            background: #ff5555;
+            top: -20px;
+            left: -20px;
+            background: #ff5722;
             color: #fff;
-            font-size: 1.2rem;
-            padding: 10px;
+            font-size: 1.5rem;
+            padding: 15px;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ff5555;
+            box-shadow: 0 0 15px #ff5722, 0 0 30px #ffcc00;
         }
 
         footer {
             text-align: center;
-            padding: 15px 0;
-            background: #1e0035;
-            color: #8be9fd;
-            font-size: 1rem;
-            border-top: 2px solid #bd93f9;
+            padding: 20px 0;
+            background: #1b0033;
+            color: #ffcc00;
+            font-size: 1.2rem;
+            border-top: 4px solid #ff5722;
+            text-shadow: 0 0 10px #ffcc00;
         }
     </style>
 </head>
@@ -141,7 +151,6 @@
             <h2>Visu, 3x, 4x, 5x</h2>
             <p>Bunun gibi kombinasyonlar hem şutta hem de pasta yasaktır. 1/2'dir, 2. yapılışında yc verilir.</p>
         </div>
-        <!-- Tüm kuralları buraya eklersiniz -->
         <div class="rule">
             <div class="rule-number">36</div>
             <h2>GK Combo</h2>
@@ -150,7 +159,7 @@
     </div>
 
     <footer>
-        © 2025 FFA Maç Kuralları. Tüm hakları saklıdır.
+        © 2025 FFA Maç Kuralları. 
     </footer>
 </body>
 </html>
