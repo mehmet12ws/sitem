@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hava Durumu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #74b9ff, #0984e3);
+      color: white;
+      text-align: center;
+    }
+
+    .weather-app {
+      padding: 20px;
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .search-box button {
+      padding: 10px 20px;
+      background: #0984e3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .weather-info {
+      display: none;
+    }
+
+    .weather-info h2 {
+      font-size: 28px;
+      margin: 10px 0;
+    }
+
+    .weather-info p {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .icon {
+      width: 100px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-app">
+    <h1>Hava Durumu</h1>
+    <div class="search-box">
+      <input type="text" id="city-input" placeholder="Şehir Adını Girin">
+      <button onclick="getWeather()">Göster</button>
+    </div>
+    <div class="weather-info" id="weather-info">
+      <h2 id="city-name"></h2>
+      <img id="weather-icon" class="icon" alt="Hava Durumu İkonu">
+      <p id="temperature"></p>
+      <p id="description"></p>
+      <p id="humidity"></p>
+      <p id="wind-speed"></p>
+    </div>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const apiKey = "YOUR_API_KEY"; // Buraya kendi API anahtarınızı ekleyin
+      const city = document.getElementById("city-input").value;
+      const weatherInfo = document.getElementById("weather-info");
+
+      if (!city) {
+        alert("Lütfen bir şehir adı girin!");
+        return;
+      }
+
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=tr&appid=${apiKey}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Şehir bulunamadı!");
+        const data = await response.json();
+
+        // Verileri DOM'a yazdır
+        document.getElementById("city-name").innerText = data.name + ", " + data.sys.country;
+        document.getElementById("weather-icon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        document.getElementById("temperature").innerText = `Sıcaklık: ${data.main.temp}°C`;
+        document.getElementById("description").innerText = `Durum: ${data.weather[0].description}`;
+        document.getElementById("humidity").innerText = `Nem: ${data.main.humidity}%`;
+        document.getElementById("wind-speed").innerText = `Rüzgar Hızı: ${data.wind.speed} m/s`;
+
+        weatherInfo.style.display = "block";
+      } catch (error) {
+        alert("Hata: " + error.message);
+        weatherInfo.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
