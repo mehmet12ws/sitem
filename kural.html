@@ -8,79 +8,103 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Mono+One&display=swap');
 
         body {
-            margin: 0;
-            font-family: 'Press Start 2P', cursive;
-            background: radial-gradient(circle, #3b0764, #1e0035);
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    background: radial-gradient(circle, #3b0764, #1e0035);
+    color: #e2e8f0;
+    overflow-x: hidden;
+    padding-bottom: 30px; /* Alt kısmı ekle, footer'dan sonra kaybolmasın */
+}
 
-        h1 {
-            text-align: center;
-            font-size: 3.5rem;
-            margin-top: 20px;
-            color: #ff79c6;
-            animation: neonGlow 3s infinite alternate;
-        }
+h1 {
+    text-align: center;
+    font-size: 3rem; /* Küçültülmüş yazı boyutu */
+    margin-top: 20px;
+    color: #ff79c6;
+    animation: neonGlow 3s infinite alternate;
+}
 
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 5px #ff79c6, 0 0 10px #ff79c6, 0 0 20px #bd93f9, 0 0 30px #bd93f9;
-            }
-            100% {
-                text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #bd93f9, 0 0 50px #bd93f9;
-            }
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff79c6;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #ff79c6;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #ff79c6;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #ff79c6;
-        }
+.rule {
+    background: rgba(60, 0, 85, 0.9);
+    border: 2px solid #bd93f9;
+    padding: 15px; /* Daha küçük padding */
+    border-radius: 10px;
+    margin-bottom: 15px; /* Daha küçük margin */
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden; /* Taşmaları engeller */
+}
 
-        .rule {
-            background: rgba(60, 0, 85, 0.9);
-            border: 2px solid #bd93f9;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
+.rule:hover {
+    transform: rotate(-1deg) scale(1.05);
+    box-shadow: 0 0 20px #ff79c6;
+}
 
-        .rule:hover {
-            transform: rotate(-1deg) scale(1.05);
-            box-shadow: 0 0 20px #ff79c6;
-        }
+.rule h2 {
+    margin: 0;
+    color: #ffb86c;
+    font-size: 1.6rem; /* Küçük başlık boyutu */
+    text-transform: uppercase;
+}
 
-        .rule h2 {
-            margin: 0;
-            color: #ffb86c;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-        }
+.rule p {
+    margin: 10px 0 0;
+    font-size: 1rem; /* Küçük metin boyutu */
+    line-height: 1.4; /* Daha sık satır aralığı */
+    overflow-wrap: break-word; /* Uzun kelimeleri kırarak düzenler */
+    text-overflow: ellipsis; /* Taşan metinler için üç nokta kullanır */
+}
 
-        .rule p {
-            margin: 10px 0 0;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
+.rule-number {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: #ff5555;
+    color: #fff;
+    font-size: 1rem; /* Küçük yazı boyutu */
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff5555;
+}
 
-        .rule-number {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            background: #ff5555;
-            color: #fff;
-            font-size: 1.2rem;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ff5555;
-        }
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: #1e0035;
+    color: #8be9fd;
+    font-size: 1rem;
+    border-top: 2px solid #bd93f9;
+}
+
+/* Responsive tasarım: Küçük ekranlar için daha küçük boyutlar */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem; /* Başlık boyutunu küçült */
+    }
+
+    .rule h2 {
+        font-size: 1.4rem; /* Küçük ekranlar için başlık boyutu */
+    }
+
+    .rule p {
+        font-size: 0.9rem; /* Küçük ekranlar için metin boyutu */
+    }
+
+    .rule-number {
+        font-size: 0.9rem; /* Küçük ekranlarda numara boyutunu küçült */
+        padding: 8px;
+    }
+}
 
         footer {
             text-align: center;
