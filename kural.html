@@ -1,321 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FFA Maç Kuralları</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Mono+One&display=swap');
-
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
-            font-family: 'Press Start 2P', cursive;
-            background: radial-gradient(circle, #3b0764, #1e0035);
-            color: #e2e8f0;
-            overflow-x: hidden;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
         }
-
-        h1 {
-            text-align: center;
-            font-size: 3.5rem;
-            margin-top: 20px;
-            color: #ff79c6;
-            animation: neonGlow 3s infinite alternate;
-        }
-
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 5px #ff79c6, 0 0 10px #ff79c6, 0 0 20px #bd93f9, 0 0 30px #bd93f9;
-            }
-            100% {
-                text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #bd93f9, 0 0 50px #bd93f9;
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #ff79c6;
-            border-radius: 15px;
-            box-shadow: 0 0 15px #ff79c6;
-        }
-
-        .rule {
-            background: rgba(60, 0, 85, 0.9);
-            border: 2px solid #bd93f9;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-
-        .rule:hover {
-            transform: rotate(-1deg) scale(1.05);
-            box-shadow: 0 0 20px #ff79c6;
-        }
-
-        .rule h2 {
-            margin: 0;
-            color: #ffb86c;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-        }
-
-        .rule p {
-            margin: 10px 0 0;
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .rule-number {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            background: #ff5555;
-            color: #fff;
-            font-size: 1.2rem;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ff5555;
-        }
-
-        footer {
-            text-align: center;
+        header {
+            background-color: #2c3e50;
+            color: white;
             padding: 15px 0;
-            background: #1e0035;
-            color: #8be9fd;
-            font-size: 1rem;
-            border-top: 2px solid #bd93f9;
+            text-align: center;
+        }
+        .content {
+            margin: 20px;
+        }
+        .rule {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .rule-number {
+            font-size: 1.5em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
-    <h1>FFA Maç Kuralları</h1>
+    <header>
+        <h1>FFA Maç Kuralları</h1>
+    </header>
 
-    <div class="container">
-        <!-- Kural 1 -->
+    <div class="content">
         <div class="rule">
             <div class="rule-number">1</div>
             <h2>Emergency Rule</h2>
-            <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma +2 goal verilir.</p>
+            <p>Eğer maçtan önce 1 saat içinde oyuncu alındıysa karşı takım 1-0 önde başlar. Eğer maç içinde emergency alınırsa karşı takıma +2 gol verilir.</p>
         </div>
-        <!-- Kural 2 -->
         <div class="rule">
             <div class="rule-number">2</div>
             <h2>Loan Rule</h2>
-            <p>Sadece maçın kaderini değiştirmeyecek belli kişiler loan alınabilir (tickettan bu izni alabilirsiniz) ve her sezon takım başına ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma auto verilir.</p>
+            <p>Sadece maçın kaderini değiştirmeyecek belli kişiler loan alınabilir (ticket'tan bu izni alabilirsiniz) ve her sezon takım başına ligde maksimum 2, kupada ise 1 loan alınabilir. Fazlası alınırsa karşı takıma auto verilir. (loanlar hariç)</p>
         </div>
-        <!-- Kural 3 -->
         <div class="rule">
             <div class="rule-number">3</div>
             <h2>3. Parti Yazılım</h2>
-            <p>Clumsy, VPN, Script, FastFlag gibi yazılımlar yasaktır. (Roblox’un Yasaklanması gibi olağan şeyler dışında)</p>
+            <p>Clumsy, VPN, Script, FastFlag vs. yasaktır. (Roblox’un yasaklanması gibi olağan şeyler dışında)</p>
         </div>
-        <!-- Kural 4 -->
         <div class="rule">
             <div class="rule-number">4</div>
             <h2>PB</h2>
-            <p>Defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa 1/2. Eğer 2 kere yapılırsa +1.</p>
+            <p>Eğer defans oyuncusu kendi kalecisine yerden pas atarsa ve kaleci eline alırsa 1/2'dir. Eğer 2 kere yapılırsa +1’dir.</p>
         </div>
-        <!-- Kural 5 -->
-        <div class="rule">
-            <div class="rule-number">5</div>
-            <h2>CK Rush</h2>
-            <p>Korner kullanan oyuncuya rush yapmak 1/2'dir. 2. kez yapılırsa yc, 3. kez yapılırsa 2. yc verilir.</p>
-        </div>
-        <!-- Kural 6 -->
         <div class="rule">
             <div class="rule-number">6</div>
-            <h2>Last</h2>
-            <p>Eğer gole giden bir oyuncuya karşı takım kayarsa (önünde başka oyuncu olmama şartıyla) +1 gol ve yc verilir.</p>
+            <h2>CK RUSH</h2>
+            <p>Korner kullanan oyuncuya rush 1/2'dir. 2. yapımında sarı kart verilir. 3. yapımında 2. sarı kart verilir.</p>
         </div>
-        <!-- Kural 7 -->
+
         <div class="rule">
             <div class="rule-number">7</div>
-            <h2>Leave Ball</h2>
-            <p>Eğer rakip takımdan bir oyuncuya kayıp topu alırsanız geri bırakmak zorundasınız. Eğer dokunursanız veya 3 saniye dolmadan topu alırsanız yc verilir.</p>
+            <h2>LAST</h2>
+            <p>Eğer gole giden bir oyuncuya karşı takım kayarsa (önünde başka oyuncu olmama şartıyla) +1 gol + sarı kart verilir.</p>
         </div>
-        <!-- Kural 8 -->
+   
         <div class="rule">
             <div class="rule-number">8</div>
-            <h2>Last CB</h2>
-            <p>Eğer ataktayken karşı takımın stoperine kayıp gol atarsanız gol iptali ve yc verilir.</p>
+            <h2>Leave Ball</h2>
+            <p>Eğer rakip takımdan bir oyuncuya kayıp topu alırsanız geri bırakmak zorundasınız. Eğer dokunursanız veya 3 saniye dolmadan topu alırsanız sarı kart verilir.</p>
         </div>
-        <!-- Kural 9 -->
+     
         <div class="rule">
             <div class="rule-number">9</div>
-            <h2>Visu, 3x, 4x, 5x</h2>
-            <p>Bunun gibi kombinasyonlar hem şutta hem de pasta yasaktır. 1/2'dir, 2. yapılışında yc verilir.</p>
+            <h2>Last CB</h2>
+            <p>Eğer ataktayken karşı takımın stoperine kayıp gol atarsanız, gol iptali + sarı kart verilir.</p>
         </div>
-        <!-- Kural 10 -->
         <div class="rule">
             <div class="rule-number">10</div>
-            <h2>PB</h2>
-            <p>Santrada geri pas zorunludur, cezası yc'dir.</p>
+            <h2>Visu, 3x, 4x, 5x</h2>
+            <p>Bunun gibi kombinasyonlar hem şutta hem de pasta yasaktır. 1/2'dir, 2. yapılışında sarı kart verilir.</p>
         </div>
-        <!-- Kural 11 -->
         <div class="rule">
             <div class="rule-number">11</div>
-            <h2>Yayın</h2>
-            <p>Maça yayın açılmadan başlanamaz. Eğer rakip istemiyorsa hostlayan takım yayını açmak zorundadır. Eğer tartışmalı bir pozisyonda clip alınmamışsa boşuna dil dökmenize gerek yoktur, telafisi olmaz.</p>
+            <h2>PB</h2>
+            <p>Santrada geri pas zorunludur, cezası sarı karttır.</p>
         </div>
-        <!-- Kural 12 -->
         <div class="rule">
             <div class="rule-number">12</div>
-            <h2>RQ Rule</h2>
-            <p>Teknik direktör komutu olmadan (değişiklilik vs.), bir sebebi olmadan ayrılan oyunculara moderatör hükmüyle 1 maç ceza verilir.</p>
+            <h2>Yayın</h2>
+            <p>Maça yayın açılmadan başlanamaz. Eğer rakip istemiyorsa, hostlayan takım yayını açmak zorundadır. Eğer tartışmalı bir pozisyonda clip alınmamışsa, telafisi olmaz.</p>
         </div>
-        <!-- Kural 13 -->
         <div class="rule">
             <div class="rule-number">13</div>
-            <h2>Maç Oynanması</h2>
-            <p>Her takımda en az 3 oyuncu olmak zorundadır, aksi taktirde auto verilir. Eğer karşı takım 10 dakika içinde gelmezse bekleyen takıma auto verilir. Eğer 2 takımda gelmezse 2 takıma da 1 puan verilir.</p>
+            <h2>RQ Rule</h2>
+            <p>Teknik direktör komutu olmadan (değişiklik vs.), bir sebebi olmadan ayrılan oyunculara moderatör hükmüyle 1 maç ceza verilir.</p>
         </div>
-        <!-- Kural 14 -->
         <div class="rule">
             <div class="rule-number">14</div>
-            <h2>Kırmızı Kart</h2>
-            <p>2 yc’den rc yerseniz maçtan çıkmak zorundasınız. Eğer hakem söyledikten sonra maçtan çıkmayıp topa dokunursanız +1 gol verilir.</p>
+            <h2>Maç Oynanması</h2>
+            <p>Her takımda en az 3 oyuncu olmak zorundadır, aksi takdirde auto verilir. Eğer karşı takım 10 dakika içinde gelmezse, bekleyen takıma auto verilir. Eğer 2 takımda gelmezse, 2 takıma da 1 puan verilir.</p>
         </div>
-        <!-- Kural 15 -->
         <div class="rule">
             <div class="rule-number">15</div>
-            <h2>Küfür</h2>
-            <p>Kesinlikle küfür edilmemelidir ve cezalandırılır. Herhangi birinin küfür etmesi halinde 1. uyarı yapılır, 2. uyarıda 1 puan silinir. 3. uyarıda ise ceza uygulanır ve maçın sonuna kadar takip edilir.</p>
+            <h2>Kırmızı Kart</h2>
+            <p>2 sarı kartla kırmızı kart alırsanız, maçtan çıkmak zorundasınız. Eğer hakem söyledikten sonra maçtan çıkmayıp topa dokunursanız, direkt auto verilir. Kırmızı kartın cezası 1 maçtır, lig ve kupa maçları aynı kabul edilir.</p>
         </div>
-        <!-- Kural 16 -->
         <div class="rule">
             <div class="rule-number">16</div>
-            <h2>Mesajlaşma</h2>
-            <p>Herhangi bir şekilde oyun dışı yazışmalar yapılmamalıdır. Oyun içinde oyuncular, oyun dışında ve takımda dışarıdan başka kişi olmalıdır.</p>
+            <h2>Kaçak Oyuncu</h2>
+            <p>Ligde olmayan, takımda bulunmayan, register yapmamış, Türk olmayan bir oyuncu maçta oynarsa, auto verilir.</p>
         </div>
-        <!-- Kural 17 -->
         <div class="rule">
             <div class="rule-number">17</div>
-            <h2>İçki ve Alkol</h2>
-            <p>Oyun oynarken alkol alması yasaktır. Bu tespit edildiğinde maçtan cezalı sayılacaktır.</p>
+            <h2>TW Rule</h2>
+            <p>Eğer kaleci topu yere bırakıp başkası dokunmadan tekrar eline alırsa, sarı kart verilir.</p>
         </div>
-        <!-- Kural 18 -->
         <div class="rule">
             <div class="rule-number">18</div>
-            <h2>Oyun Dışı Müdahale</h2>
-            <p>Maç sırasında oyuncuların dışarıdan müdahale etmesi yasaktır. Herhangi bir dış müdahalede +1 gol eklenir.</p>
+            <h2>High Flick Rule</h2>
+            <p>2'den fazla üst üste high flick atmak yasaktır. Gol atılırsa sayılmaz, cezası sarı karttır.</p>
         </div>
-        <!-- Kural 19 -->
         <div class="rule">
             <div class="rule-number">19</div>
-            <h2>Sürekli Sesli Konuşma</h2>
-            <p>Oyun sırasında sürekli sesli konuşmalar yapılmamalıdır. Bu oyuncuya uyarı yapılacaktır.</p>
+            <h2>Range</h2>
+            <p>Kalecisiz oynayan rakiplere karşı box dışı vurabileceğiniz alanlar aşağıdaki gibidir;</p>
         </div>
-        <!-- Kural 20 -->
         <div class="rule">
             <div class="rule-number">20</div>
-            <h2>Tehdit</h2>
-            <p>Herhangi bir oyuncu tehdit edilirse bu çok ciddi bir kural ihlali sayılır ve oyundan atılmaya kadar gidebilir.</p>
+            <h2>Boost</h2>
+            <p>Boostlar kesinlikle yasaktır. Yakalandığı anda auto + 2 maç ceza verilir. (Durability, stamina boost hariç)</p>
         </div>
-        <!-- Kural 21 -->
         <div class="rule">
             <div class="rule-number">21</div>
-            <h2>Hakem Hakları</h2>
-            <p>Hakemin verdiği kararlar son karardır. Hakem kararına itiraz edilmemelidir.</p>
+            <h2>TP</h2>
+            <p>Kontra atakta teleport olup atağı engellemeye kesinlikle taviz yoktur, cezası direkt kırmızı karttır.</p>
         </div>
-        <!-- Kural 22 -->
         <div class="rule">
             <div class="rule-number">22</div>
-            <h2>Misafir Takım</h2>
-            <p>Misafir takımda oynayan oyuncular, kendi takımından bağımsız olarak hareket etmelidir. Bu takımlar için belirli kurallar vardır ve bunlara uymak zorunludur.</p>
+            <h2>Speed Glitch</h2>
+            <p>Tackle c spam glitch veya rakibin üstünden atlayıp boostlanma glitch’i yapılırsa, 1/2'dir, 2. yapılışı sarı karttır.</p>
         </div>
-        <!-- Kural 23 -->
         <div class="rule">
             <div class="rule-number">23</div>
-            <h2>Lag</h2>
-            <p>Bir oyuncu lag nedeniyle oyunu bozarsa, oyun durdurulup oyuncuya uyarı verilecektir. 3. kez tekrarı halinde oyun iptal edilebilir.</p>
+            <h2>Teleport Glitch</h2>
+            <p>Eğer oyunun bug’ından dolayı teleportlanmazsanız ve topa dokunursanız, direkt sarı karttır. Gol atılırsa sayılmaz.</p>
         </div>
-        <!-- Kural 24 -->
         <div class="rule">
             <div class="rule-number">24</div>
-            <h2>Şüpheli Davranışlar</h2>
-            <p>Şüpheli davranışlarda bulunan oyunculara soruşturma açılabilir ve oyun hakları geçici olarak elinden alınabilir.</p>
+            <h2>Bütçe</h2>
+            <p>Bütçeler Tier olarak belirlenir ve maksimum sayısı vardır. X=1, S=2, A=5, B=7, C=∞. Maçtan önce hakemin tierleri kontrol etmesi gerekir. Uyarılıp oyuncu reslemeden maça çıkılırsa, auto verilir.
+                Loan Players Bütçe hesaplamasına dahil değildir.
+                1 X Ve 1 S tier’e sahip olan takım A tier alamaz
+                Eğer takımında X tier yoksa 2 S alabilir eğer varsa 1 tane alabilir.
+                2 S olan 2 tane A alabilir
+                Sadece A alınırsa 5 tane A alınabilir
+                1 S olan maksimum 4 tane A alabilir
+                1 X olan maksimum 2 tane A alabilir. 
+                3 S olan maksimum 1 tane A alabilir.</p>
+            
         </div>
-        <!-- Kural 25 -->
         <div class="rule">
             <div class="rule-number">25</div>
-            <h2>Takım Çalışması</h2>
-            <p>Oyun sırasında takım çalışması yapılması zorunludur. Her oyuncu, takım arkadaşlarına yardım etmelidir.</p>
+            <h2>Erken Start</h2>
+            <p>2 takımda hazır olmadan sahaya çıkan oyuncu sarı kart alır.</p>
         </div>
-        <!-- Kural 26 -->
         <div class="rule">
             <div class="rule-number">26</div>
-            <h2>Kurallara Uymama</h2>
-            <p>Oyun kurallarına uymamak ceza gerektirir ve her ceza, bir öncekilerden daha ağır olacaktır.</p>
+            <h2>Host</h2>
+            <p>Avrupa dışı host kabul edilmez.</p>
         </div>
-        <!-- Kural 27 -->
         <div class="rule">
             <div class="rule-number">27</div>
-            <h2>Oyuncu Değişikliği</h2>
-            <p>Oyuncu değişikliği sadece maçın başında yapılabilir. Maç sırasında oyuncu değişikliği yapılmaz.</p>
+            <h2>Time</h2>
+            <p>2 sezonda bir oyuncular arasında oylama yapılır ve 2 sezon boyunca o time kullanılır. Eğer 2 takımda kabul ederse farklı timeda oynayabilirler, güncel 18 min.</p>
         </div>
-        <!-- Kural 28 -->
         <div class="rule">
             <div class="rule-number">28</div>
-            <h2>Ofsayt Kuralı</h2>
-            <p>Ofsayt durumu her zaman geçerlidir. Kurallara uymayan ofsaytlar cezalandırılacaktır.</p>
+            <h2>Register</h2>
+            <p>Player Register 1 kez yazılabilir ve maçtan yarım saat önceye kadar kesinlikle yapılmalıdır, yoksa auto verilir.</p>
         </div>
-        <!-- Kural 29 -->
         <div class="rule">
             <div class="rule-number">29</div>
-            <h2>Hızlı Faul</h2>
-            <p>Faul yapılırken oyun hızına müdahale edilirse, oyun iptal edilebilir.</p>
+            <h2>GK Register</h2>
+            <p>GK Register yok fakat eğer lineupta GK belirtilmemişse/belirtilmişse o maç boyunca herhangi biri kaleye geçemez/kaleden çıkamaz. Eğer yapılırsa auto verilir.</p>
         </div>
-        <!-- Kural 30 -->
         <div class="rule">
             <div class="rule-number">30</div>
-            <h2>Varlık Kontrolü</h2>
-            <p>Her oyuncu, oyun içinde tüm eşyaların geçerli olduğunu doğrulamalıdır. Aksi halde haksız avantaj sağlanabilir.</p>
+            <h2>Alt Register</h2>
+            <p>Alt hesapla acil durum dışı (ban vs.) oynanması tavsiye edilmez. Eğer acil bir durum çıkarsa ve maçtan hemen önce yazılmak durumunda kalınırsa gerekçe maçın hakemine bildirilmelidir.</p>
         </div>
-        <!-- Kural 31 -->
         <div class="rule">
             <div class="rule-number">31</div>
-            <h2>Yasaklı Ekipman</h2>
-            <p>Yasaklı ekipman kullanımı her zaman cezalandırılır. Hangi ekipmanların yasak olduğu organizatörler tarafından belirlenir.</p>
+            <h2>PP RULE</h2>
+            <p>Eğer bir takım kendi başına karşı takıma sormadan PP yapmak istiyorsa maksimum 20 dakika PP yapabilir.</p>
         </div>
-        <!-- Kural 32 -->
         <div class="rule">
             <div class="rule-number">32</div>
-            <h2>Oyun Sonucu</h2>
-            <p>Oyunun sonlanması durumunda, organizatörlerin belirlediği kurallar geçerlidir.</p>
+            <h2>Clear Rule</h2>
+            <p>Clear’ı oyunu sabote etmek için kullanan oyuncuya sarı kart verilir. Eğer hakem çok fazla olduğunu düşünüyorsa kırmızı kart verebilir.</p>
         </div>
-        <!-- Kural 33 -->
         <div class="rule">
             <div class="rule-number">33</div>
-            <h2>Maçta Yer Almak</h2>
-            <p>Bir oyuncu, eğer maçta yer almazsa, takıma cezai yükümlülükler gelebilir. Aynı takımda çok fazla değişiklik yapılması da sorun yaratabilir.</p>
+            <h2>Lisans Rule</h2>
+            <p>Bir oyuncu gittiği takımda 3 maç oynamadan reslenemez. Eğer çok geçerli bir sebebi varsa ve maça çıkmamışsa fesh isteyerek reslenebilir (bütçe gibi şeyler dışında).</p>
         </div>
-        <!-- Kural 34 -->
         <div class="rule">
             <div class="rule-number">34</div>
-            <h2>Yanlış Yönetim</h2>
-            <p>Yanlış yönetilen maçlar tekrar yapılabilir ve bu takımın ceza almasına yol açabilir.</p>
+            <h2>Sarı Kart Sınırı</h2>
+            <p>4 lig maçında sarı kart yiyen oyuncu 1 maç cezalı duruma düşer.</p>
         </div>
-        <!-- Kural 35 -->
         <div class="rule">
             <div class="rule-number">35</div>
-            <h2>İçeriği Paylaşmak</h2>
-            <p>Oyun içinde özel bilgilerin ve içeriklerin dışarıya aktarılması yasaktır.</p>
+            <h2>Hakem</h2>
+            <p>TPs hakeminin verdiği kartlar sayılır.</p>
         </div>
-        <!-- Kural 36 -->
         <div class="rule">
             <div class="rule-number">36</div>
-            <h2>Yorumlar</h2>
-            <p>Oyun sırasında yapılan yorumlar yapıcı ve saygılı olmalıdır. Herhangi bir olumsuz yorumda ceza uygulanabilir.</p>
+            <h2>GK Combo</h2>
+            <p>GK’da her türlü kombinasyon yasaktır. (x lmb vs.) Cezası sarı karttır.</p>
         </div>
+    </div>
+</body>
+</html>
     </div>
 
     <footer>
-        <p>FFA League | Tüm Haklar Saklıdır.</p>
+        <p>© 2025 FFA Lig Kuralları / discord.gg/aCyd6rdF2m</p>
     </footer>
 </body>
 </html>
