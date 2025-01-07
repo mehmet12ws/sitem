@@ -148,6 +148,8 @@
             justify-content: center; /* Ortalamak için */
             align-items: center;
             margin-bottom: 20px;
+            margin-left: auto; /* Ortalamak için sağa kaydır */
+            margin-right: auto; /* Ortalamak için sola kaydır */
         }
 
         video {
@@ -166,12 +168,14 @@
 
             .gallery {
                 grid-template-columns: repeat(2, 1fr);
+                width: 100%;
             }
 
             .video-container {
                 width: 100%;
                 max-width: 100%;
                 height: 300px;
+                margin-top: 20px;
             }
 
             h1 {
@@ -180,6 +184,12 @@
 
             p {
                 font-size: 1.2rem;
+            }
+
+            /* Görsel uyumu için */
+            .image-container {
+                width: 150px;
+                height: 150px;
             }
         }
 
@@ -194,10 +204,12 @@
 
             .gallery {
                 grid-template-columns: 1fr;
+                width: 100%;
             }
 
             .video-container {
                 margin-top: 40px;
+                height: 250px;
             }
         }
     </style>
