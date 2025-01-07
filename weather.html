@@ -113,8 +113,16 @@
           document.getElementById("rain-info").innerText = `Yağmur Bekleniyor: ${rainTime.toLocaleDateString()} tarihinde, ${rainTime.toLocaleTimeString()} saatinde.`;
           document.getElementById("rain-details").innerText = `Yağış Miktarı: ${rainAmount.toFixed(2)} mm`;
         } else {
-          document.getElementById("rain-info").innerText = "Yağmur Beklenmiyor.";
-          document.getElementById("rain-details").innerText = "";
+          // Eğer yağmur tahmini yoksa, sonraki yağmuru bul
+          const futureRain = hourlyForecast.find(hour => hour.pop > 0.3); // "pop" olasılığı %30'dan büyük olan
+          if (futureRain) {
+            const futureRainTime = new Date(futureRain.dt * 1000);
+            document.getElementById("rain-info").innerText = `Yağmur şu anda beklenmiyor.`;
+            document.getElementById("rain-details").innerText = `İlk yağış tahmini: ${futureRainTime.toLocaleDateString()} tarihinde, ${futureRainTime.toLocaleTimeString()} saatinde.`;
+          } else {
+            document.getElementById("rain-info").innerText = "Yakın gelecekte yağmur beklenmiyor.";
+            document.getElementById("rain-details").innerText = "";
+          }
         }
 
         weatherInfo.style.display = "block";
