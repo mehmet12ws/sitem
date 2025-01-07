@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detaylı Hava Durumu</title>
+  <title>Detaylı Yağmur Tahmini</title>
   <style>
     body {
       margin: 0;
@@ -57,16 +57,16 @@
 </head>
 <body>
   <div class="weather-app">
-    <h1>Detaylı Hava Durumu</h1>
+    <h1>Detaylı Yağmur Tahmini</h1>
     <div class="search-box">
-      <input type="text" id="city-input" placeholder="Şehir Adını Girin">
-      <button onclick="getWeather()">Göster</button>
+      <input type="text" id="city-input" placeholder="Şehir veya İlçe Adını Girin">
+      <button onclick="getWeather()">Tahmin Göster</button>
     </div>
     <div class="weather-info" id="weather-info">
       <h2 id="city-name"></h2>
-      <p id="temperature"></p>
+      <p id="current-weather"></p>
       <p id="rain-info"></p>
-      <p id="rain-timing"></p>
+      <p id="rain-details"></p>
     </div>
   </div>
 
@@ -77,11 +77,11 @@
       const weatherInfo = document.getElementById("weather-info");
 
       if (!city) {
-        alert("Lütfen bir şehir adı girin!");
+        alert("Lütfen bir şehir veya ilçe adı girin!");
         return;
       }
 
-      // Şehir koordinatlarını alma
+      // Şehir koordinatlarını bulmak için Geo API
       const geocodeApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
       try {
         const geocodeResponse = await fetch(geocodeApiUrl);
@@ -92,28 +92,29 @@
 
         const { lat, lon } = geocodeData[0];
 
-        // Detaylı hava durumu (One Call API)
+        // Saatlik hava durumu tahmini için One Call API
         const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&lang=tr&exclude=minutely,daily&appid=${apiKey}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
 
         // Şu anki durum
         const currentWeather = data.current;
-        const rain = data.hourly.find((hour) => hour.rain);
+        const hourlyForecast = data.hourly;
 
-        // Bilgileri DOM'a yazdırma
         document.getElementById("city-name").innerText = `Şehir: ${city}`;
-        document.getElementById("temperature").innerText = `Anlık Sıcaklık: ${currentWeather.temp}°C`;
+        document.getElementById("current-weather").innerText = `Anlık Sıcaklık: ${currentWeather.temp}°C, Durum: ${currentWeather.weather[0].description}`;
 
-        if (rain) {
-          const rainTime = new Date(rain.dt * 1000);
-          const rainAmount = rain.rain ? rain.rain["1h"] : 0;
+        // Yağmur bilgisi (ilk yağmurun ne zaman yağacağını bulma)
+        const rainForecast = hourlyForecast.find(hour => hour.rain);
+        if (rainForecast) {
+          const rainTime = new Date(rainForecast.dt * 1000); // Zamanı formatla
+          const rainAmount = rainForecast.rain["1h"] || 0; // Yağış miktarı
 
-          document.getElementById("rain-info").innerText = `Yağmur Miktarı: ${rainAmount} mm`;
-          document.getElementById("rain-timing").innerText = `Yağmur Tahmini: ${rainTime.toLocaleTimeString()} saatinde yağış başlayacak.`;
+          document.getElementById("rain-info").innerText = `Yağmur Bekleniyor: ${rainTime.toLocaleDateString()} tarihinde, ${rainTime.toLocaleTimeString()} saatinde.`;
+          document.getElementById("rain-details").innerText = `Yağış Miktarı: ${rainAmount.toFixed(2)} mm`;
         } else {
-          document.getElementById("rain-info").innerText = `Yağmur Beklenmiyor.`;
-          document.getElementById("rain-timing").innerText = "";
+          document.getElementById("rain-info").innerText = "Yağmur Beklenmiyor.";
+          document.getElementById("rain-details").innerText = "";
         }
 
         weatherInfo.style.display = "block";
