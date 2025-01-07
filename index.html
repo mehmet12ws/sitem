@@ -20,12 +20,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            overflow: auto;
             position: relative;
             text-align: center;
             padding: 20px;
-            flex-direction: column; /* Dikey yerleşim */
-            min-height: 100%; /* Sayfa altına kaymamayı sağlar */
+            flex-direction: column;
         }
 
         h1 {
@@ -136,8 +135,9 @@
 
         /* Video Stili */
         .video-container {
-            width: 90%;
-            max-width: 600px; /* Küçültülmüş boyut */
+            width: 80%;
+            max-width: 500px;
+            height: 500px; /* Kare boyut */
             margin-top: 50px;
             position: relative;
             background-color: rgba(255, 255, 255, 0.1);
@@ -147,12 +147,13 @@
             display: flex;
             justify-content: center; /* Ortalamak için */
             align-items: center;
-            margin-top: 20px; /* Diğer içerikten uzaklaştırma */
+            margin-bottom: 20px;
         }
 
         video {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
@@ -170,7 +171,7 @@
             .video-container {
                 width: 100%;
                 max-width: 100%;
-                margin-top: 30px;
+                height: 300px;
             }
 
             h1 {
