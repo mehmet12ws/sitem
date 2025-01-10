@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween Chaos 🎃</title>
+    <title>Halloween </title>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Limbo&display=swap" rel="stylesheet">
     <style>
         * {
@@ -158,29 +158,28 @@
             cursor: pointer;
         }
 
-        /* Video Styling */
         .video-container {
             position: relative;
             width: 90%;
-            max-width: 700px; /* Video boyutunu biraz daha küçük yapıyoruz */
+            max-width: 700px;
             margin-top: 40px;
-            border-radius: 15px; /* Köşe yuvarlama */
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* Gölgelendirme */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
             transition: transform 0.3s ease-in-out;
         }
 
         .video-container:hover {
-            transform: scale(1.05); /* Hover efekti ile büyütme */
+            transform: scale(1.05);
         }
 
         video {
             width: 100%;
-            height: auto; /* Orantılı büyüklük */
+            height: auto;
             border-radius: 15px;
             display: block;
             background-color: black;
-            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7); /* Video kenarında ışıltılı gölge */
+            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
         }
     </style>
 </head>
@@ -189,14 +188,12 @@
     <h1>🎃 Halloween In Tpf 👻</h1>
     <p></p>
 
-    <!-- Animasyonlu Emojiler -->
     <div class="emoji">🎃</div>
     <div class="emoji">🕸️</div>
     <div class="emoji">👻</div>
     <div class="emoji">🕷️</div>
     <div class="emoji">💀</div>
 
-    <!-- Fotoğraf Galerisi -->
     <div class="gallery">
         <div class="image-container">
             <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
@@ -206,39 +203,4 @@
         </div>
         <div class="image-container">
             <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
-        </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
-        </div>
-    </div>
-
-    <!-- Video -->
-    <div class="video-container">
-        <video controls>
-            <source src="https://cdn.discordapp.com/attachments/1304891541021528146/1325450298357059614/bddzoo.mp4?ex=677bd548&is=677a83c8&hm=3ce22e67ffb721ea4d4ede772fef5db24474968ff44d1e4c88a5f09687b43ab0&" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <!-- Tam ekran görsel alanı -->
-    <div class="fullscreen" id="fullscreen-container">
-        <span class="close-btn" onclick="closeFullscreen()">✖</span>
-        <img id="fullscreen-image" src="" alt="Fullscreen Image">
-    </div>
-
-    <script>
-        function openFullscreen(imgElement) {
-            const fullscreenContainer = document.getElementById('fullscreen-container');
-            const fullscreenImage = document.getElementById('fullscreen-image');
-            fullscreenImage.src = imgElement.src;
-            fullscreenContainer.classList.add('active');
-        }
-
-        function closeFullscreen() {
-            const fullscreenContainer = document.getElementById('fullscreen-container');
-            fullscreenContainer.classList.remove('active');
-        }
-    </script>
-
-</body>
-</html>
+        </div
