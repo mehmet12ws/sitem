@@ -126,6 +126,11 @@
         .emoji:nth-child(3) { top: 70%; left: 40%; animation-delay: 3s; }
         .emoji:nth-child(4) { top: 50%; left: 80%; animation-delay: 0s; }
         .emoji:nth-child(5) { top: 30%; left: 10%; animation-delay: 1.5s; }
+        .emoji:nth-child(6) { top: 15%; left: 35%; animation-delay: 2.5s; }
+        .emoji:nth-child(7) { top: 80%; left: 15%; animation-delay: 0.5s; }
+        .emoji:nth-child(8) { top: 60%; left: 60%; animation-delay: 3.5s; }
+        .emoji:nth-child(9) { top: 25%; left: 85%; animation-delay: 1.7s; }
+        .emoji:nth-child(10) { top: 45%; left: 5%; animation-delay: 0.8s; }
 
         .fullscreen {
             position: fixed;
@@ -159,40 +164,46 @@
         }
 
         .video-container {
-            position: relative;
-            width: 90%;
-            max-width: 700px;
-            margin-top: 40px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-            transition: transform 0.3s ease-in-out;
-        }
+    position: relative;
+    width: 75%; 
+    max-width: 400px; 
+    margin-top: 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease-in-out;
+}
 
-        .video-container:hover {
-            transform: scale(1.05);
-        }
+.video-container:hover {
+    transform: scale(1.05);
+}
 
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            display: block;
-            background-color: black;
-            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
-        }
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+    background-color: black;
+    box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
+}
     </style>
 </head>
 <body>
 
     <h1>🎃 Halloween In Tpf 👻</h1>
     <p></p>
-
+    <div class="emoji">🦇</div>
+    <div class="emoji">👀</div>
+    <div class="emoji">🧙‍♀️</div>
+    <div class="emoji">🧛‍♂️</div>
+    <div class="emoji">🧟‍♀️</div>
+    <div class="emoji">🧙‍♂️</div>
     <div class="emoji">🎃</div>
-    <div class="emoji">🕸️</div>
-    <div class="emoji">👻</div>
-    <div class="emoji">🕷️</div>
-    <div class="emoji">💀</div>
+    <div class="emoji">🧡</div>
+    <div class="emoji">🎃</div>
+    <div class="emoji">🦇</div>
+    <div class="emoji">🎃</div>
+    <div class="emoji">👻</div>    
 
     <div class="gallery">
         <div class="image-container">
@@ -203,4 +214,30 @@
         </div>
         <div class="image-container">
             <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
-        </div
+        </div>
+        <div class="image-container">
+            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+        </div>
+    </div>
+
+    <div class="video-container">
+        <video controls>
+            <source src="https://cdn.discordapp.com/attachments/1232813343786401833/1318340553489907712/1217.mp4?ex=67819bd1&is=67804a51&hm=17626816e85aaa82717aa8596d2829d795928d2153f2dd7397e5ea5cc7d11a27&" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        function openFullscreen(img) {
+            const fullscreenDiv = document.createElement('div');
+            fullscreenDiv.classList.add('fullscreen');
+            fullscreenDiv.innerHTML = `
+                <span class="close-btn" onclick="document.body.removeChild(this.parentElement)">×</span>
+                <img src="${img.src}" alt="${img.alt}">
+            `;
+            document.body.appendChild(fullscreenDiv);
+            fullscreenDiv.classList.add('active');
+        }
+    </script>
+</body>
+</html>
