@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA Solver with 2Captcha</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h2>reCAPTCHA Solver Example</h2>
+
+    <button onclick="solveCaptcha()">Solve reCAPTCHA</button>
+
+    <div id="captchaSolution"></div>
+
+    <script>
+        const api_key = '35fa3dcf1cf513b8f1f8fd791ac8a631';  // 2Captcha API key
+        const site_key = '6LddGoYgAAAAAHD275rVBjuOYXiofr1u4pFS5lHn';  // Target site reCAPTCHA key
+        const page_url = 'https://onlyfans.com/api2/v2/users/login';  // The page URL that has the CAPTCHA
+
+        // Step 1: Send request to 2Captcha to get captcha ID
+        function solveCaptcha() {
+            $.ajax({
+                url: 'http://2captcha.com/in.php',
+                type: 'POST',
+                data: {
+                    key: api_key,
+                    method: 'userrecaptcha',
+                    googlekey: site_key,
+                    pageurl: page_url,
+                    json: 1
+                },
+                success: function(response) {
+                    const result = JSON.parse(response);
+                    if (result.status == 1) {
+                        const captcha_id = result.request;
+                        console.log("Captcha çözüm ID:", captcha_id);
+                        getCaptchaSolution(captcha_id);
+                    } else {
+                        console.error("Captcha çözümü talebinde bir hata oluştu.");
+                    }
+                }
+            });
+        }
+
+        // Step 2: Get the captcha solution from 2Captcha
+        function getCaptchaSolution(captcha_id) {
+            const interval = setInterval(function() {
+                $.ajax({
+                    url: 'http://2captcha.com/res.php',
+                    type: 'GET',
+                    data: {
+                        key: api_key,
+                        action: 'get',
+                        id: captcha_id,
+                        json: 1
+                    },
+                    success: function(response) {
+                        const result = JSON.parse(response);
+                        if (result.status == 1) {
+                            const captchaSolution = result.request;
+                            console.log("Captcha çözümü:", captchaSolution);
+                            clearInterval(interval);
+                            displayCaptchaSolution(captchaSolution);
+                        } else {
+                            console.log("Captcha çözümü henüz hazır değil. Yeniden deniyorum...");
+                        }
+                    }
+                });
+            }, 5000);  // 5 saniye arayla çözümü kontrol et
+        }
+
+        // Display the captcha solution on the page
+        function displayCaptchaSolution(solution) {
+            const solutionDiv = document.getElementById('captchaSolution');
+            solutionDiv.innerHTML = `<p>Captcha Çözümü: ${solution}</p>`;
+        }
+    </script>
+
+</body>
+</html>
