@@ -3,134 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween </title>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Limbo&display=swap" rel="stylesheet">
+    <title>Premium Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <style>
+        :root {
+            --primary-color: #0a0a0a;
+            --accent-color: #00ff88;
+            --text-color: #ffffff;
+            --overlay-color: rgba(0, 0, 0, 0.85);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none;
         }
 
         body {
-            font-family: 'Creepster', cursive;
-            background: linear-gradient(135deg, #1a001a, #330033, #000);
-            color: white;
-            overflow-y: scroll;
-            height: auto;
-            animation: bg-glow 10s infinite alternate;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), #1a1a1a);
+            color: var(--text-color);
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        @keyframes bg-glow {
-            0% { background: linear-gradient(135deg, #1a001a, #330033, #000); }
-            50% { background: linear-gradient(135deg, #000, #550055, #220022); }
-            100% { background: linear-gradient(135deg, #1a001a, #330033, #000); }
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            opacity: 0.1;
+            animation: headerGlow 8s infinite;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
         }
 
         h1 {
-            font-size: 4rem;
-            color: #ff7300;
-            text-shadow: 0 0 20px #ff7300, 0 0 40px #ff3300;
-            margin-bottom: 20px;
-            animation: flicker 3s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0% { text-shadow: 0 0 20px #ff7300, 0 0 40px #ff3300; }
-            50% { text-shadow: 0 0 40px #ff7300, 0 0 80px #ff3300; }
-            100% { text-shadow: 0 0 30px #ff7300, 0 0 50px #ff3300; }
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-            animation: fade-in 2s ease-in-out;
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: var(--text-color);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-50px);
         }
 
         .gallery {
-            position: relative;
-            width: 90%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-            animation: chaos 10s infinite ease-in-out;
-        }
-
-        @keyframes chaos {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(3deg); }
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            opacity: 0;
         }
 
         .image-container {
             position: relative;
-            width: 180px;
-            height: 180px;
+            aspect-ratio: 1;
             overflow: hidden;
-            border: 4px solid rgba(255, 115, 0, 0.8);
-            border-radius: 15px;
-            background: rgba(255, 115, 0, 0.2);
-            transform: rotate(calc(-10deg + 20deg * random()));
-            box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: move-around 6s infinite ease-in-out;
-        }
-
-        @keyframes move-around {
-            0% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-20px) rotate(5deg); }
-            50% { transform: translateY(20px) rotate(-5deg); }
-            75% { transform: translateY(-10px) rotate(2deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .image-container:hover {
-            transform: scale(1.1) rotate(0deg);
-            box-shadow: 0 0 40px rgba(255, 115, 0, 1);
+            transform: perspective(1000px) rotateX(10deg);
         }
 
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .image-container:hover img {
-            transform: scale(1.2);
-        }
-
-        .emoji {
+        .image-container::after {
+            content: '';
             position: absolute;
-            font-size: 3rem;
-            opacity: 0.8;
-            animation: emoji-float 8s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(var(--accent-color), 0.2),
+                transparent
+            );
+            opacity: 0;
+            transition: all 0.6s ease;
         }
 
-        @keyframes emoji-float {
-            0% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(-30px) rotate(20deg); opacity: 0.8; }
-            100% { transform: translateY(0); opacity: 1; }
+        .image-container:hover::after {
+            opacity: 1;
         }
 
-        .emoji:nth-child(1) { top: 10%; left: 20%; animation-delay: 1s; }
-        .emoji:nth-child(2) { top: 20%; left: 70%; animation-delay: 2s; }
-        .emoji:nth-child(3) { top: 70%; left: 40%; animation-delay: 3s; }
-        .emoji:nth-child(4) { top: 50%; left: 80%; animation-delay: 0s; }
-        .emoji:nth-child(5) { top: 30%; left: 10%; animation-delay: 1.5s; }
-        .emoji:nth-child(6) { top: 15%; left: 35%; animation-delay: 2.5s; }
-        .emoji:nth-child(7) { top: 80%; left: 15%; animation-delay: 0.5s; }
-        .emoji:nth-child(8) { top: 60%; left: 60%; animation-delay: 3.5s; }
-        .emoji:nth-child(9) { top: 25%; left: 85%; animation-delay: 1.7s; }
-        .emoji:nth-child(10) { top: 45%; left: 5%; animation-delay: 0.8s; }
+        .video-section {
+            padding: 4rem 2rem;
+            opacity: 0;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: perspective(1000px);
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            opacity: 0.1;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            border-radius: inherit;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(transparent, var(--overlay-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
 
         .fullscreen {
             position: fixed;
@@ -138,105 +194,180 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: var(--overlay-color);
             z-index: 1000;
             display: none;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .fullscreen.active {
             display: flex;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .fullscreen img {
             max-width: 90%;
-            max-height: 90%;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .fullscreen.active img {
+            transform: scale(1);
         }
 
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            color: white;
+            top: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
         }
 
-        .video-container {
-    position: relative;
-    width: 75%; 
-    max-width: 400px; 
-    margin-top: 40px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s ease-in-out;
-}
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
 
-.video-container:hover {
-    transform: scale(1.05);
-}
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .gallery { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+            .custom-cursor, .cursor-follower { display: none; }
+        }
 
-video {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    display: block;
-    background-color: black;
-    box-shadow: 0 0 20px rgba(255, 115, 0, 0.7);
-}
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .gallery { padding: 1rem; }
+            .image-container { border-radius: 15px; }
+        }
     </style>
 </head>
 <body>
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <h1>🎃 Halloween In Tpf 👻</h1>
-    <p></p>
-    <div class="emoji">🦇</div>
-    <div class="emoji">👀</div>
-    <div class="emoji">🧙‍♀️</div>
-    <div class="emoji">🧛‍♂️</div>
-    <div class="emoji">🧟‍♀️</div>
-    <div class="emoji">🧙‍♂️</div>
-    <div class="emoji">🎃</div>
-    <div class="emoji">🧡</div>
-    <div class="emoji">🎃</div>
-    <div class="emoji">🦇</div>
-    <div class="emoji">🎃</div>
-    <div class="emoji">👻</div>    
+    <header class="header">
+        <h1>Premium Gallery</h1>
+    </header>
 
     <div class="gallery">
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Resim 1" onclick="openFullscreen(this)">
+        <div class="image-container" data-tilt data-tilt-max="5">
+            <img src="https://i.hizliresim.com/4zr3tdy.jpg" alt="Premium 1" onclick="openFullscreen(this)">
         </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/qbfg756.jpg" alt="Resim 2" onclick="openFullscreen(this)">
+        <div class="image-container" data-tilt data-tilt-max="5">
+            <img src="https://i.hizliresim.com/qbfg756.jpg" alt="Premium 2" onclick="openFullscreen(this)">
         </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Resim 3" onclick="openFullscreen(this)">
+        <div class="image-container" data-tilt data-tilt-max="5">
+            <img src="https://i.hizliresim.com/a2tcq5c.jpg" alt="Premium 3" onclick="openFullscreen(this)">
         </div>
-        <div class="image-container">
-            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Resim 4" onclick="openFullscreen(this)">
+        <div class="image-container" data-tilt data-tilt-max="5">
+            <img src="https://i.hizliresim.com/hljwsvz.jpg" alt="Premium 4" onclick="openFullscreen(this)">
         </div>
     </div>
 
-    <div class="video-container">
-        <video controls>
-            <source src="https://cdn.discordapp.com/attachments/1232813343786401833/1318340553489907712/1217.mp4?ex=67819bd1&is=67804a51&hm=17626816e85aaa82717aa8596d2829d795928d2153f2dd7397e5ea5cc7d11a27&" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+    <section class="video-section">
+        <div class="video-container" data-tilt data-tilt-max="3">
+            <video controls>
+                <source src="https://cdn.discordapp.com/attachments/1212860383308554251/1327778253813059697/ssstik.io_mauroege.9_1736574125297.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <div class="fullscreen" id="fullscreen-container">
+        <button class="close-btn" onclick="closeFullscreen()">×</button>
+        <img id="fullscreen-image" src="" alt="Fullscreen Image">
     </div>
 
     <script>
-        function openFullscreen(img) {
-            const fullscreenDiv = document.createElement('div');
-            fullscreenDiv.classList.add('fullscreen');
-            fullscreenDiv.innerHTML = `
-                <span class="close-btn" onclick="document.body.removeChild(this.parentElement)">×</span>
-                <img src="${img.src}" alt="${img.alt}">
-            `;
-            document.body.appendChild(fullscreenDiv);
-            fullscreenDiv.classList.add('active');
+        // Özel imleç
+        const cursor = document.querySelector('.custom-cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX - 10,
+                y: e.clientY - 10,
+                duration: 0.1
+            });
+            gsap.to(follower, {
+                x: e.clientX - 20,
+                y: e.clientY - 20,
+                duration: 0.3
+            });
+        });
+
+        // Sayfa yüklendiğinde animasyonlar
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.to('h1', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.to('.gallery', {
+                opacity: 1,
+                duration: 1,
+                delay: 0.5,
+                ease: 'power3.out'
+            });
+
+            gsap.to('.video-section', {
+                opacity: 1,
+                duration: 1,
+                delay: 0.8,
+                ease: 'power3.out'
+            });
+        });
+
+        // Tilt efekti
+        VanillaTilt.init(document.querySelectorAll('.image-container'), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            'max-glare': 0.5
+        });
+
+        VanillaTilt.init(document.querySelectorAll('.video-container'), {
+            max: 3,
+            speed: 400
+        });
+
+        // Tam ekran görüntüleme
+        function openFullscreen(imgElement) {
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            
+            fullscreenImage.src = imgElement.src;
+            fullscreenContainer.classList.add('active');
+            
+            gsap.from(fullscreenImage, {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power3.out'
+            });
+        }
+
+        function closeFullscreen() {
+            const fullscreenContainer = document.getElementById('fullscreen-container');
+            fullscreenContainer.classList.remove('active');
         }
     </script>
 </body>
