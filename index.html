@@ -83,59 +83,16 @@
         class SecurityCheck {
             constructor() {
                 this.isVerified = false;
-                this.browserChecks = {
-                    webdriver: false,
-                    automation: false,
-                    phantom: false,
-                    selenium: false
-                };
+                this.timeout = null;
             }
 
             async init() {
-                if (this.checkBrowser()) {
-                    await this.initTurnstile();
+                if (await this.initTurnstile()) {
+                    // Eğer Turnstile geçilemezse, 5 saniye sonra ikinci WAF'a geç
+                    this.timeout = setTimeout(() => {
+                        this.performBrowserCheck();
+                    }, 5000); // 5 saniye bekle
                 }
-            }
-
-            checkBrowser() {
-                // Temel tarayıcı kontrolleri
-                if (navigator.webdriver || 
-                    navigator.automation || 
-                    window._phantom || 
-                    window.callPhantom || 
-                    window.__selenium_unwrapped || 
-                    document.__webdriver_script_fn) {
-                    this.showError("Bot aktivitesi tespit edildi. Erişim engellendi.");
-                    return false;
-                }
-
-                // User Agent kontrolü
-                const ua = navigator.userAgent.toLowerCase();
-                const botPatterns = [
-                    'bot', 'spider', 'crawl', 'phantomjs', 'headless',
-                    'selenium', 'webdriver', 'cypress'
-                ];
-
-                if (botPatterns.some(pattern => ua.includes(pattern))) {
-                    this.showError("Geçersiz tarayıcı tespit edildi.");
-                    return false;
-                }
-
-                // WebGL kontrolü
-                try {
-                    const canvas = document.createElement('canvas');
-                    const gl = canvas.getContext('webgl') || 
-                              canvas.getContext('experimental-webgl');
-                    if (!gl) {
-                        this.showError("WebGL desteği bulunamadı.");
-                        return false;
-                    }
-                } catch (e) {
-                    this.showError("Tarayıcı kontrolünde hata oluştu.");
-                    return false;
-                }
-
-                return true;
             }
 
             async initTurnstile() {
@@ -146,8 +103,10 @@
                         callback: (token) => this.onVerify(token),
                         theme: 'dark'
                     });
+                    return true;
                 } catch (error) {
                     this.showError("Turnstile yüklenemedi.");
+                    return false;
                 }
             }
 
@@ -164,8 +123,9 @@
                     const data = await response.json();
                     if (data.success) {
                         this.isVerified = true;
-                        localStorage.setItem('securityToken', data.token);
+                        clearTimeout(this.timeout); // Turnstile geçildiyse zaman aşımını iptal et
                         document.getElementById('security-check').classList.add('hidden');
+                        window.location.href = "/"; // Ana sayfaya yönlendir
                     } else {
                         this.showError("Doğrulama başarısız oldu.");
                     }
@@ -181,6 +141,36 @@
                 errorElement.textContent = message;
                 errorElement.classList.remove('hidden');
                 document.getElementById('loading').classList.add('hidden');
+            }
+
+            performBrowserCheck() {
+                // Tarayıcı kontrolü yapılır
+                const ua = navigator.userAgent.toLowerCase();
+                const botPatterns = [
+                    'bot', 'spider', 'crawl', 'phantomjs', 'headless',
+                    'selenium', 'webdriver', 'cypress'
+                ];
+
+                if (botPatterns.some(pattern => ua.includes(pattern))) {
+                    this.showError("Geçersiz tarayıcı tespit edildi.");
+                    return false;
+                }
+
+                // Tarayıcı kontrolü başarıyla geçildi
+                this.retryTurnstile(); // Tekrar Turnstile CAPTCHA çözümüne yönlendirilir
+            }
+
+            async retryTurnstile() {
+                try {
+                    document.getElementById('loading').classList.remove('hidden');
+                    turnstile.render('#turnstile-container', {
+                        sitekey: '0x4AAAAAAA5W-0OH6lcChs4N', // Burada doğru sitekey kullandığınızdan emin olun
+                        callback: (token) => this.onVerify(token),
+                        theme: 'dark'
+                    });
+                } catch (error) {
+                    this.showError("Turnstile tekrar yüklenemedi.");
+                }
             }
         }
 
