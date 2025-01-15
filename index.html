@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mehmet12ws</title>
+    <title>Güvenlik Doğrulaması</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script&display=swap" rel="stylesheet">
-    <!-- Cloudflare Turnstile -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        /* Güvenlik Doğrulama Stilleri */
         .security-check {
             position: fixed;
             top: 0;
@@ -38,18 +35,6 @@
             color: #fff;
         }
 
-        .security-error {
-            color: #ff4444;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            background: rgba(255, 68, 68, 0.1);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
         .loading {
             width: 50px;
             height: 50px;
@@ -60,58 +45,10 @@
             margin: 20px auto;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-    <!-- 1. WAF Ekranı (İlk Turnstile) -->
-    <div id="security-check-1" class="security-check">
-        <div class="security-box">
-            <h2>Güvenlik Doğrulaması (Adım 1)</h2>
-            <div id="loading-1" class="loading"></div>
-            <div id="turnstile-container-1"></div>
-            <div id="security-error-1" class="security-error hidden"></div>
-       
-        .security-box {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .security-box h2 {
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .security-error {
-            color: #ff4444;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            background: rgba(255, 68, 68, 0.1);
-        }
-
         .hidden {
             display: none !important;
         }
 
-        .loading {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -119,134 +56,59 @@
     </style>
 </head>
 <body>
-    <!-- Güvenlik Kontrolü -->
+    <!-- Güvenlik Doğrulaması Ekranı -->
     <div id="security-check" class="security-check">
         <div class="security-box">
             <h2>Güvenlik Doğrulaması</h2>
             <div id="loading" class="loading"></div>
-            <div id="turnstile-container"></div>
-            <div id="security-error" class="security-error hidden"></div>
+            <div id="security-error" class="hidden"></div>
         </div>
     </div>
 
     <script>
-        // Tarayıcı ve Bot Kontrolleri
         class SecurityCheck {
             constructor() {
                 this.isVerified = false;
-                this.browserChecks = {
-                    webdriver: false,
-                    automation: false,
-                    phantom: false,
-                    selenium: false
-                };
-                this.wafAttempts = 1;
+                this.timer = null;
             }
 
             async init() {
-                if (this.checkBrowser()) {
-                    await this.initTurnstile();
-                }
+                this.startTimer();
+                await this.checkSecurity();
             }
 
-            checkBrowser() {
-                // Temel tarayıcı kontrolleri
-                if (navigator.webdriver || 
-                    navigator.automation || 
-                    window._phantom || 
-                    window.callPhantom || 
-                    window.__selenium_unwrapped || 
-                    document.__webdriver_script_fn) {
-                    this.showError("Bot aktivitesi tespit edildi. Erişim engellendi.");
-                    return false;
-                }
-
-                // User Agent kontrolü
-                const ua = navigator.userAgent.toLowerCase();
-                const botPatterns = [
-                    'bot', 'spider', 'crawl', 'phantomjs', 'headless',
-                    'selenium', 'webdriver', 'cypress'
-                ];
-
-                if (botPatterns.some(pattern => ua.includes(pattern))) {
-                    this.showError("Geçersiz tarayıcı tespit edildi.");
-                    return false;
-                }
-
-                return true;
+            startTimer() {
+                this.timer = setTimeout(() => {
+                    this.redirectToWAF2();
+                }, 5000); // 5 saniye sonra yönlendirme
             }
 
-            async initTurnstile() {
+            clearTimer() {
+                clearTimeout(this.timer);
+            }
+
+            async checkSecurity() {
+                // Burada başka güvenlik kontrolü yapabilirsiniz (Örneğin tarayıcı kontrolü)
                 try {
-                    document.getElementById('loading').classList.remove('hidden');
-                    turnstile.render('#turnstile-container', {
-                        sitekey: '0x4AAAAAAA5W-0OH6lcChs4N', // Turnstile sitekey
-                        callback: (token) => this.onVerify(token),
-                        theme: 'dark'
-                    });
-                } catch (error) {
-                    this.showError("Turnstile yüklenemedi.");
-                }
-            }
-
-            async onVerify(token) {
-                try {
-                    // Backend doğrulama isteği
-                    const response = await fetch('/verify-turnstile', {
+                    const response = await fetch('/verify-security', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ token })
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ check: 'initial' })
                     });
 
                     const data = await response.json();
                     if (data.success) {
                         this.isVerified = true;
+                        this.clearTimer(); // Zamanlayıcıyı durdur
                         document.getElementById('security-check').classList.add('hidden');
                         window.location.href = "/"; // Ana sayfaya yönlendir
                     } else {
                         this.showError("Doğrulama başarısız oldu.");
-                        this.handleWAF();
                     }
                 } catch (error) {
                     this.showError("Doğrulama sırasında bir hata oluştu.");
                 } finally {
                     document.getElementById('loading').classList.add('hidden');
-                }
-            }
-
-            handleWAF() {
-                if (this.wafAttempts === 1) {
-                    this.wafAttempts = 2;
-                    this.showError("1. WAF başarısız oldu, 2. WAF'a yönlendiriliyorsunuz...");
-                    this.initSecondWAF();
-                } else if (this.wafAttempts === 2) {
-                    this.wafAttempts = 3;
-                    this.showError("2. WAF başarısız oldu, tarayıcı kontrolü yapılacak...");
-                    this.initThirdWAF();
-                }
-            }
-
-            async initSecondWAF() {
-                // 2. Turnstile doğrulamasını başlat
-                document.getElementById('loading').classList.remove('hidden');
-                turnstile.render('#turnstile-container', {
-                    sitekey: '0x4BBBBBB7w9O-Oh5dc9gs8d', // 2. Turnstile sitekey
-                    callback: (token) => this.onVerify(token),
-                    theme: 'dark'
-                });
-            }
-
-            async initThirdWAF() {
-                // 3. Tarayıcı kontrolü
-                if (this.checkBrowser()) {
-                    document.getElementById('loading').classList.remove('hidden');
-                    turnstile.render('#turnstile-container', {
-                        sitekey: '0x4CCDDDD8GH-QP45dt9jj8h', // 3. Turnstile sitekey
-                        callback: (token) => this.onVerify(token),
-                        theme: 'dark'
-                    });
                 }
             }
 
@@ -256,9 +118,13 @@
                 errorElement.classList.remove('hidden');
                 document.getElementById('loading').classList.add('hidden');
             }
+
+            redirectToWAF2() {
+                window.location.href = "/waf2";  // 2. WAF'a yönlendir
+            }
         }
 
-        // Güvenlik kontrollerini başlat
+        // Güvenlik kontrolünü başlat
         window.onload = async function() {
             const security = new SecurityCheck();
             await security.init();
