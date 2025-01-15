@@ -78,9 +78,6 @@
         </div>
     </div>
 
-    <!-- Ana içerik aynı kaldı -->
-    <!-- ... -->
-
     <script>
         // Tarayıcı ve Bot Kontrolleri
         class SecurityCheck {
@@ -124,12 +121,6 @@
                     return false;
                 }
 
-                // Chrome kontrolü
-                if (!('chrome' in window)) {
-                    this.showError("Lütfen Chrome tarayıcı kullanın.");
-                    return false;
-                }
-
                 // WebGL kontrolü
                 try {
                     const canvas = document.createElement('canvas');
@@ -151,7 +142,7 @@
                 try {
                     document.getElementById('loading').classList.remove('hidden');
                     turnstile.render('#turnstile-container', {
-                        sitekey: '0x4AAAAAAA5W-0OH6lcChs4N',
+                        sitekey: '0x4AAAAAAA5W-0OH6lcChs4N', // Burada doğru sitekey kullandığınızdan emin olun
                         callback: (token) => this.onVerify(token),
                         theme: 'dark'
                     });
@@ -198,17 +189,6 @@
             const security = new SecurityCheck();
             await security.init();
         };
-
-        // XSS Koruması
-        function sanitizeInput(input) {
-            return input.replace(/[&<>"']/g, match => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            })[match]);
-        }
     </script>
 </body>
 </html>
