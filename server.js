@@ -1,23 +1,32 @@
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 
-let clients = [];
+let players = [];
 
 wss.on('connection', (ws) => {
-  clients.push(ws);
-  console.log('Yeni bir kullanıcı bağlandı!');
-  
-  ws.on('message', (message) => {
-    // Diğer oyunculara mesajı ilet
-    clients.forEach(client => {
-      if (client !== ws) {
-        client.send(message);
-      }
-    });
-  });
+    console.log('Yeni bir oyuncu bağlandı!');
 
-  ws.on('close', () => {
-    clients = clients.filter(client => client !== ws);
-    console.log('Bir kullanıcı ayrıldı!');
-  });
+    // Yeni oyuncuyu ekleyin
+    players.push(ws);
+
+    // Bağlantıdaki her mesajı dinleyin
+    ws.on('message', (message) => {
+        const data = JSON.parse(message);
+        if (data.players) {
+            // Gelen player verilerini diğer tüm oyunculara gönder
+            players.forEach(player => {
+                if (player !== ws) {
+                    player.send(message);
+                }
+            });
+        }
+    });
+
+    // Bağlantı kapandığında oyuncuyu listeden çıkarın
+    ws.on('close', () => {
+        players = players.filter(player => player !== ws);
+        console.log('Bir oyuncu ayrıldı!');
+    });
 });
+
+console.log('Sunucu 8080 portunda çalışıyor...');
