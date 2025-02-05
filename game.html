@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hole.io Tarzı Oyun</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        canvas {
+            background-color: #f4f4f4;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <script>
+        // WebSocket Bağlantısı
+        const socket = new WebSocket('ws://localhost:8080');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Canvas Boyutları
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let hole = { x: canvas.width / 2, y: canvas.height / 2, radius: 30, color: 'black', speed: 5 };
+        let objects = [];
+
+        // Object oluşturma fonksiyonu
+        function createObject() {
+            const size = Math.random() * 20 + 20;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            objects.push({ x, y, size });
+        }
+
+        // Delik Çizme Fonksiyonu
+        function drawHole() {
+            ctx.beginPath();
+            ctx.arc(hole.x, hole.y, hole.radius, 0, Math.PI * 2);
+            ctx.fillStyle = hole.color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Obje Çizme Fonksiyonu
+        function drawObjects() {
+            objects.forEach(obj => {
+                ctx.beginPath();
+                ctx.arc(obj.x, obj.y, obj.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'blue';
+                ctx.fill();
+                ctx.closePath();
+            });
+        }
+
+        // Mouse Hareketini Dinleyen Fonksiyon
+        function moveHole(event) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            const angle = Math.atan2(mouseY - hole.y, mouseX - hole.x);
+            hole.x += Math.cos(angle) * hole.speed;
+            hole.y += Math.sin(angle) * hole.speed;
+        }
+
+        // Çarpışma Kontrolü Fonksiyonu
+        function checkCollision() {
+            objects.forEach((obj, index) => {
+                const dist = Math.hypot(hole.x - obj.x, hole.y - obj.y);
+                if (dist < hole.radius + obj.size) {
+                    hole.radius += obj.size / 2;
+                    objects.splice(index, 1);
+                }
+            });
+        }
+
+        // Sunucuya Veriyi Gönderme
+        function sendPlayerData() {
+            const playerData = { x: hole.x, y: hole.y, radius: hole.radius };
+            socket.send(JSON.stringify({ players: [playerData] }));
+        }
+
+        // Oyun Döngüsü
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawHole();
+            drawObjects();
+            checkCollision();
+            sendPlayerData();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // WebSocket ile Gelen Veriyi İşleme
+        socket.onmessage = (event) => {
+            const playerData = JSON.parse(event.data);
+            otherPlayers = playerData.players;
+        };
+
+        // WebSocket Bağlantısı
+        socket.onopen = () => {
+            console.log('Sunucuya bağlandık!');
+        };
+
+        // Mouse Hareketini Dinlemek İçin Event Listener
+        canvas.addEventListener('mousemove', moveHole);
+        
+        setInterval(createObject, 1000);
+        gameLoop();
+    </script>
+
+    <script>
+        // WebSocket Sunucu Kodu
+        const WebSocket = require('ws');
+        const wss = new WebSocket.Server({ port: 8080 });
+        
+        let clients = [];
+
+        wss.on('connection', (ws) => {
+            clients.push(ws);
+            console.log('Yeni bir oyuncu bağlandı!');
+            
+            // Mesajları iletme
+            ws.on('message', (message) => {
+                clients.forEach(client => {
+                    if (client !== ws) {
+                        client.send(message);
+                    }
+                });
+            });
+
+            ws.on('close', () => {
+                clients = clients.filter(client => client !== ws);
+                console.log('Bir oyuncu ayrıldı!');
+            });
+        });
+    </script>
+</body>
+</html>
