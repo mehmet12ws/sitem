@@ -12,14 +12,13 @@ wss.on('connection', (ws) => {
     // Bağlantıdaki her mesajı dinleyin
     ws.on('message', (message) => {
         const data = JSON.parse(message);
-        if (data.players) {
-            // Gelen player verilerini diğer tüm oyunculara gönder
-            players.forEach(player => {
-                if (player !== ws) {
-                    player.send(message);
-                }
-            });
-        }
+        
+        // Diğer oyunculara veri gönder
+        players.forEach(player => {
+            if (player !== ws) {
+                player.send(message);
+            }
+        });
     });
 
     // Bağlantı kapandığında oyuncuyu listeden çıkarın
