@@ -3,99 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Güvenlik Doğrulaması</title>
+    <title>Modern Website</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        :root {
+            --primary: #7F00FF;
+            --secondary: #E100FF;
+            --dark: #1a1a1a;
+            --light: #ffffff;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #2d2d2d);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Verification Screen Styles */
         .verification-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: linear-gradient(135deg, rgba(127, 0, 255, 0.95), rgba(225, 0, 255, 0.95));
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .verification-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
         }
 
-        .verification-header {
-            margin-bottom: 20px;
-        }
-
-        .verification-header img {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-        }
-
         .verification-title {
-            font-size: 24px;
-            color: #1a73e8;
-            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .verification-subtitle {
             font-size: 16px;
-            color: #5f6368;
-            margin-bottom: 20px;
-        }
-
-        .verification-progress {
-            margin: 20px 0;
-            display: none;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
         }
 
         .progress-bar {
             width: 100%;
             height: 4px;
-            background: #e0e0e0;
-            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
             overflow: hidden;
+            margin: 20px 0;
         }
 
         .progress-fill {
             height: 100%;
-            background: #1a73e8;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             width: 0%;
-            transition: width 0.3s ease;
             animation: progress 2s infinite;
         }
 
-        .verification-status {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #5f6368;
-        }
-
-        .success-message {
-            color: #0f9d58;
-            display: none;
-        }
-
+        /* Main Content Styles */
         .main-content {
             display: none;
             padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(127, 0, 255, 0.1), rgba(225, 0, 255, 0.1));
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
         }
 
         @keyframes progress {
@@ -104,12 +191,15 @@
             100% { width: 0%; }
         }
 
-        .content-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-section h1 {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
@@ -117,42 +207,47 @@
     <!-- Doğrulama Ekranı -->
     <div class="verification-container" id="verificationScreen">
         <div class="verification-box">
-            <div class="verification-header">
-                <img src="/api/placeholder/60/60" alt="Security Icon">
-                <h1 class="verification-title">Güvenlik Doğrulaması</h1>
-                <p class="verification-subtitle">Lütfen insan olduğunuzu doğrulayın</p>
-            </div>
+            <h1 class="verification-title">Güvenlik Doğrulaması</h1>
+            <p class="verification-subtitle">Devam etmek için lütfen doğrulamayı tamamlayın</p>
             
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="onVerificationComplete"></div>
+            <div class="cf-turnstile" data-sitekey="BURAYA_SITE_KEY_GELECEK" data-callback="onVerificationComplete"></div>
             
-            <div class="verification-progress" id="verificationProgress">
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <div class="verification-status">Doğrulama kontrol ediliyor...</div>
-            </div>
-            
-            <div class="success-message" id="successMessage">
-                <p>✓ Doğrulama başarılı! Yönlendiriliyorsunuz...</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
             </div>
         </div>
     </div>
 
     <!-- Ana İçerik -->
     <div class="main-content" id="mainContent">
-        <div class="content-card">
-            <h2>Hoş Geldiniz</h2>
-            <p>Başarıyla doğrulandınız ve siteye erişim sağladınız.</p>
-        </div>
-        
-        <div class="content-card">
-            <h2>Hizmetlerimiz</h2>
+        <nav>
+            <div class="logo">STELLAR</div>
             <ul>
-                <li>Web Tasarım ve Geliştirme</li>
-                <li>Mobil Uygulama Geliştirme</li>
-                <li>Siber Güvenlik Çözümleri</li>
-                <li>Dijital Pazarlama</li>
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#services">Hizmetler</a></li>
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#contact">İletişim</a></li>
             </ul>
+        </nav>
+
+        <div class="hero-section">
+            <h1>Geleceği Şekillendiriyoruz</h1>
+            <p>En yenilikçi dijital çözümlerle işinizi bir üst seviyeye taşıyoruz. Modern teknolojiler ve yaratıcı fikirlerle sizin için en iyisini üretiyoruz.</p>
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <h3>Web Tasarım</h3>
+                <p>Modern ve etkileyici web siteleri tasarlıyoruz. Responsive tasarımlar ile her cihazda mükemmel görünüm sağlıyoruz.</p>
+            </div>
+            <div class="card">
+                <h3>Dijital Pazarlama</h3>
+                <p>SEO optimizasyonu, sosyal medya yönetimi ve içerik stratejileri ile markanızı öne çıkarıyoruz.</p>
+            </div>
+            <div class="card">
+                <h3>Mobil Uygulama</h3>
+                <p>iOS ve Android platformları için kullanıcı dostu, performanslı mobil uygulamalar geliştiriyoruz.</p>
+            </div>
         </div>
     </div>
 
@@ -160,20 +255,10 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         function onVerificationComplete(token) {
-            // Doğrulama sürecini göster
-            document.getElementById('verificationProgress').style.display = 'block';
-            
-            // 2 saniye sonra başarılı mesajını göster
             setTimeout(function() {
-                document.getElementById('verificationProgress').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
-                
-                // 1.5 saniye sonra ana içeriğe geçiş yap
-                setTimeout(function() {
-                    document.getElementById('verificationScreen').style.display = 'none';
-                    document.getElementById('mainContent').style.display = 'block';
-                }, 1500);
-            }, 2000);
+                document.getElementById('verificationScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 1500);
         }
     </script>
 </body>
