@@ -13,14 +13,24 @@
 <body>
     <div id="captcha-container">
         <h2>Giriş yapmak için doğrulamayı geçin</h2>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="captchaSuccess"></div>
+        <div id="cf-captcha" class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="captchaSuccess"></div>
     </div>
 
     <script>
         function captchaSuccess(token) {
+            console.log("Captcha Başarıyla Geçildi! Token:", token);
             document.body.style.display = "block"; // Captcha geçildiğinde siteyi göster
             document.getElementById("captcha-container").style.display = "none"; // Captcha alanını gizle
         }
+
+        // Eğer captcha yüklenmezse hata ayıklamak için
+        window.onload = function () {
+            setTimeout(function () {
+                if (!document.querySelector(".cf-turnstile iframe")) {
+                    alert("Captcha yüklenemedi! Site key'in doğru mu?");
+                }
+            }, 5000);
+        };
     </script>
 </body>
 </html>
