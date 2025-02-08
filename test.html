@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUANTUM | Digital Experience</title>
+    <title>NOVA | Creative Agency</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <style>
-        @keyframes morph {
-            0% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
-            50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
-            100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         :root {
-            --neon-text-color: #f40;
-            --neon-border-color: #08f;
+            --primary: #FF3CAC;
+            --secondary: #784BA0;
+            --tertiary: #2B86C5;
+            --dark: #0a0a0a;
+            --light: #ffffff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #000;
-            color: #fff;
+            background: var(--dark);
+            color: var(--light);
             overflow-x: hidden;
         }
 
@@ -41,45 +54,55 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background: linear-gradient(-45deg, #FF3CAC, #784BA0, #2B86C5, #FF3CAC);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 1000;
-            overflow: hidden;
-        }
-
-        #verification-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
         }
 
         .verification-box {
-            position: relative;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(255, 255, 255, 0.1);
             padding: 50px;
-            border: 2px solid var(--neon-border-color);
-            border-radius: 20px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.18);
             text-align: center;
             max-width: 500px;
             width: 90%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px var(--neon-border-color),
-                        inset 0 0 20px var(--neon-border-color);
-            animation: neon-pulse 1.5s infinite alternate;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes neon-pulse {
-            from {
-                box-shadow: 0 0 20px var(--neon-border-color),
-                           inset 0 0 20px var(--neon-border-color);
-            }
-            to {
-                box-shadow: 0 0 40px var(--neon-border-color),
-                           inset 0 0 40px var(--neon-border-color);
-            }
+        .verification-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateZ(30px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
+            background-size: 200% 100%;
+            animation: gradient 2s linear infinite;
         }
 
         /* Main Content */
@@ -87,31 +110,19 @@
             display: none;
         }
 
-        .video-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
         nav {
             position: fixed;
             top: 0;
             width: 100%;
+            padding: 20px 50px;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
+            transition: 0.5s;
             backdrop-filter: blur(10px);
-            padding: 20px;
-            transform: translateY(-100%);
-            animation: slideDown 1s forwards;
         }
 
-        @keyframes slideDown {
-            to { transform: translateY(0); }
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 15px 50px;
         }
 
         .nav-content {
@@ -123,43 +134,41 @@
         }
 
         .logo {
-            font-size: 2em;
-            font-weight: 900;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 10px var(--neon-text-color),
-                         0 0 20px var(--neon-text-color),
-                         0 0 40px var(--neon-text-color);
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
-        .menu-items {
+        nav ul {
             display: flex;
-            gap: 2em;
+            gap: 30px;
+            list-style: none;
         }
 
-        .menu-item {
-            position: relative;
-            padding: 0.5em 1em;
-            color: #fff;
+        nav ul li a {
+            color: var(--light);
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            overflow: hidden;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
         }
 
-        .menu-item::before {
+        nav ul li a::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
         }
 
-        .menu-item:hover::before {
-            left: 100%;
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
         .hero {
@@ -167,118 +176,118 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(45deg, rgba(255, 60, 172, 0.1), rgba(43, 134, 197, 0.1));
         }
 
         .hero-content {
-            position: relative;
+            text-align: center;
             z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
         }
 
         .hero h1 {
-            font-size: 5em;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 0.5em;
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s forwards;
-            text-shadow: 0 0 10px var(--neon-text-color);
+            transform: translateY(30px);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary), var(--tertiary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .services {
             padding: 100px 20px;
-            position: relative;
+            background: linear-gradient(45deg, rgba(120, 75, 160, 0.1), rgba(43, 134, 197, 0.1));
         }
 
-        .service-cards {
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2em;
-            max-width: 1400px;
+            gap: 30px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .service-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2em;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            transition: 0.5s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
         .service-card:hover {
-            transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
-            pointer-events: none;
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .service-icon {
-            font-size: 3em;
-            margin-bottom: 0.5em;
-            color: var(--neon-text-color);
-        }
-
-        .service-title {
-            font-size: 1.5em;
-            margin-bottom: 0.5em;
-            color: #fff;
-        }
-
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--neon-border-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: 0.1s;
+        .service-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3em;
+            nav {
+                padding: 20px;
+            }
+            
+            nav.scrolled {
+                padding: 15px;
             }
 
             .nav-content {
                 flex-direction: column;
-                gap: 1em;
+                gap: 20px;
             }
 
-            .menu-items {
-                flex-direction: column;
-                align-items: center;
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .verification-box {
+                padding: 30px;
             }
         }
     </style>
@@ -286,152 +295,114 @@
 <body>
     <!-- Doğrulama Ekranı -->
     <div class="verification-container" id="verificationScreen">
-        <canvas id="verification-canvas"></canvas>
         <div class="verification-box">
-            <h1 class="verification-title">mehmet12ws armor</h1>
-            <p class="verification-subtitle">Devam etmek için doğrulayın</p>
+            <h1 class="verification-title">Güvenlik Doğrulaması</h1>
+            <p class="verification-subtitle">Lütfen insan olduğunuzu doğrulayın</p>
             
             <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="onVerificationComplete"></div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
         </div>
     </div>
 
     <!-- Ana İçerik -->
     <div class="main-content" id="mainContent">
-        <!-- Video Arka Plan -->
-        <video autoplay muted loop class="video-bg">
-            <source src="/api/placeholder/1920/1080" type="video/mp4">
-        </video>
-
-        <!-- Özel Cursor -->
-        <div class="cursor"></div>
-        <div class="cursor-follower"></div>
-
-        <nav>
+        <nav id="mainNav">
             <div class="nav-content">
-                <div class="logo">QUANTUM</div>
-                <div class="menu-items">
-                    <a href="#" class="menu-item">Ana Sayfa</a>
-                    <a href="#" class="menu-item">Hizmetler</a>
-                    <a href="#" class="menu-item">Portfolyo</a>
-                    <a href="#" class="menu-item">İletişim</a>
-                </div>
+                <div class="logo">NOVA</div>
+                <ul>
+                    <li><a href="#home">Ana Sayfa</a></li>
+                    <li><a href="#services">Hizmetler</a></li>
+                    <li><a href="#work">Çalışmalarımız</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
             </div>
         </nav>
 
-        <section class="hero">
+        <section class="hero" id="home">
             <div class="hero-content">
-                <h1>GELECEĞE<br>HOŞGELDİNİZ</h1>
+                <h1>Dijital Dünyada Öne Çıkın</h1>
+                <p>Modern teknolojiler ve yaratıcı çözümlerle markanızı geleceğe taşıyoruz. Profesyonel ekibimizle hayallerinizi gerçeğe dönüştürüyoruz.</p>
+                <a href="#contact" class="cta-button">Bizimle Çalışın</a>
             </div>
         </section>
 
-        <section class="services">
-            <div class="service-cards">
-                <div class="service-card" data-tilt data-tilt-max="10">
-                    <div class="service-icon">⚡</div>
-                    <h3 class="service-title">Dijital Dönüşüm</h3>
-                    <p>Modern çözümlerle işinizi geleceğe taşıyoruz</p>
+        <section class="services" id="services">
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Web Tasarım</h3>
+                    <p>Etkileyici ve modern web siteleri tasarlıyoruz. Kullanıcı deneyimi odaklı yaklaşımımızla markanızı dijitalde en iyi şekilde temsil ediyoruz.</p>
                 </div>
-                <div class="service-card" data-tilt data-tilt-max="10">
-                    <div class="service-icon">🎯</div>
-                    <h3 class="service-title">Yapay Zeka</h3>
-                    <p>AI tabanlı akıllı sistemler geliştiriyoruz</p>
+                <div class="service-card">
+                    <h3>Dijital Pazarlama</h3>
+                    <p>SEO, sosyal medya ve içerik stratejileri ile markanızın dijital varlığını güçlendiriyoruz. Hedef kitlenize etkili bir şekilde ulaşmanızı sağlıyoruz.</p>
                 </div>
-                <div class="service-card" data-tilt data-tilt-max="10">
-                    <div class="service-icon">🚀</div>
-                    <h3 class="service-title">İnovasyon</h3>
-                    <p>Yenilikçi fikirlerle fark yaratıyoruz</p>
+                <div class="service-card">
+                    <h3>Mobil Uygulama</h3>
+                    <p>iOS ve Android için native uygulamalar geliştiriyoruz. Kullanıcı dostu arayüzler ve yüksek performanslı çözümler sunuyoruz.</p>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Scripts -->
+    <!-- Cloudflare Turnstile Script -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        // Particle Animation
-        const canvas = document.getElementById('verification-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 100;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = '#fff';
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            for (let particle of particles) {
-                particle.update();
-                particle.draw();
-            }
-
-            requestAnimationFrame(animateParticles);
-        }
-
-        initParticles();
-        animateParticles();
-
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX - 10 + 'px';
-                cursorFollower.style.top = e.clientY - 10 + 'px';
-            }, 100);
-        });
-
-        // Verification Callback
         function onVerificationComplete(token) {
-            setTimeout(() => {
+            setTimeout(function() {
                 document.getElementById('verificationScreen').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
-                
-                // Initialize Tilt
-                VanillaTilt.init(document.querySelectorAll(".service-card"), {
-                    max: 25,
-                    speed: 400,
-                    glare: true,
-                    "max-glare": 0.5,
-                });
+                initializeAnimations();
             }, 1500);
         }
 
-        // Smooth Scroll
+        function initializeAnimations() {
+            // GSAP Animations
+            gsap.from(".hero h1", {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 0.2
+            });
+
+            gsap.from(".hero p", {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 0.4
+            });
+
+            gsap.from(".cta-button", {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                delay: 0.6
+            });
+
+            // Service Cards Animation
+            gsap.from(".service-card", {
+                scrollTrigger: {
+                    trigger: ".services",
+                    start: "top center",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2
+            });
+
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.getElementById('mainNav').classList.add('scrolled');
+                } else {
+                    document.getElementById('mainNav').classList.remove('scrolled');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
