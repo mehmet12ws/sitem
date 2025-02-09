@@ -7,8 +7,102 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        /* Previous styles remain the same until gallery-grid */
-        
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #818cf8;
+            --background: #0f172a;
+            --card-bg: #1e293b;
+        }
+
+        body {
+            background: var(--background);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .verification-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0f172a, #1e293b, #374151);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+        }
+
+        .verification-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(0px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .verification-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .verification-subtitle {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .progress-container {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .gallery-container {
+            max-width: 1600px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -16,7 +110,33 @@
             padding: 1rem;
         }
 
-        /* Custom Video Player Styles */
+        .gallery-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--card-bg);
+            aspect-ratio: 1/1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
         .video-container {
             grid-column: 1 / -1;
             margin: 2rem auto;
@@ -64,7 +184,7 @@
             opacity: 1;
         }
 
-        .progress-bar {
+        .video-progress-bar {
             width: 100%;
             height: 5px;
             background: rgba(255, 255, 255, 0.2);
@@ -73,7 +193,7 @@
             margin-bottom: 10px;
         }
 
-        .progress-fill {
+        .video-progress-fill {
             height: 100%;
             background: var(--primary-color);
             border-radius: 5px;
@@ -103,6 +223,78 @@
             transform: scale(1.1);
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-button {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); }
@@ -113,118 +305,89 @@
             animation: pulse 2s infinite;
         }
 
-        /* Keep all previous styles */
+        .gallery-item {
+            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+        }
     </style>
 </head>
 <body>
-    <!-- Previous verification screen code remains the same -->
-
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent" style="display: none;">
-        <div class="gallery-container">
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Video will be inserted here by JavaScript -->
+    <div class="verification-container" id="verificationScreen">
+        <div class="verification-box">
+            <h1 class="verification-title">Güvenlik Doğrulaması</h1>
+            <p class="verification-subtitle">Lütfen insan olduğunuzu doğrulayın</p>
+            
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="onVerificationComplete"></div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
         </div>
-
-        <!-- Previous modal code remains the same -->
     </div>
 
+    <div class="main-content" id="mainContent" style="display: none;">
+        <div class="gallery-container">
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeModal()">×</button>
+                <img id="modalImage" src="" alt="Enlarged image">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        // Previous scripts remain, modify initializeGallery function:
-        function initializeGallery() {
-            const galleryGrid = document.getElementById('galleryGrid');
-            
-            // Add first 5 images
-            for(let i = 0; i < 5; i++) {
-                addGalleryItem(images[i], i);
-            }
+        const images = [
+            'https://i.pinimg.com/564x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
+            'https://i.pinimg.com/564x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
+            'https://i.pinimg.com/564x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
+            'https://i.pinimg.com/564x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg',
+            'https://i.pinimg.com/564x/03/4d/18/034d18757bde21fcef3bf7499d20aa77.jpg',
+            'https://i.pinimg.com/564x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg',
+            'https://i.pinimg.com/564x/d4/52/82/d452822cb16a5b5a18821d3a337cd170.jpg',
+            'https://i.pinimg.com/564x/0d/81/3f/0d813faf07f0fb151b6c6075e499002b.jpg',
+            'https://i.pinimg.com/564x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
+            'https://i.pinimg.com/564x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg',
+            'https://i.pinimg.com/564x/22/73/e3/2273e3643523f8f144bb05e1e9fddd93.jpg',
+            'https://i.pinimg.com/564x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg'
+        ];
 
-            // Add video container
-            const videoContainer = document.createElement('div');
-            videoContainer.className = 'video-container';
-            videoContainer.innerHTML = `
-                <div class="video-frame">
-                    <video class="video-player" id="customVideo">
-                        <source src="https://cdn.discordapp.com/attachments/1297631248507736085/1337976614667026607/Sana_bugune_kadar_bir_tek_seye_olmaz._Yapamam_dedim_mi_.mp4?ex=67a96753&is=67a815d3&hm=db443b0b529c3d35e9c8cc8ec0fe92e792e6c91fe17e28c9f696b5c69c031ea9&" type="video/mp4">
-                    </video>
-                    <div class="video-controls">
-                        <div class="progress-bar" id="progressBar">
-                            <div class="progress-fill" id="progressFill"></div>
-                        </div>
-                        <div class="video-buttons">
-                            <button class="video-btn" id="playPauseBtn">▶</button>
-                            <button class="video-btn" id="muteBtn">🔊</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            galleryGrid.appendChild(videoContainer);
+        const videoUrl = "https://cdn.discordapp.com/attachments/1297631248507736085/1337976614667026607/Sana_bugune_kadar_bir_tek_seye_olmaz._Yapamam_dedim_mi_.mp4";
 
-            // Add remaining images
-            for(let i = 5; i < images.length; i++) {
-                addGalleryItem(images[i], i);
-            }
+        let captchaInterval;
 
-            // Initialize video controls
-            initializeVideoControls();
+        function startCaptchaTimer() {
+            captchaInterval = setInterval(() => {
+                showVerification();
+            }, 120000); // 2 minutes
         }
 
-        function addGalleryItem(img, index) {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.style.animationDelay = `${index * 0.1}s`;
+        function showVerification() {
+            const verificationScreen = document.getElementById('verificationScreen');
+            const mainContent = document.getElementById('mainContent');
             
-            const image = document.createElement('img');
-            image.src = img;
-            image.alt = `Gallery image ${index + 1}`;
-            image.loading = 'lazy';
+            verificationScreen.style.display = 'flex';
+            mainContent.style.display = 'none';
             
-            item.appendChild(image);
-            item.onclick = () => openModal(img);
-            
-            galleryGrid.appendChild(item);
-        }
-
-        function initializeVideoControls() {
-            const video = document.getElementById('customVideo');
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const muteBtn = document.getElementById('muteBtn');
-            const progressBar = document.getElementById('progressBar');
             const progressFill = document.getElementById('progressFill');
-
-            playPauseBtn.addEventListener('click', () => {
-                if (video.paused) {
-                    video.play();
-                    playPauseBtn.textContent = '⏸';
-                } else {
-                    video.pause();
-                    playPauseBtn.textContent = '▶';
-                }
-            });
-
-            muteBtn.addEventListener('click', () => {
-                video.muted = !video.muted;
-                muteBtn.textContent = video.muted ? '🔇' : '🔊';
-            });
-
-            video.addEventListener('timeupdate', () => {
-                const progress = (video.currentTime / video.duration) * 100;
+            progressFill.style.width = '0%';
+            
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 1;
                 progressFill.style.width = `${progress}%`;
-            });
-
-            progressBar.addEventListener('click', (e) => {
-                const rect = progressBar.getBoundingClientRect();
-                const pos = (e.clientX - rect.left) / progressBar.offsetWidth;
-                video.currentTime = pos * video.duration;
-            });
-
-            video.addEventListener('ended', () => {
-                playPauseBtn.textContent = '▶';
-            });
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                }
+            }, 20);
         }
 
-        // Keep all previous script code
-    </script>
-</body>
-</html>
+        function onVerificationComplete(token) {
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = '100%';
+            
+            setTimeout(()
