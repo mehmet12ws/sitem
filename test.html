@@ -3,111 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA | Creative Agency</title>
+    <title>NOVA | Creative Gallery</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        /* === 3D Neon Grid Arka Plan Animasyonu === */
         body {
-            background: #0d1117;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(to right bottom, #1a1a1a, #2d2d2d);
             color: white;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(30, 30, 30, 0.7), #0d1117);
-            z-index: -1;
-        }
-
-        .grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('https://i.imgur.com/4wqQK4B.png');
-            opacity: 0.2;
-            animation: gridMove 5s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* === CAPTCHA Ekranı (Glassmorphism) === */
-        .verification-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-        }
-
-        .verification-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(30px);
-            text-align: center;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .verification-box:hover {
-            transform: scale(1.05);
-        }
-
-        .verification-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00FFFF, #0088FF);
-            width: 0%;
-            transition: width 1.5s linear;
-        }
-
-        /* === Ana İçerik (Galeri) === */
-        .main-content {
-            display: none;
-            padding: 20px;
-            text-align: center;
+            flex-direction: column;
         }
 
         .gallery-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 2rem auto;
-        }
-
-        .gallery-grid {
+            padding: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
@@ -116,13 +30,13 @@
             border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
         .gallery-item img {
@@ -130,76 +44,86 @@
             height: 300px;
             object-fit: cover;
         }
+
+        /* Special Video Styling */
+        .video-wrapper {
+            position: relative;
+            grid-column: span 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
+            100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
+        }
+
+        video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            outline: 3px solid white;
+        }
     </style>
 </head>
 <body>
-    <!-- Arka Plan -->
-    <div class="background">
-        <div class="grid"></div>
-    </div>
+    <div class="gallery-container" id="galleryGrid"></div>
 
-    <!-- CAPTCHA Ekranı -->
-    <div class="verification-container" id="verificationScreen">
-        <div class="verification-box">
-            <h1 class="verification-title">Güvenlik Doğrulaması</h1>
-            <p>Lütfen insan olduğunuzu doğrulayın</p>
-            
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA5W-0OH6lcChs4N" data-callback="onVerificationComplete"></div>
-            
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Galeri İçeriği -->
-    <div class="main-content" id="mainContent">
-        <div class="gallery-container">
-            <div class="gallery-grid" id="galleryGrid"></div>
-        </div>
-    </div>
-
-    <!-- Cloudflare CAPTCHA -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        // CAPTCHA'yı 2 dakikada bir göstermek için kontrol mekanizması
-        const lastVerification = localStorage.getItem("lastVerification");
-        const currentTime = new Date().getTime();
-
-        if (lastVerification && currentTime - lastVerification < 120000) {
-            document.getElementById('verificationScreen').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            initializeGallery();
-        }
-
-        function onVerificationComplete(token) {
-            localStorage.setItem("lastVerification", new Date().getTime());
-
-            setTimeout(() => {
-                document.getElementById('verificationScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                initializeGallery();
-            }, 1500);
-        }
-
+        const images = [
+            'https://i.pinimg.com/736x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
+            'https://i.pinimg.com/736x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
+            'https://i.pinimg.com/736x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
+            'https://i.pinimg.com/736x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg'
+        ];
+        
+        const videoUrl = "https://cdn.discordapp.com/attachments/1297631248507736085/1337976614667026607/Sana_bugune_kadar_bir_tek_seye_olmaz._Yapamam_dedim_mi_.mp4?ex=67a96753&is=67a815d3&hm=db443b0b529c3d35e9c8cc8ec0fe92e792e6c91fe17e28c9f696b5c69c031ea9&";
+        
         function initializeGallery() {
-            const images = [
-                'https://i.pinimg.com/736x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
-                'https://i.pinimg.com/736x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg'
-            ];
-
             const galleryGrid = document.getElementById('galleryGrid');
-            images.forEach(img => {
+            
+            images.slice(0, Math.ceil(images.length / 2)).forEach(img => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
-
+                
                 const image = document.createElement('img');
                 image.src = img;
+                
                 item.appendChild(image);
+                galleryGrid.appendChild(item);
+            });
 
+            const videoWrapper = document.createElement('div');
+            videoWrapper.className = 'video-wrapper';
+            
+            const video = document.createElement('video');
+            video.src = videoUrl;
+            video.controls = true;
+            video.autoplay = false;
+
+            videoWrapper.appendChild(video);
+            galleryGrid.appendChild(videoWrapper);
+
+            images.slice(Math.ceil(images.length / 2)).forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                const image = document.createElement('img');
+                image.src = img;
+                
+                item.appendChild(image);
                 galleryGrid.appendChild(item);
             });
         }
+        
+        initializeGallery();
     </script>
 </body>
 </html>
