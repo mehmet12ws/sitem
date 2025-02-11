@@ -29,6 +29,7 @@
             min-height: 100vh;
         }
 
+        /* Verification Screen Styles */
         .verification-container {
             position: fixed;
             top: 0;
@@ -97,6 +98,7 @@
             transition: width 0.3s ease;
         }
 
+        /* Gallery Styles */
         .gallery-container {
             max-width: 1600px;
             margin: 3rem auto;
@@ -118,7 +120,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: var(--card-bg);
-            aspect-ratio: 1/1;
         }
 
         .gallery-item:hover {
@@ -128,7 +129,7 @@
 
         .gallery-item img {
             width: 100%;
-            height: 100%;
+            height: 400px;
             object-fit: cover;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -137,92 +138,20 @@
             transform: scale(1.1);
         }
 
-        .video-container {
-            grid-column: 1 / -1;
-            margin: 2rem auto;
-            max-width: 800px;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-            background: var(--card-bg);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-        }
-
-        .video-frame {
-            position: relative;
-            padding: 20px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border-radius: 20px;
-            transform-style: preserve-3d;
-        }
-
-        .video-player {
-            width: 100%;
-            border-radius: 15px;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .video-controls {
+        .gallery-item::after {
+            content: '';
             position: absolute;
-            bottom: 30px;
-            left: 30px;
-            right: 30px;
-            background: rgba(30, 41, 59, 0.8);
-            padding: 15px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            transform: translateY(100%);
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8));
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease;
         }
 
-        .video-container:hover .video-controls {
-            transform: translateY(0);
+        .gallery-item:hover::after {
             opacity: 1;
         }
 
-        .video-progress-bar {
-            width: 100%;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-
-        .video-progress-fill {
-            height: 100%;
-            background: var(--primary-color);
-            border-radius: 5px;
-            width: 0%;
-            transition: width 0.1s linear;
-        }
-
-        .video-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .video-btn {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .video-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
-        }
-
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -295,22 +224,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(99, 102, 241, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-        }
-
-        .video-container:hover {
-            animation: pulse 2s infinite;
-        }
-
         .gallery-item {
             animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards;
         }
     </style>
 </head>
 <body>
+    <!-- Verification Screen -->
     <div class="verification-container" id="verificationScreen">
         <div class="verification-box">
             <h1 class="verification-title">Güvenlik Doğrulaması</h1>
@@ -326,6 +246,7 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content" id="mainContent" style="display: none;">
         <div class="gallery-container">
             <div class="gallery-grid" id="galleryGrid"></div>
@@ -342,21 +263,17 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         const images = [
-            'https://i.pinimg.com/564x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
-            'https://i.pinimg.com/564x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
-            'https://i.pinimg.com/564x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
-            'https://i.pinimg.com/564x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg',
-            'https://i.pinimg.com/564x/03/4d/18/034d18757bde21fcef3bf7499d20aa77.jpg',
-            'https://i.pinimg.com/564x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg',
-            'https://i.pinimg.com/564x/d4/52/82/d452822cb16a5b5a18821d3a337cd170.jpg',
-            'https://i.pinimg.com/564x/0d/81/3f/0d813faf07f0fb151b6c6075e499002b.jpg',
-            'https://i.pinimg.com/564x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
-            'https://i.pinimg.com/564x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg',
-            'https://i.pinimg.com/564x/22/73/e3/2273e3643523f8f144bb05e1e9fddd93.jpg',
-            'https://i.pinimg.com/564x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg'
+            'https://i.pinimg.com/736x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
+            'https://i.pinimg.com/736x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
+            'https://i.pinimg.com/736x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
+            'https://i.pinimg.com/736x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg',
+            'https://i.pinimg.com/736x/03/4d/18/034d18757bde21fcef3bf7499d20aa77.jpg',
+            'https://i.pinimg.com/736x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg',
+            'https://i.pinimg.com/736x/d4/52/82/d452822cb16a5b5a18821d3a337cd170.jpg',
+            'https://i.pinimg.com/736x/0d/81/3f/0d813faf07f0fb151b6c6075e499002b.jpg',
+            'https://i.pinimg.com/736x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
+            'https://i.pinimg.com/736x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg'
         ];
-
-        const videoUrl = "https://cdn.discordapp.com/attachments/1297631248507736085/1337976614667026607/Sana_bugune_kadar_bir_tek_seye_olmaz._Yapamam_dedim_mi_.mp4";
 
         let captchaInterval;
 
@@ -373,9 +290,11 @@
             verificationScreen.style.display = 'flex';
             mainContent.style.display = 'none';
             
+            // Reset and animate progress bar
             const progressFill = document.getElementById('progressFill');
             progressFill.style.width = '0%';
             
+            // Simulate progress
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress += 1;
@@ -390,4 +309,67 @@
             const progressFill = document.getElementById('progressFill');
             progressFill.style.width = '100%';
             
-            setTimeout(()
+            setTimeout(() => {
+                document.getElementById('verificationScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                
+                if (!document.getElementById('galleryGrid').children.length) {
+                    initializeGallery();
+                }
+                
+                // Reset captcha timer
+                clearInterval(captchaInterval);
+                startCaptchaTimer();
+            }, 1000);
+        }
+
+        function initializeGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            images.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.style.animationDelay = `${index * 0.1}s`;
+                
+                const image = document.createElement('img');
+                image.src = img;
+                image.alt = `Gallery image ${index + 1}`;
+                image.loading = 'lazy';
+                
+                item.appendChild(image);
+                item.onclick = () => openModal(img);
+                
+                galleryGrid.appendChild(item);
+            });
+        }
+
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initial captcha timer start
+        startCaptchaTimer();
+    </script>
+</body>
+</html>
