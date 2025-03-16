@@ -298,7 +298,7 @@
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress += 1;
-                progressFill.style.width = ${progress}%;
+                progressFill.style.width = progress + '%';
                 if (progress >= 100) {
                     clearInterval(progressInterval);
                 }
@@ -328,11 +328,11 @@
             images.forEach((img, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
-                item.style.animationDelay = ${index * 0.1}s;
+                item.style.animationDelay = index * 0.1 + 's';
                 
                 const image = document.createElement('img');
                 image.src = img;
-                image.alt = Gallery image ${index + 1};
+                image.alt = 'Gallery image ' + (index + 1);
                 image.loading = 'lazy';
                 
                 item.appendChild(image);
@@ -356,6 +356,7 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Event listeners
         document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
@@ -368,8 +369,13 @@
             }
         });
 
-        // Initial captcha timer start
-        startCaptchaTimer();
+        // Sayfa yüklendiğinde doğrulama sürecini başlat
+        window.addEventListener('load', function() {
+            // İlk kez doğrulama ekranını göster
+            showVerification();
+            // Captcha zamanlayıcısını başlat
+            startCaptchaTimer();
+        });
     </script>
 </body>
 </html>
