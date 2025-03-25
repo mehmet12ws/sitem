@@ -381,6 +381,7 @@
                 startCaptchaTimer();
             }, 1000);
         }
+
         function initializeGallery() {
             const galleryGrid = document.getElementById('galleryGrid');
             images.forEach((img, index) => {
@@ -418,3 +419,11 @@
         document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
+            }
+        });
+
+        // Initial call to start the captcha timer
+        startCaptchaTimer();
+    </script>
+</body>
+</html>
