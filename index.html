@@ -8,6 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
         * {
             margin: 0;
@@ -45,13 +47,64 @@
         }
 
         .main-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             letter-spacing: 2px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            font-family: 'Great Vibes', cursive;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color), #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Quote Area Styles */
+        .quote-container {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quote-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quote-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #e2e8f0;
+            position: relative;
+        }
+
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            font-family: serif;
+            font-size: 3rem;
+            color: var(--primary-color);
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .quote-text::before {
+            top: -20px;
+            left: -15px;
+        }
+
+        .quote-text::after {
+            bottom: -40px;
+            right: -15px;
         }
 
         /* Verification Screen Styles */
@@ -305,7 +358,11 @@
             }
             
             .main-title {
-                font-size: 1.8rem;
+                font-size: 2.5rem;
+            }
+            
+            .quote-text {
+                font-size: 1.6rem;
             }
         }
         
@@ -335,7 +392,11 @@
             }
             
             .main-title {
-                font-size: 1.5rem;
+                font-size: 2rem;
+            }
+            
+            .quote-text {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -366,6 +427,11 @@
         
         <div class="gallery-container">
             <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+        
+        <!-- Quote Area -->
+        <div class="quote-container" id="quoteContainer">
+            <p class="quote-text">Sadece Var Olanı Sevmez İnsan</p>
         </div>
 
         <div class="modal" id="imageModal">
@@ -443,6 +509,11 @@
                 if (!document.getElementById('galleryGrid').children.length) {
                     initializeGallery();
                 }
+                
+                // Show quote after images are loaded
+                setTimeout(() => {
+                    document.getElementById('quoteContainer').classList.add('visible');
+                }, 3000);
                 
                 // Reset captcha timer
                 clearInterval(captchaInterval);
