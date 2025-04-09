@@ -108,8 +108,8 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
             padding: 0.5rem;
         }
 
@@ -124,35 +124,14 @@
             height: auto;
         }
 
-        .kv-special {
-            border: 5px solid #c0a060;
-            box-shadow: 0 8px 30px rgba(192, 160, 96, 0.4);
-            position: relative;
-        }
-
-        .kv-special::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border: 1px solid #e0ca98;
-            z-index: 2;
-            pointer-events: none;
-            margin: 8px;
-        }
-
         .gallery-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
         }
 
-        .kv-special:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(192, 160, 96, 0.6);
-        }
-
         .gallery-item img {
             width: 100%;
-            height: 350px;
+            height: 250px;
             object-fit: cover;
             transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -199,12 +178,6 @@
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .special-modal-content {
-            border: 5px solid #c0a060;
-            border-radius: 5px;
-            box-shadow: 0 0 40px rgba(192, 160, 96, 0.5);
         }
 
         .modal.active .modal-content {
@@ -260,12 +233,12 @@
         /* Mobil uyumluluk için ek ayarlar */
         @media (max-width: 768px) {
             .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.75rem;
             }
             
             .gallery-item img {
-                height: 280px;
+                height: 180px;
             }
             
             .verification-box {
@@ -291,12 +264,12 @@
         /* Çok küçük ekranlar için ek ayarlar */
         @media (max-width: 480px) {
             .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
             }
             
             .gallery-item img {
-                height: 250px;
+                height: 150px;
             }
             
             .verification-box {
@@ -339,7 +312,7 @@
         </div>
 
         <div class="modal" id="imageModal">
-            <div class="modal-content" id="modalContentBox">
+            <div class="modal-content">
                 <button class="close-button" onclick="closeModal()">×</button>
                 <img id="modalImage" src="" alt="Enlarged image">
             </div>
@@ -349,26 +322,25 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         const images = [
-            {
-                src: 'https://www.haberyazar.com/cropImages/1280x/uploads/haberler/2024/9/24-kurtlar-vadisindeki-buyuk-sir-ortaya-cikti-polat-alemdar-aslinda-o-isim-olacakti-21-yil-sonra-gelen-sok-itiraf.jpg',
-                special: true
-            },
-            {
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzSXyvNTEpLZh1QHKF9i6nJTcJ5W-LBeQH7iRoWLBqI1Q0yeR3MfgxUju_jzf4gtLfgew&usqp=CAU',
-                special: true
-            },
-            {
-                src: 'https://imgrosetta.mynet.com.tr/file/17734618/640xauto.jpg',
-                special: true
-            },
-            {
-                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGHVyYCOvt89Zn_i1hCKDroJJpQW7qcUucoK-yu7lOEYGW_jkvIoKbKwhMhQGSi5Mu53s&usqp=CAU',
-                special: true
-            }
+            // Kurtlar Vadisi fotoğrafları
+            'https://www.haberyazar.com/cropImages/1280x/uploads/haberler/2024/9/24-kurtlar-vadisindeki-buyuk-sir-ortaya-cikti-polat-alemdar-aslinda-o-isim-olacakti-21-yil-sonra-gelen-sok-itiraf.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzSXyvNTEpLZh1QHKF9i6nJTcJ5W-LBeQH7iRoWLBqI1Q0yeR3MfgxUju_jzf4gtLfgew&usqp=CAU',
+            'https://imgrosetta.mynet.com.tr/file/17734618/640xauto.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGHVyYCOvt89Zn_i1hCKDroJJpQW7qcUucoK-yu7lOEYGW_jkvIoKbKwhMhQGSi5Mu53s&usqp=CAU',
+            // Orijinal görseller
+            'https://i.pinimg.com/736x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
+            'https://i.pinimg.com/736x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
+            'https://i.pinimg.com/736x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
+            'https://i.pinimg.com/736x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg',
+            'https://i.pinimg.com/736x/03/4d/18/034d18757bde21fcef3bf7499d20aa77.jpg',
+            'https://i.pinimg.com/736x/35/c7/78/35c778b6d524a4d061e0f777811bea87.jpg',
+            'https://i.pinimg.com/736x/d4/52/82/d452822cb16a5b5a18821d3a337cd170.jpg',
+            'https://i.pinimg.com/736x/0d/81/3f/0d813faf07f0fb151b6c6075e499002b.jpg',
+            'https://i.pinimg.com/736x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
+            'https://i.pinimg.com/736x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg'
         ];
 
         let captchaInterval;
-        let currentSpecialImage = false;
 
         function startCaptchaTimer() {
             captchaInterval = setInterval(() => {
@@ -421,13 +393,10 @@
             images.forEach((img, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
-                if (img.special) {
-                    item.classList.add('kv-special');
-                }
                 item.style.animationDelay = index * 0.1 + 's';
                 
                 const image = document.createElement('img');
-                image.src = img.src;
+                image.src = img;
                 image.alt = 'Gallery image ' + (index + 1);
                 image.loading = 'lazy';
                 
@@ -438,21 +407,10 @@
             });
         }
 
-        function openModal(img) {
+        function openModal(imgSrc) {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
-            const modalContent = document.getElementById('modalContentBox');
-            
-            modalImg.src = img.src;
-            
-            if (img.special) {
-                modalContent.classList.add('special-modal-content');
-                currentSpecialImage = true;
-            } else {
-                modalContent.classList.remove('special-modal-content');
-                currentSpecialImage = false;
-            }
-            
+            modalImg.src = imgSrc;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -469,13 +427,6 @@
                 closeModal();
             }
         });
-
-        // Simüle captcha tamamlama (gerçek sitede kaldırılmalı)
-        window.onload = function() {
-            setTimeout(() => {
-                onVerificationComplete('simulated-token');
-            }, 1500);
-        };
 
         // Initial call to start the captcha timer
         startCaptchaTimer();
