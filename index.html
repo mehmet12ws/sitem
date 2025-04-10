@@ -300,8 +300,8 @@
             transform: rotate(90deg);
         }
 
-        /* Video Feature Container Styles */
-        .feature-video-container {
+        /* Special Feature Image Styles */
+        .feature-image-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -314,16 +314,15 @@
             z-index: 999;
             opacity: 0;
             transition: opacity 1s ease;
-            flex-direction: column;
         }
 
-        .feature-video-container.visible {
+        .feature-image-container.visible {
             opacity: 1;
         }
 
-        .feature-video {
+        .feature-image {
             max-width: 80%;
-            max-height: 70vh;
+            max-height: 80vh;
             border-radius: 12px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             opacity: 0;
@@ -331,61 +330,9 @@
             transition: all 1s ease;
         }
 
-        .feature-video.visible {
+        .feature-image.visible {
             opacity: 1;
             transform: scale(1);
-        }
-
-        /* Play button styles */
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(99, 102, 241, 0.7);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .play-button:hover {
-            background: rgba(99, 102, 241, 0.9);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .play-button:before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 25px solid white;
-            margin-left: 5px;
-        }
-
-        /* Sand Animation */
-        .sand-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="300" height="300" filter="url(%23noise)" opacity="0.2"/></svg>');
-            opacity: 0;
-            pointer-events: none;
-            mix-blend-mode: overlay;
-            animation: sandAnimation 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes sandAnimation {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 0.3; transform: translateY(-10px); }
         }
 
         @keyframes float {
@@ -415,7 +362,7 @@
             }
         }
 
-        /* Special animations for transitions */
+        /* Special animations for image transitions */
         @keyframes fadeOutSlideUp {
             0% {
                 opacity: 1;
@@ -438,7 +385,7 @@
             }
         }
         
-        /* Mobile compatibility */
+        /* Mobil uyumluluk için ek ayarlar */
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -475,20 +422,9 @@
             .quote-text {
                 font-size: 1.6rem;
             }
-            
-            .play-button {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .play-button:before {
-                border-top: 12px solid transparent;
-                border-bottom: 12px solid transparent;
-                border-left: 20px solid white;
-            }
         }
         
-        /* Very small screens */
+        /* Çok küçük ekranlar için ek ayarlar */
         @media (max-width: 480px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -520,17 +456,6 @@
             .quote-text {
                 font-size: 1.4rem;
             }
-            
-            .play-button {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .play-button:before {
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                border-left: 16px solid white;
-            }
         }
     </style>
 </head>
@@ -551,13 +476,9 @@
         </div>
     </div>
 
-    <!-- Video Feature Container -->
-    <div class="feature-video-container" id="featureVideoContainer">
-        <div style="position: relative; width: 80%; max-width: 800px;">
-            <video class="feature-video" id="featureVideo" src="https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4" preload="auto"></video>
-            <div class="play-button" id="playButton"></div>
-            <div class="sand-overlay"></div>
-        </div>
+    <!-- Feature Image Container -->
+    <div class="feature-image-container" id="featureImageContainer">
+        <img class="feature-image" id="featureImage" src="" alt="Feature image">
     </div>
 
     <!-- Main Content -->
@@ -605,6 +526,9 @@
             'https://i.pinimg.com/736x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
             'https://i.pinimg.com/736x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg'
         ];
+
+        // Feature image
+        const featureImage = 'https://i.pinimg.com/736x/23/e3/a3/23e3a3925dda75171427045ea5875c22.jpg';
         
         // Final images array
         const finalImages = [
@@ -620,35 +544,21 @@
 
         let captchaInterval;
         
-        // Function to preload images and video
-        function preloadMedia(sources, callback) {
+        // Function to preload images
+        function preloadImages(sources, callback) {
             let counter = 0;
-            const totalItems = sources.images.length + (sources.video ? 1 : 0);
+            const totalImages = sources.length;
             
-            // Preload images
-            sources.images.forEach(src => {
+            sources.forEach(src => {
                 const img = new Image();
                 img.onload = img.onerror = () => {
                     counter++;
-                    if (counter === totalItems) {
+                    if (counter === totalImages) {
                         callback();
                     }
                 };
                 img.src = src;
             });
-            
-            // Preload video if exists
-            if (sources.video) {
-                const video = document.createElement('video');
-                video.oncanplaythrough = video.onerror = () => {
-                    counter++;
-                    if (counter === totalItems) {
-                        callback();
-                    }
-                };
-                video.src = sources.video;
-                video.load();
-            }
         }
 
         function startCaptchaTimer() {
@@ -660,11 +570,11 @@
         function showVerification() {
             const verificationScreen = document.getElementById('verificationScreen');
             const mainContent = document.getElementById('mainContent');
-            const featureVideoContainer = document.getElementById('featureVideoContainer');
+            const featureImageContainer = document.getElementById('featureImageContainer');
             
             verificationScreen.style.display = 'flex';
             mainContent.style.display = 'none';
-            featureVideoContainer.style.display = 'none';
+            featureImageContainer.style.display = 'none';
             
             // Reset and animate progress bar
             const progressFill = document.getElementById('progressFill');
@@ -688,11 +598,8 @@
             setTimeout(() => {
                 document.getElementById('verificationScreen').style.display = 'none';
                 
-                // Preload all media first
-                preloadMedia({
-                    images: [...originalImages, ...finalImages],
-                    video: 'https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4'
-                }, () => {
+                // Preload all images first
+                preloadImages([...originalImages, featureImage, ...finalImages], () => {
                     // Start the animation sequence
                     startAnimationSequence();
                 });
@@ -731,37 +638,30 @@
                     }, index * 300);
                 });
                 
-                // After all images are hidden, show the video
+                // After all images are hidden, show feature image
                 setTimeout(() => {
                     // Hide main content
                     document.getElementById('mainContent').style.display = 'none';
                     
-                    // Prepare the video
-                    const featureVideoContainer = document.getElementById('featureVideoContainer');
-                    const featureVideo = document.getElementById('featureVideo');
-                    const playButton = document.getElementById('playButton');
+                    // Show feature image
+                    const featureImageContainer = document.getElementById('featureImageContainer');
+                    const featureImageEl = document.getElementById('featureImage');
                     
-                    // Show video container
-                    featureVideoContainer.style.display = 'flex';
+                    featureImageEl.src = featureImage;
+                    featureImageContainer.style.display = 'flex';
                     
                     setTimeout(() => {
-                        featureVideoContainer.classList.add('visible');
-                        document.querySelector('.feature-video').classList.add('visible');
+                        featureImageContainer.classList.add('visible');
+                        featureImageEl.classList.add('visible');
                         
-                        // Add play button event listener
-                        playButton.addEventListener('click', function() {
-                            featureVideo.play();
-                            playButton.style.display = 'none';
-                        });
-                        
-                        // When video ends, show final gallery
-                        featureVideo.addEventListener('ended', function() {
-                            // Hide video container with animation
-                            featureVideoContainer.style.animation = 'fadeOutSlideUp 1s forwards';
+                        // After 3 seconds, hide feature image and show final gallery
+                        setTimeout(() => {
+                            // Hide feature image with animation
+                            featureImageContainer.style.animation = 'fadeOutSlideUp 1s forwards';
                             
                             // After animation ends, show final gallery
                             setTimeout(() => {
-                                featureVideoContainer.style.display = 'none';
+                                featureImageContainer.style.display = 'none';
                                 document.getElementById('mainContent').style.display = 'block';
                                 
                                 // Clear the gallery and initialize with final images
@@ -770,7 +670,7 @@
                                 
                                 initializeGallery(finalImages);
                             }, 1000);
-                        });
+                        }, 3000);
                     }, 300);
                 }, (galleryItems.length * 300) + 500);
             }, 5000);
@@ -828,7 +728,7 @@
         // For development/testing - to bypass verification
         // Automatically trigger verification complete after 2 seconds
         // setTimeout(() => {
-        //     onVerificationComplete('test-token');
+        //    onVerificationComplete('test-token');
         // }, 2000);
     </script>
 </body>
