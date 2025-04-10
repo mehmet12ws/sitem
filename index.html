@@ -29,7 +29,6 @@
             background: var(--background);
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         /* Header Title Styles */
@@ -301,8 +300,8 @@
             transform: rotate(90deg);
         }
 
-        /* Feature Image Styles */
-        .feature-image-container {
+        /* Video Feature Container Styles */
+        .feature-video-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -315,15 +314,16 @@
             z-index: 999;
             opacity: 0;
             transition: opacity 1s ease;
+            flex-direction: column;
         }
 
-        .feature-image-container.visible {
+        .feature-video-container.visible {
             opacity: 1;
         }
 
-        .feature-image {
+        .feature-video {
             max-width: 80%;
-            max-height: 80vh;
+            max-height: 70vh;
             border-radius: 12px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             opacity: 0;
@@ -331,87 +331,61 @@
             transition: all 1s ease;
         }
 
-        .feature-image.visible {
+        .feature-video.visible {
             opacity: 1;
             transform: scale(1);
         }
 
-        /* Video Container Styles */
-        .video-container {
+        /* Play button styles */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(99, 102, 241, 0.7);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 100vh;
-            position: fixed;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .play-button:hover {
+            background: rgba(99, 102, 241, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-button:before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid white;
+            margin-left: 5px;
+        }
+
+        /* Sand Animation */
+        .sand-overlay {
+            position: absolute;
             top: 0;
             left: 0;
-            background-color: var(--background);
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .video-container.visible {
-            opacity: 1;
-        }
-
-        .video-wrapper {
-            position: relative;
-            max-width: 90%;
-            max-height: 65vh;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .video-wrapper.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .video-wrapper video {
             width: 100%;
-            max-height: 65vh;
-            object-fit: contain;
-            border-radius: 12px;
-        }
-
-        .final-quote {
-            margin-top: 2rem;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: white;
-            text-align: center;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="300" height="300" filter="url(%23noise)" opacity="0.2"/></svg>');
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-            padding: 0 1rem;
-            background: linear-gradient(to right, #e2e8f0, #ffffff, #a5b4fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .final-quote.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Particle animations for dust effect */
-        .particle {
-            position: absolute;
             pointer-events: none;
-            opacity: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            z-index: 1000;
+            mix-blend-mode: overlay;
+            animation: sandAnimation 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes sandAnimation {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 0.3; transform: translateY(-10px); }
         }
 
         @keyframes float {
@@ -441,33 +415,30 @@
             }
         }
 
-        /* Dust animation */
-        @keyframes dustAnimation {
+        /* Special animations for transitions */
+        @keyframes fadeOutSlideUp {
             0% {
                 opacity: 1;
-                transform: translate(0, 0) scale(1);
+                transform: translateY(0);
             }
             100% {
                 opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
+                transform: translateY(-50px);
             }
         }
 
-        /* Text animation */
-        @keyframes textReveal {
+        @keyframes fadeInSlideUp {
             0% {
                 opacity: 0;
-                filter: blur(10px);
-                transform: translateY(20px);
+                transform: translateY(50px);
             }
             100% {
                 opacity: 1;
-                filter: blur(0);
                 transform: translateY(0);
             }
         }
         
-        /* Mobil uyumluluk için ek ayarlar */
+        /* Mobile compatibility */
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -504,13 +475,20 @@
             .quote-text {
                 font-size: 1.6rem;
             }
-
-            .final-quote {
-                font-size: 1.8rem;
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .play-button:before {
+                border-top: 12px solid transparent;
+                border-bottom: 12px solid transparent;
+                border-left: 20px solid white;
             }
         }
         
-        /* Çok küçük ekranlar için ek ayarlar */
+        /* Very small screens */
         @media (max-width: 480px) {
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -542,10 +520,16 @@
             .quote-text {
                 font-size: 1.4rem;
             }
-
-            .final-quote {
-                font-size: 1.5rem;
-                margin-top: 1.5rem;
+            
+            .play-button {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .play-button:before {
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-left: 16px solid white;
             }
         }
     </style>
@@ -567,21 +551,12 @@
         </div>
     </div>
 
-    <!-- Feature Image Container -->
-    <div class="feature-image-container" id="featureImageContainer">
-        <img class="feature-image" id="featureImage" src="" alt="Feature image">
-    </div>
-
-    <!-- Video Container -->
-    <div class="video-container" id="videoContainer">
-        <div class="video-wrapper" id="videoWrapper">
-            <video id="finalVideo" controls>
-                <source src="https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4?ex=67f93a44&is=67f7e8c4&hm=9eb6e03ed4874947eb4483751858f3f1271e342082bbaa3174f58b4fac7a9d86&" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div class="final-quote" id="finalQuote">
-            Ben Yokluğuna İhanet Etmedim Sen Benim Varlığımı Bile Hiçe Saydın.
+    <!-- Video Feature Container -->
+    <div class="feature-video-container" id="featureVideoContainer">
+        <div style="position: relative; width: 80%; max-width: 800px;">
+            <video class="feature-video" id="featureVideo" src="https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4" preload="auto"></video>
+            <div class="play-button" id="playButton"></div>
+            <div class="sand-overlay"></div>
         </div>
     </div>
 
@@ -630,9 +605,6 @@
             'https://i.pinimg.com/736x/99/ed/9b/99ed9ba2cfd5c56f099cff703adcba75.jpg',
             'https://i.pinimg.com/736x/4c/ca/17/4cca17ed9a12217bdd3ec0b6305b0af2.jpg'
         ];
-
-        // Feature image
-        const featureImage = 'https://i.pinimg.com/736x/23/e3/a3/23e3a3925dda75171427045ea5875c22.jpg';
         
         // Final images array
         const finalImages = [
@@ -648,30 +620,35 @@
 
         let captchaInterval;
         
-        // Function to preload images
-        function preloadImages(sources, callback) {
+        // Function to preload images and video
+        function preloadMedia(sources, callback) {
             let counter = 0;
-            const totalImages = sources.length;
+            const totalItems = sources.images.length + (sources.video ? 1 : 0);
             
-            sources.forEach(src => {
+            // Preload images
+            sources.images.forEach(src => {
                 const img = new Image();
                 img.onload = img.onerror = () => {
                     counter++;
-                    if (counter === totalImages) {
+                    if (counter === totalItems) {
                         callback();
                     }
                 };
                 img.src = src;
             });
-        }
-
-        // Function to preload video
-        function preloadVideo(src, callback) {
-            const video = document.createElement('video');
-            video.oncanplaythrough = callback;
-            video.onerror = callback;
-            video.src = src;
-            video.load();
+            
+            // Preload video if exists
+            if (sources.video) {
+                const video = document.createElement('video');
+                video.oncanplaythrough = video.onerror = () => {
+                    counter++;
+                    if (counter === totalItems) {
+                        callback();
+                    }
+                };
+                video.src = sources.video;
+                video.load();
+            }
         }
 
         function startCaptchaTimer() {
@@ -683,14 +660,11 @@
         function showVerification() {
             const verificationScreen = document.getElementById('verificationScreen');
             const mainContent = document.getElementById('mainContent');
-            const featureImageContainer = document.getElementById('featureImageContainer');
-            const videoContainer = document.getElementById('videoContainer');
+            const featureVideoContainer = document.getElementById('featureVideoContainer');
             
             verificationScreen.style.display = 'flex';
             mainContent.style.display = 'none';
-            featureImageContainer.style.display = 'none';
-            videoContainer.style.display = 'none';
-            videoContainer.classList.remove('visible');
+            featureVideoContainer.style.display = 'none';
             
             // Reset and animate progress bar
             const progressFill = document.getElementById('progressFill');
@@ -714,15 +688,13 @@
             setTimeout(() => {
                 document.getElementById('verificationScreen').style.display = 'none';
                 
-                // Preload all media
-                const allImages = [...originalImages, featureImage, ...finalImages];
-                const videoSrc = 'https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4?ex=67f93a44&is=67f7e8c4&hm=9eb6e03ed4874947eb4483751858f3f1271e342082bbaa3174f58b4fac7a9d86&';
-                
-                preloadImages(allImages, () => {
-                    preloadVideo(videoSrc, () => {
-                        // Start the animation sequence
-                        startAnimationSequence();
-                    });
+                // Preload all media first
+                preloadMedia({
+                    images: [...originalImages, ...finalImages],
+                    video: 'https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4'
+                }, () => {
+                    // Start the animation sequence
+                    startAnimationSequence();
                 });
                 
                 // Reset captcha timer
@@ -731,75 +703,133 @@
             }, 1000);
         }
         
-        // Function to create dust particle effect
-        function createDustEffect(element) {
-            const elementRect = element.getBoundingClientRect();
-            const particleCount = 30;
+        function startAnimationSequence() {
+            // Show original images for 5 seconds
+            document.getElementById('mainContent').style.display = 'block';
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Random size between 3 and 8 pixels
-                const size = Math.random() * 5 + 3;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Position relative to element
-                const x = Math.random() * elementRect.width;
-                const y = Math.random() * elementRect.height;
-                particle.style.left = `${elementRect.left + x}px`;
-                particle.style.top = `${elementRect.top + y}px`;
-                
-                // Random color
-                const hue = Math.random() * 60 + 20; // golden/yellow range
-                const sat = Math.random() * 30 + 70; // high saturation
-                const light = Math.random() * 30 + 60; // light colors
-                particle.style.backgroundColor = `hsla(${hue}, ${sat}%, ${light}%, 0.8)`;
-                
-                // Random direction for animation
-                const tx = (Math.random() - 0.5) * 200;
-                const ty = (Math.random() - 0.5) * 200;
-                particle.style.setProperty('--tx', `${tx}px`);
-                particle.style.setProperty('--ty', `${ty}px`);
-                
-                // Random animation duration
-                const duration = Math.random() * 1.5 + 1;
-                particle.style.animation = `dustAnimation ${duration}s ease-out forwards`;
-                
-                // Add to document
-                document.body.appendChild(particle);
-                
-                // Remove after animation
-                setTimeout(() => {
-                    if (document.body.contains(particle)) {
-                        document.body.removeChild(particle);
-                    }
-                }, duration * 1000);
-            }
-        }
-        
-        // Function to initialize gallery with images
-        function initializeGallery(images) {
-            const galleryGrid = document.getElementById('galleryGrid');
-            galleryGrid.innerHTML = '';
+            // Show main title with animation
+            setTimeout(() => {
+                document.getElementById('mainTitleContainer').classList.add('visible');
+            }, 300);
             
-            images.forEach((imgSrc, index) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.style.transitionDelay = `${index * 100}ms`;
+            // Initialize gallery with original images
+            initializeGallery(originalImages);
+            
+            // Show quote after images are loaded
+            setTimeout(() => {
+                document.getElementById('quoteContainer').classList.add('visible');
+            }, 1000);
+            
+            // After 5 seconds, start removing images one by one
+            setTimeout(() => {
+                const galleryItems = document.querySelectorAll('.gallery-item');
                 
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                img.alt = 'Gallery Image';
-                img.loading = 'lazy';
-                
-                img.addEventListener('click', () => {
-                    openModal(imgSrc);
+                // Hide each item with a delay
+                galleryItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.animation = 'fadeOutSlideUp 0.5s forwards';
+                    }, index * 300);
                 });
                 
-                item.appendChild(img);
+                // After all images are hidden, show the video
+                setTimeout(() => {
+                    // Hide main content
+                    document.getElementById('mainContent').style.display = 'none';
+                    
+                    // Prepare the video
+                    const featureVideoContainer = document.getElementById('featureVideoContainer');
+                    const featureVideo = document.getElementById('featureVideo');
+                    const playButton = document.getElementById('playButton');
+                    
+                    // Show video container
+                    featureVideoContainer.style.display = 'flex';
+                    
+                    setTimeout(() => {
+                        featureVideoContainer.classList.add('visible');
+                        document.querySelector('.feature-video').classList.add('visible');
+                        
+                        // Add play button event listener
+                        playButton.addEventListener('click', function() {
+                            featureVideo.play();
+                            playButton.style.display = 'none';
+                        });
+                        
+                        // When video ends, show final gallery
+                        featureVideo.addEventListener('ended', function() {
+                            // Hide video container with animation
+                            featureVideoContainer.style.animation = 'fadeOutSlideUp 1s forwards';
+                            
+                            // After animation ends, show final gallery
+                            setTimeout(() => {
+                                featureVideoContainer.style.display = 'none';
+                                document.getElementById('mainContent').style.display = 'block';
+                                
+                                // Clear the gallery and initialize with final images
+                                const galleryGrid = document.getElementById('galleryGrid');
+                                galleryGrid.innerHTML = '';
+                                
+                                initializeGallery(finalImages);
+                            }, 1000);
+                        });
+                    }, 300);
+                }, (galleryItems.length * 300) + 500);
+            }, 5000);
+        }
+
+        function initializeGallery(images) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            
+            images.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                const image = document.createElement('img');
+                image.src = img;
+                image.alt = 'Gallery image ' + (index + 1);
+                image.loading = 'lazy';
+                
+                item.appendChild(image);
+                item.onclick = () => openModal(img);
+                
                 galleryGrid.appendChild(item);
                 
-                // Trigger animation after a small delay
+                // Delayed animation for each item
                 setTimeout(() => {
+                    item.style.animation = 'specialEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'; 
+                    item.classList.add('visible');
+                }, 500 + (index * 300)); // Slower animation with 300ms delay between each item
+            });
+        }
+
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initial call to start the captcha timer
+        startCaptchaTimer();
+        
+        // For development/testing - to bypass verification
+        // Automatically trigger verification complete after 2 seconds
+        // setTimeout(() => {
+        //     onVerificationComplete('test-token');
+        // }, 2000);
+    </script>
+</body>
+</html>
