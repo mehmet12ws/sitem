@@ -29,6 +29,7 @@
             background: var(--background);
             color: white;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Header Title Styles */
@@ -300,7 +301,7 @@
             transform: rotate(90deg);
         }
 
-        /* Special Feature Image Styles */
+        /* Feature Image Styles */
         .feature-image-container {
             display: flex;
             justify-content: center;
@@ -335,6 +336,84 @@
             transform: scale(1);
         }
 
+        /* Video Container Styles */
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--background);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .video-container.visible {
+            opacity: 1;
+        }
+
+        .video-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 65vh;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .video-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .final-quote {
+            margin-top: 2rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 0 1rem;
+            background: linear-gradient(to right, #e2e8f0, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .final-quote.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Particle animations for dust effect */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+        }
+
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
@@ -362,25 +441,28 @@
             }
         }
 
-        /* Special animations for image transitions */
-        @keyframes fadeOutSlideUp {
+        /* Dust animation */
+        @keyframes dustAnimation {
             0% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(0, 0) scale(1);
             }
             100% {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translate(var(--tx), var(--ty)) scale(0);
             }
         }
 
-        @keyframes fadeInSlideUp {
+        /* Text animation */
+        @keyframes textReveal {
             0% {
                 opacity: 0;
-                transform: translateY(50px);
+                filter: blur(10px);
+                transform: translateY(20px);
             }
             100% {
                 opacity: 1;
+                filter: blur(0);
                 transform: translateY(0);
             }
         }
@@ -422,6 +504,10 @@
             .quote-text {
                 font-size: 1.6rem;
             }
+
+            .final-quote {
+                font-size: 1.8rem;
+            }
         }
         
         /* Çok küçük ekranlar için ek ayarlar */
@@ -456,6 +542,11 @@
             .quote-text {
                 font-size: 1.4rem;
             }
+
+            .final-quote {
+                font-size: 1.5rem;
+                margin-top: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -479,6 +570,19 @@
     <!-- Feature Image Container -->
     <div class="feature-image-container" id="featureImageContainer">
         <img class="feature-image" id="featureImage" src="" alt="Feature image">
+    </div>
+
+    <!-- Video Container -->
+    <div class="video-container" id="videoContainer">
+        <div class="video-wrapper" id="videoWrapper">
+            <video id="finalVideo" controls>
+                <source src="https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4?ex=67f93a44&is=67f7e8c4&hm=9eb6e03ed4874947eb4483751858f3f1271e342082bbaa3174f58b4fac7a9d86&" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="final-quote" id="finalQuote">
+            Ben Yokluğuna İhanet Etmedim Sen Benim Varlığımı Bile Hiçe Saydın.
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -561,6 +665,15 @@
             });
         }
 
+        // Function to preload video
+        function preloadVideo(src, callback) {
+            const video = document.createElement('video');
+            video.oncanplaythrough = callback;
+            video.onerror = callback;
+            video.src = src;
+            video.load();
+        }
+
         function startCaptchaTimer() {
             captchaInterval = setInterval(() => {
                 showVerification();
@@ -571,10 +684,13 @@
             const verificationScreen = document.getElementById('verificationScreen');
             const mainContent = document.getElementById('mainContent');
             const featureImageContainer = document.getElementById('featureImageContainer');
+            const videoContainer = document.getElementById('videoContainer');
             
             verificationScreen.style.display = 'flex';
             mainContent.style.display = 'none';
             featureImageContainer.style.display = 'none';
+            videoContainer.style.display = 'none';
+            videoContainer.classList.remove('visible');
             
             // Reset and animate progress bar
             const progressFill = document.getElementById('progressFill');
@@ -598,10 +714,15 @@
             setTimeout(() => {
                 document.getElementById('verificationScreen').style.display = 'none';
                 
-                // Preload all images first
-                preloadImages([...originalImages, featureImage, ...finalImages], () => {
-                    // Start the animation sequence
-                    startAnimationSequence();
+                // Preload all media
+                const allImages = [...originalImages, featureImage, ...finalImages];
+                const videoSrc = 'https://cdn.discordapp.com/attachments/1296509580507091075/1359918465397293108/asdasdas.mp4?ex=67f93a44&is=67f7e8c4&hm=9eb6e03ed4874947eb4483751858f3f1271e342082bbaa3174f58b4fac7a9d86&';
+                
+                preloadImages(allImages, () => {
+                    preloadVideo(videoSrc, () => {
+                        // Start the animation sequence
+                        startAnimationSequence();
+                    });
                 });
                 
                 // Reset captcha timer
@@ -610,126 +731,75 @@
             }, 1000);
         }
         
-        function startAnimationSequence() {
-            // Show original images for 5 seconds
-            document.getElementById('mainContent').style.display = 'block';
+        // Function to create dust particle effect
+        function createDustEffect(element) {
+            const elementRect = element.getBoundingClientRect();
+            const particleCount = 30;
             
-            // Show main title with animation
-            setTimeout(() => {
-                document.getElementById('mainTitleContainer').classList.add('visible');
-            }, 300);
-            
-            // Initialize gallery with original images
-            initializeGallery(originalImages);
-            
-            // Show quote after images are loaded
-            setTimeout(() => {
-                document.getElementById('quoteContainer').classList.add('visible');
-            }, 1000);
-            
-            // After 5 seconds, start removing images one by one
-            setTimeout(() => {
-                const galleryItems = document.querySelectorAll('.gallery-item');
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
                 
-                // Hide each item with a delay
-                galleryItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.animation = 'fadeOutSlideUp 0.5s forwards';
-                    }, index * 300);
-                });
+                // Random size between 3 and 8 pixels
+                const size = Math.random() * 5 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
                 
-                // After all images are hidden, show feature image
+                // Position relative to element
+                const x = Math.random() * elementRect.width;
+                const y = Math.random() * elementRect.height;
+                particle.style.left = `${elementRect.left + x}px`;
+                particle.style.top = `${elementRect.top + y}px`;
+                
+                // Random color
+                const hue = Math.random() * 60 + 20; // golden/yellow range
+                const sat = Math.random() * 30 + 70; // high saturation
+                const light = Math.random() * 30 + 60; // light colors
+                particle.style.backgroundColor = `hsla(${hue}, ${sat}%, ${light}%, 0.8)`;
+                
+                // Random direction for animation
+                const tx = (Math.random() - 0.5) * 200;
+                const ty = (Math.random() - 0.5) * 200;
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                // Random animation duration
+                const duration = Math.random() * 1.5 + 1;
+                particle.style.animation = `dustAnimation ${duration}s ease-out forwards`;
+                
+                // Add to document
+                document.body.appendChild(particle);
+                
+                // Remove after animation
                 setTimeout(() => {
-                    // Hide main content
-                    document.getElementById('mainContent').style.display = 'none';
-                    
-                    // Show feature image
-                    const featureImageContainer = document.getElementById('featureImageContainer');
-                    const featureImageEl = document.getElementById('featureImage');
-                    
-                    featureImageEl.src = featureImage;
-                    featureImageContainer.style.display = 'flex';
-                    
-                    setTimeout(() => {
-                        featureImageContainer.classList.add('visible');
-                        featureImageEl.classList.add('visible');
-                        
-                        // After 3 seconds, hide feature image and show final gallery
-                        setTimeout(() => {
-                            // Hide feature image with animation
-                            featureImageContainer.style.animation = 'fadeOutSlideUp 1s forwards';
-                            
-                            // After animation ends, show final gallery
-                            setTimeout(() => {
-                                featureImageContainer.style.display = 'none';
-                                document.getElementById('mainContent').style.display = 'block';
-                                
-                                // Clear the gallery and initialize with final images
-                                const galleryGrid = document.getElementById('galleryGrid');
-                                galleryGrid.innerHTML = '';
-                                
-                                initializeGallery(finalImages);
-                            }, 1000);
-                        }, 3000);
-                    }, 300);
-                }, (galleryItems.length * 300) + 500);
-            }, 5000);
+                    if (document.body.contains(particle)) {
+                        document.body.removeChild(particle);
+                    }
+                }, duration * 1000);
+            }
         }
-
+        
+        // Function to initialize gallery with images
         function initializeGallery(images) {
             const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
             
-            images.forEach((img, index) => {
+            images.forEach((imgSrc, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
+                item.style.transitionDelay = `${index * 100}ms`;
                 
-                const image = document.createElement('img');
-                image.src = img;
-                image.alt = 'Gallery image ' + (index + 1);
-                image.loading = 'lazy';
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = 'Gallery Image';
+                img.loading = 'lazy';
                 
-                item.appendChild(image);
-                item.onclick = () => openModal(img);
+                img.addEventListener('click', () => {
+                    openModal(imgSrc);
+                });
                 
+                item.appendChild(img);
                 galleryGrid.appendChild(item);
                 
-                // Delayed animation for each item
+                // Trigger animation after a small delay
                 setTimeout(() => {
-                    item.style.animation = 'specialEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'; 
-                    item.classList.add('visible');
-                }, 500 + (index * 300)); // Slower animation with 300ms delay between each item
-            });
-        }
-
-        function openModal(imgSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = imgSrc;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Event listeners
-        document.getElementById('imageModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Initial call to start the captcha timer
-        startCaptchaTimer();
-        
-        // For development/testing - to bypass verification
-        // Automatically trigger verification complete after 2 seconds
-        // setTimeout(() => {
-        //    onVerificationComplete('test-token');
-        // }, 2000);
-    </script>
-</body>
-</html>
