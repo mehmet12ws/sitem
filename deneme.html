@@ -1,140 +1,692 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simental Dişi İnek Satışı</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    header h1 {
-      font-family: 'Merriweather', serif;
-      font-size: 2.5rem;
-      color: #5a2a00;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #666;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .section {
-      background-color: #fff;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .section h2 {
-      color: #5a2a00;
-      margin-bottom: 1rem;
-      font-family: 'Merriweather', serif;
-    }
-
-    .section ul {
-      list-style-type: disc;
-      padding-left: 1.5rem;
-    }
-
-    .contact {
-      text-align: center;
-    }
-
-    .contact a {
-      display: inline-block;
-      margin: 0.5rem;
-      background-color: #5a2a00;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .contact a:hover {
-      background-color: #7a3e00;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #777;
-      border-top: 1px solid #ddd;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
-      .section {
-        padding: 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium İnek Çiftliği | Kaliteli İnek Satışı</title>
+    <style>
+        /* Genel Stiller */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f7f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Bölümü */
+        header {
+            background-color: #2c3e50;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: #e74c3c;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #e74c3c;
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Hero Bölümü */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+        
+        /* Özellikler Bölümü */
+        .features {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .feature-box {
+            flex: 1 1 300px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f9f7f4;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .feature-box h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        /* Ürünler Bölümü */
+        .products {
+            padding: 80px 0;
+            background-color: #f9f7f4;
+        }
+        
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .product-breed {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .product-features {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .feature {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-right: 1px solid #eee;
+        }
+        
+        .feature:last-child {
+            border-right: none;
+        }
+        
+        .feature-value {
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        
+        .feature-name {
+            font-size: 12px;
+            color: #95a5a6;
+            text-transform: uppercase;
+        }
+        
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Testimonial Bölümü */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #2c3e50;
+            color: #fff;
+        }
+        
+        .testimonials .section-title {
+            color: #fff;
+        }
+        
+        .testimonials-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .testimonial {
+            flex: 1 1 300px;
+            background-color: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #bdc3c7;
+        }
+        
+        /* İletişim Bölümü */
+        .contact {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #e74c3c;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a252f;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1 1 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #e74c3c;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: #e74c3c;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Responsive Tasarım */
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                color: #fff;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Simental Dişi İnek Satışı</h1>
-    <p>Kaliteli, belgeli ve sağlıklı simental inekler</p>
-  </header>
+    <!-- Header Bölümü -->
+    <header>
+        <div class="container logo-container">
+            <a href="#" class="logo">Premium<span>İnek</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Ana Sayfa</a></li>
+                    <li><a href="#features">Neden Biz</a></li>
+                    <li><a href="#products">İneklerimiz</a></li>
+                    <li><a href="#testimonials">Müşteri Yorumları</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <div class="container">
-    <section class="section">
-      <h2>Neden Biz?</h2>
-      <p>Yılların deneyimiyle, sağlıklı ve belgeli simental dişi inekleri sizlere sunuyoruz. Hayvanlarımızın tüm sağlık kontrolleri yapılmış olup, aşıları tamdır.</p>
+    <!-- Hero Bölümü -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Kalitede İnekler</h1>
+            <p>Türkiye'nin en kaliteli inek üreticisinden sertifikalı, yüksek verimli, sağlıklı inekler. Modern çiftçilik için modern çözümler sunuyoruz.</p>
+            <a href="#products" class="btn">İneklerimizi İnceleyin</a>
+        </div>
     </section>
 
-    <section class="section">
-      <h2>İnek Özellikleri</h2>
-      <ul>
-        <li>Safkan Simental ırkı</li>
-        <li>2 yaşında, doğuma hazır</li>
-        <li>Sağlıklı ve aşıları tam</li>
-        <li>Belgeli ve küpeli</li>
-      </ul>
+    <!-- Özellikler Bölümü -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Neden Bizi Tercih Etmelisiniz?</h2>
+            <div class="features-container">
+                <div class="feature-box">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Üstün Kalite</h3>
+                    <p>Tüm ineklerimiz genetik olarak üstün özelliklere sahip, sağlıklı ve yüksek verimlidir.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Sertifikalı Kontrol</h3>
+                    <p>Her ineğimiz uzman veterinerlerimiz tarafından düzenli olarak kontrol edilir ve sertifikalandırılır.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Güvenli Teslimat</h3>
+                    <p>İneklerinizi özel araçlarımızla güvenli bir şekilde istediğiniz adrese teslim ediyoruz.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="section contact">
-      <h2>İletişim</h2>
-      <p>Detaylı bilgi ve satın alma için bizimle iletişime geçin:</p>
-      <a href="tel:+905551112233">📞 +90 555 111 22 33</a>
-      <a href="mailto:info@inekciiftligi.com">📧 info@inekciiftligi.com</a>
+    <!-- Ürünler Bölümü -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Premium İneklerimiz</h2>
+            <div class="products-container">
+                <!-- İnek Kartı 1 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/250" alt="Holstein İneği" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Holstein Süt İneği</h3>
+                        <p class="product-breed">Holstein-Friesian</p>
+                        <div class="product-features">
+                            <div class="feature">
+                                <div class="feature-value">35 L</div>
+                                <div class="feature-name">Günlük Süt</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">600 kg</div>
+                                <div class="feature-name">Ağırlık</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">4 Yaş</div>
+                                <div class="feature-name">Yaş</div>
+                            </div>
+                        </div>
+                        <div class="product-price">₺45,000</div>
+                        <div class="product-footer">
+                            <a href="#contact" class="btn">İletişime Geç</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- İnek Kartı 2 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/250" alt="Simental İneği" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Simental İneği</h3>
+                        <p class="product-breed">Simmental</p>
+                        <div class="product-features">
+                            <div class="feature">
+                                <div class="feature-value">28 L</div>
+                                <div class="feature-name">Günlük Süt</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">750 kg</div>
+                                <div class="feature-name">Ağırlık</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">3 Yaş</div>
+                                <div class="feature-name">Yaş</div>
+                            </div>
+                        </div>
+                        <div class="product-price">₺42,500</div>
+                        <div class="product-footer">
+                            <a href="#contact" class="btn">İletişime Geç</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- İnek Kartı 3 -->
+                <div class="product-card">
+                    <img src="/api/placeholder/400/250" alt="Jersey İneği" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Jersey Süt İneği</h3>
+                        <p class="product-breed">Jersey</p>
+                        <div class="product-features">
+                            <div class="feature">
+                                <div class="feature-value">25 L</div>
+                                <div class="feature-name">Günlük Süt</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">450 kg</div>
+                                <div class="feature-name">Ağırlık</div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-value">5 Yaş</div>
+                                <div class="feature-name">Yaş</div>
+                            </div>
+                        </div>
+                        <div class="product-price">₺38,000</div>
+                        <div class="product-footer">
+                            <a href="#contact" class="btn">İletişime Geç</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </div>
 
-  <footer>
-    &copy; 2025 Simental İnek Çiftliği. Tüm hakları saklıdır.
-  </footer>
+    <!-- Testimonial Bölümü -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Müşteri Yorumları</h2>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Premiumİnek'ten aldığım Holstein inekler, çiftliğimizdeki süt verimini %30 artırdı. Üstelik sağlık durumları mükemmel ve bakımları çok kolay."</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/60/60" alt="Müşteri Fotoğrafı" class="author-img">
+                        <div class="author-info">
+                            <h4>Ahmet Yılmaz</h4>
+                            <p>Süt Çiftliği Sahibi, İzmir</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"3 yıldır Premiumİnek ile çalışıyorum. Kaliteleri, profesyonel yaklaşımları ve satış sonrası destekleri sayesinde hiç pişman olmadım."</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/60/60" alt="Müşteri Fotoğrafı" class="author-img">
+                        <div class="author-info">
+                            <h4>Fatma Demir</h4>
+                            <p>Tarım Kooperatifi Başkanı, Konya</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim Bölümü -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Bizimle İletişime Geçin</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Adınız Soyadınız" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="E-posta Adresiniz" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Telefon Numaranız" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Mesajınız veya talebiniz..." required></textarea>
+                </div>
+                <button type="submit" class="btn">Mesaj Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Premium İnek</h3>
+                    <p>Türkiye'nin lider inek üreticisi olarak 25 yıldır kaliteli hizmet veriyoruz. Modern çiftçiliğin ihtiyaçlarını karşılamak için buradayız.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">t</a>
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">ig</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Hızlı Erişim</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Ana Sayfa</a></li>
+                        <li><a href="#features">Neden Biz</a></li>
+                        <li><a href="#products">İneklerimiz</a></li>
+                        <li><a href="#testimonials">Müşteri Yorumları</a></li>
+                        <li><a href="#contact">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>İletişim</h3>
+                    <ul class="footer-links">
+                        <li>Adres: Çiftlik Mah. İnek Sokak No:123, Ankara</li>
+                        <li>Telefon: +90 312 123 45 67</li>
+                        <li>E-posta: info@premiuminek.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Premium İnek. Tüm Hakları Saklıdır.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
