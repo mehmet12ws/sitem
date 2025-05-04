@@ -30,8 +30,8 @@ function fixHeaders() {
     line = line.trim();
     if (!line) continue; // Boş satırları geç
 
-    // Eğer satır bir key ise
-    if (line.includes(":") && !line.startsWith(" ")) {
+    // Eğer satır bir key:value formatında ise
+    if (line.includes(":")) {
       // Eğer önceki key-value varsa, onu ekle
       if (currentKey) {
         result.push(`${currentKey}: ${currentValue}`);
@@ -39,10 +39,10 @@ function fixHeaders() {
 
       // Yeni key-value'yu ayır
       const [key, ...rest] = line.split(":");
-      currentKey = key.trim().toLowerCase();  // Key'i küçük harfe dönüştür
+      currentKey = key.trim();  // Key'i temizle
       currentValue = rest.join(":").trim();  // Value'yu al
     } else {
-      // Eğer line bir value ise, onu currentValue'ya ekle
+      // Eğer line bir value devamıysa, onu currentValue'ya ekle
       currentValue += " " + line.trim();
     }
   }
