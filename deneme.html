@@ -4,21 +4,89 @@
   <meta charset="UTF-8">
   <title>Header Dönüştürücü</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    textarea { width: 100%; height: 200px; margin-bottom: 10px; }
-    button { padding: 10px 20px; font-size: 16px; }
-    pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; word-wrap: break-word; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #4CAF50;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      margin-bottom: 15px;
+      resize: none;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #555;
+    }
+
+    pre {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 14px;
+      overflow: auto;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
 
-<h2>Header Yapıştır → Tek Satıra Çevir</h2>
+<div class="container">
+  <h2>Header Yapıştır → Tek Satıra Çevir</h2>
 
-<textarea id="inputHeaders" placeholder="Buraya başlıkları yapıştır..."></textarea>
-<button onclick="convertHeaders()">Dönüştür</button>
+  <textarea id="inputHeaders" placeholder="Buraya başlıkları yapıştır..."></textarea>
+  <button onclick="convertHeaders()">Dönüştür</button>
 
-<h3>Dönüştürülmüş Tek Satır:</h3>
-<pre id="outputHeaders"></pre>
+  <h3>Dönüştürülmüş Tek Satır:</h3>
+  <pre id="outputHeaders"></pre>
+</div>
 
 <script>
 function convertHeaders() {
