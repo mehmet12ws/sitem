@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Header Düzeltici</title>
+  <title>Gelişmiş Header Düzeltici</title>
   <style>
     body { font-family: Arial; padding: 20px; }
     textarea, pre { width: 100%; margin-top: 10px; }
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h2>Bozuk Header'ları Düzelt</h2>
+<h2>Bozuk Header'ları Akıllı Şekilde Düzelt</h2>
 <textarea id="inputArea" placeholder="Bozuk header'ları buraya yapıştır..."></textarea>
 <button onclick="fixHeaders()">Dönüştür</button>
 <h3>Düzenlenmiş Header'lar:</h3>
@@ -24,15 +24,32 @@ function fixHeaders() {
   const lines = document.getElementById("inputArea").value.split(/\r?\n/);
   const result = [];
   let currentKey = "";
-  
+  let currentValue = "";
+
   for (let line of lines) {
     line = line.trim();
-    if (line.endsWith(":")) {
-      currentKey = line.slice(0, -1).toLowerCase(); // remove ":" and lowercase
-    } else if (currentKey) {
-      result.push(`${currentKey}: ${line}`);
-      currentKey = "";
+    if (!line) continue;
+
+    // Eğer satır sadece "xxx:" şeklindeyse key'dir
+    if (/^[^:]+:\s*$/.test(line)) {
+      if (currentKey) {
+        result.push(`${currentKey}: ${currentValue}`);
+      }
+      currentKey = line.replace(":", "").toLowerCase();
+      currentValue = "";
+    } else {
+      // Satır bir key değil, value kısmı
+      if (currentValue) {
+        currentValue += " " + line;
+      } else {
+        currentValue = line;
+      }
     }
+  }
+
+  // Son key-value çifti için
+  if (currentKey) {
+    result.push(`${currentKey}: ${currentValue}`);
   }
 
   document.getElementById("outputArea").textContent = result.join("\n");
