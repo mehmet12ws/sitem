@@ -2,37 +2,40 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Header Dönüştürücü</title>
+  <title>Header Düzeltici</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    textarea { width: 100%; height: 200px; margin-bottom: 10px; }
-    button { padding: 10px 20px; font-size: 16px; }
-    pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; word-wrap: break-word; }
+    body { font-family: Arial; padding: 20px; }
+    textarea, pre { width: 100%; margin-top: 10px; }
+    textarea { height: 200px; }
+    button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+    pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; word-break: break-word; }
   </style>
 </head>
 <body>
 
-<h2>Header Yapıştır → Tek Satıra Çevir</h2>
-
-<textarea id="inputHeaders" placeholder="Buraya başlıkları yapıştır..."></textarea>
-<button onclick="convertHeaders()">Dönüştür</button>
-
-<h3>Dönüştürülmüş Tek Satır:</h3>
-<pre id="outputHeaders"></pre>
+<h2>Bozuk Header'ları Düzelt</h2>
+<textarea id="inputArea" placeholder="Bozuk header'ları buraya yapıştır..."></textarea>
+<button onclick="fixHeaders()">Dönüştür</button>
+<h3>Düzenlenmiş Header'lar:</h3>
+<pre id="outputArea"></pre>
 
 <script>
-function convertHeaders() {
-  const input = document.getElementById("inputHeaders").value;
-  const lines = input.split(/\r?\n/).filter(line => line.trim() !== "");
-  const output = lines.map(line => {
-    // Eğer ":" içermiyorsa (örnek: "user-agent" satırı gibi), ":" ile başına ekle
-    if (!line.includes(":")) {
-      const [key, ...rest] = line.split(/\s+/);
-      return `${key.toLowerCase()}: ${rest.join(" ")}`;
+function fixHeaders() {
+  const lines = document.getElementById("inputArea").value.split(/\r?\n/);
+  const result = [];
+  let currentKey = "";
+  
+  for (let line of lines) {
+    line = line.trim();
+    if (line.endsWith(":")) {
+      currentKey = line.slice(0, -1).toLowerCase(); // remove ":" and lowercase
+    } else if (currentKey) {
+      result.push(`${currentKey}: ${line}`);
+      currentKey = "";
     }
-    return line;
-  }).join("\n");
-  document.getElementById("outputHeaders").innerText = output;
+  }
+
+  document.getElementById("outputArea").textContent = result.join("\n");
 }
 </script>
 
