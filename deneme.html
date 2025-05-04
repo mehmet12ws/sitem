@@ -14,7 +14,7 @@
 <body>
 
 <h2>Header'ları Düzelt</h2>
-<textarea id="inputArea" placeholder="Bozuk header'ları buraya yapıştır..."></textarea>
+<textarea id="inputArea" placeholder="Header'ları buraya yapıştır..."></textarea>
 <button onclick="fixHeaders()">Dönüştür</button>
 <h3>Düzenlenmiş Header'lar:</h3>
 <pre id="outputArea"></pre>
@@ -30,7 +30,7 @@ function fixHeaders() {
     line = line.trim();
     if (!line) continue; // Boş satırları geç
 
-    // Eğer satır bir key:value formatında ise
+    // Eğer satır bir key-value formatında ise
     if (line.includes(":")) {
       // Eğer önceki key-value varsa, onu ekle
       if (currentKey) {
@@ -52,6 +52,7 @@ function fixHeaders() {
     result.push(`${currentKey}: ${currentValue}`);
   }
 
+  // Çıktıyı ekrana yazdır
   document.getElementById("outputArea").textContent = result.join("\n");
 }
 </script>
