@@ -2,58 +2,37 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Header Düzeltici</title>
+  <title>Header Dönüştürücü</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    textarea, pre { width: 100%; margin-top: 10px; }
-    textarea { height: 200px; }
-    button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+    textarea { width: 100%; height: 200px; margin-bottom: 10px; }
+    button { padding: 10px 20px; font-size: 16px; }
     pre { background: #f0f0f0; padding: 10px; white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
 <body>
 
-<h2>Header'ları Düzelt</h2>
-<textarea id="inputArea" placeholder="Header'ları buraya yapıştır..."></textarea>
-<button onclick="fixHeaders()">Dönüştür</button>
-<h3>Düzenlenmiş Header'lar:</h3>
-<pre id="outputArea"></pre>
+<h2>Header Yapıştır → Tek Satıra Çevir</h2>
+
+<textarea id="inputHeaders" placeholder="Buraya başlıkları yapıştır..."></textarea>
+<button onclick="convertHeaders()">Dönüştür</button>
+
+<h3>Dönüştürülmüş Tek Satır:</h3>
+<pre id="outputHeaders"></pre>
 
 <script>
-function fixHeaders() {
-  const lines = document.getElementById("inputArea").value.split(/\r?\n/);
-  const result = [];
-  let currentKey = "";
-  let currentValue = "";
-
-  for (let line of lines) {
-    line = line.trim();
-    if (!line) continue; // Boş satırları geç
-
-    // Eğer satır bir key-value formatında ise
-    if (line.includes(":")) {
-      // Eğer önceki key-value varsa, onu ekle
-      if (currentKey) {
-        result.push(`${currentKey}: ${currentValue}`);
-      }
-
-      // Yeni key-value'yu ayır
-      const [key, ...rest] = line.split(":");
-      currentKey = key.trim();  // Key'i temizle
-      currentValue = rest.join(":").trim();  // Value'yu al
-    } else {
-      // Eğer line bir value devamıysa, onu currentValue'ya ekle
-      currentValue += " " + line.trim();
+function convertHeaders() {
+  const input = document.getElementById("inputHeaders").value;
+  const lines = input.split(/\r?\n/).filter(line => line.trim() !== "");
+  const output = lines.map(line => {
+    // Eğer ":" içermiyorsa (örnek: "user-agent" satırı gibi), ":" ile başına ekle
+    if (!line.includes(":")) {
+      const [key, ...rest] = line.split(/\s+/);
+      return `${key.toLowerCase()}: ${rest.join(" ")}`;
     }
-  }
-
-  // Son key-value çiftini de ekle
-  if (currentKey) {
-    result.push(`${currentKey}: ${currentValue}`);
-  }
-
-  // Çıktıyı ekrana yazdır
-  document.getElementById("outputArea").textContent = result.join("\n");
+    return line;
+  }).join("\n");
+  document.getElementById("outputHeaders").innerText = output;
 }
 </script>
 
