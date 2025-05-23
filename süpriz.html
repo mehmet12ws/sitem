@@ -1,42 +1,400 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Barışalım mı?</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .scale-transition {
-      transition: transform 0.3s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barışalım mı? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 90%;
+            transform: scale(1);
+            transition: all 0.5s ease;
+        }
+
+        .container.celebration {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        h1 {
+            color: #ff6b9d;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .bear-container {
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .bear-gif {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #ff9a9e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .bear-gif:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .question {
+            font-size: 1.5em;
+            color: #333;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab);
+            color: white;
+            transform: scale(1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #ffa726, #ffcc80);
+            color: white;
+            position: relative;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-no:hover {
+            transform: scale(0.9);
+            background: linear-gradient(45deg, #ffb74d, #ffd54f);
+        }
+
+        .btn-no.shrinking {
+            animation: shrinkAndDisappear 1s ease-out forwards;
+        }
+
+        @keyframes shrinkAndDisappear {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.5); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .btn-yes.expanding {
+            animation: expandAndTakeover 1.5s ease-out forwards;
+        }
+
+        @keyframes expandAndTakeover {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { 
+                transform: scale(3); 
+                width: 100vw; 
+                height: 100vh; 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                border-radius: 0; 
+                z-index: 1000;
+            }
+        }
+
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab, #fecfef);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: celebrationBg 3s ease infinite;
+        }
+
+        @keyframes celebrationBg {
+            0%, 100% { background: linear-gradient(45deg, #ff6b9d, #ff8fab, #fecfef); }
+            33% { background: linear-gradient(45deg, #ff8fab, #fecfef, #ff6b9d); }
+            66% { background: linear-gradient(45deg, #fecfef, #ff6b9d, #ff8fab); }
+        }
+
+        .celebration-text {
+            color: white;
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            animation: celebrationText 2s ease infinite;
+        }
+
+        @keyframes celebrationText {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 2em;
+            animation: floatHearts 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatHearts {
+            0% { 
+                opacity: 1; 
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(-10vh) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-20vh) scale(0);
+            }
+        }
+
+        .message {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+            font-size: 1.1em;
+        }
+    </style>
 </head>
-<body class="bg-pink-100 flex items-center justify-center min-h-screen">
-  <div class="text-center p-6 bg-white rounded-xl shadow-md max-w-md">
-    <h1 class="text-2xl font-bold mb-4">Seni Üzdüğüm İçin Özür Dilerim.</h1>
-    <p class="text-lg mb-6">Barışalım Mı?</p>
-    <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" alt="Cute GIF" class="mx-auto mb-6 rounded-lg shadow-lg w-64 h-auto" />
-    <div class="flex justify-center space-x-4">
-      <a href="yes_page.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-        Evet
-      </a>
-      <button id="noButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded scale-transition">
-        Hayır
-      </button>
+<body>
+    <div class="container" id="container">
+        <h1>Barışalım mı? 🥺</h1>
+        
+        <div class="bear-container">
+            <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
+                 alt="Tatlı Ayı" 
+                 class="bear-gif"
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI2ZmOWE5ZSIvPjx0ZXh0IHg9IjEwMCIgeT0iMTEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSI0MCI+8J+QuzwvdGV4dD48L3N2Zz4='">
+        </div>
+        
+        <div class="question">
+            Lütfen barışalım... Kırgın kalma bana 💕
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-yes" id="yesBtn">
+                EVET! 💖
+            </button>
+            <button class="btn btn-no" id="noBtn">
+                Hayır 😔
+            </button>
+        </div>
+        
+        <div class="message">
+            Sen çok değerlisin benim için... 🌟
+        </div>
     </div>
-  </div>
 
-  <script>
-    const noButton = document.getElementById('noButton');
-    let scale = 1;
+    <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-text">
+            YAŞASIN! BARIŞTIIIIK! 🎉
+        </div>
+        <div class="celebration-text" style="font-size: 2em;">
+            Seni çok seviyorum! 💕✨
+        </div>
+        <div class="hearts" id="hearts"></div>
+    </div>
 
-    noButton.addEventListener('click', () => {
-      scale += 0.5;
-      noButton.style.transform = `scale(${scale})`;
-      if (scale >= 5) {
-        noButton.style.display = 'none';
-      }
-    });
-  </script>
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const container = document.getElementById('container');
+        const celebrationOverlay = document.getElementById('celebrationOverlay');
+        const hearts = document.getElementById('hearts');
+
+        let noClickCount = 0;
+
+        yesBtn.addEventListener('click', function() {
+            // EVET butonuna tıklandığında özel animasyon
+            yesBtn.classList.add('expanding');
+            noBtn.style.display = 'none';
+            
+            setTimeout(() => {
+                celebrationOverlay.style.display = 'flex';
+                createHearts();
+                playSuccessAnimation();
+            }, 1500);
+        });
+
+        noBtn.addEventListener('click', function() {
+            noClickCount++;
+            
+            if (noClickCount === 1) {
+                noBtn.textContent = 'Emin misin? 🥺';
+                noBtn.style.background = 'linear-gradient(45deg, #ffb74d, #ffd54f)';
+                // EVET butonunu büyüt
+                yesBtn.style.transform = 'scale(1.2)';
+                yesBtn.style.background = 'linear-gradient(45deg, #e91e63, #ff6b9d)';
+            } else if (noClickCount === 2) {
+                noBtn.textContent = 'Gerçekten mi? 😢';
+                // EVET butonunu daha da büyüt
+                yesBtn.style.transform = 'scale(1.4)';
+                yesBtn.style.animation = 'pulse 1s infinite';
+            } else if (noClickCount >= 3) {
+                // Hayır butonu küçülsün ve kaybolsun
+                noBtn.classList.add('shrinking');
+                // EVET butonu ekranı kaplasın
+                yesBtn.style.transform = 'scale(2)';
+                yesBtn.textContent = 'LÜTFEN EVET DE! 💖';
+                
+                setTimeout(() => {
+                    noBtn.style.display = 'none';
+                    yesBtn.style.width = '80%';
+                    yesBtn.style.height = '100px';
+                    yesBtn.style.fontSize = '1.5em';
+                }, 1000);
+            }
+        });
+
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = Math.random() > 0.5 ? '💖' : '💕';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.fontSize = (Math.random() * 2 + 1) + 'em';
+                    hearts.appendChild(heart);
+                    
+                    // Kalbi 4 saniye sonra kaldır
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 4000);
+                }, i * 100);
+            }
+        }
+
+        function playSuccessAnimation() {
+            // Ses efekti yoksa, görsel efektlerle destekleyelim
+            document.body.style.animation = 'celebrationBg 1s ease infinite';
+            
+            // 5 saniye sonra tekrar barışma sorusu sor
+            setTimeout(() => {
+                if (confirm('Tekrar barışma sayfasını görmek ister misin? 😊')) {
+                    location.reload();
+                }
+            }, 5000);
+        }
+
+        // Rastgele motivasyon mesajları
+        const messages = [
+            "Sen çok özelsin! 🌟",
+            "Barışmak güzel... 💕",
+            "Seni özledim! 🥺",
+            "Lütfen kızma bana... 💖",
+            "En güzel gülüşün nerede? 😊"
+        ];
+
+        setInterval(() => {
+            const messageEl = document.querySelector('.message');
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            messageEl.textContent = randomMessage;
+        }, 3000);
+    </script>
 </body>
 </html>
