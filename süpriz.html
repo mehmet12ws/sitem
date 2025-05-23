@@ -1,23 +1,42 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barışalım mı?</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barışalım mı?</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .scale-transition {
+      transition: transform 0.3s ease;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Seni Üzdüğüm İçin Özür Dilerim. <br> Barışalım Mı?</h1>
-        <div class="buttons">
-            <button class="yes-button" onclick="handleYesClick()">Evet</button>
-            <button class="no-button" onclick="handleNoClick()">Hayır</button>
-        </div>
-        <div class="gif_container">
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
-        </div>
+<body class="bg-pink-100 flex items-center justify-center min-h-screen">
+  <div class="text-center p-6 bg-white rounded-xl shadow-md max-w-md">
+    <h1 class="text-2xl font-bold mb-4">Seni Üzdüğüm İçin Özür Dilerim.</h1>
+    <p class="text-lg mb-6">Barışalım Mı?</p>
+    <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" alt="Cute GIF" class="mx-auto mb-6 rounded-lg shadow-lg w-64 h-auto" />
+    <div class="flex justify-center space-x-4">
+      <a href="yes_page.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+        Evet
+      </a>
+      <button id="noButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded scale-transition">
+        Hayır
+      </button>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+    let scale = 1;
+
+    noButton.addEventListener('click', () => {
+      scale += 0.5;
+      noButton.style.transform = `scale(${scale})`;
+      if (scale >= 5) {
+        noButton.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
