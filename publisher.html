@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canlı Yayın - Yayıncı</title>
+</head>
+<body>
+  <h2>Ekran Paylaşımı Başlat</h2>
+  <button id="startBtn">Ekranı Paylaş</button>
+  <video id="localVideo" autoplay playsinline style="width: 60%; border: 1px solid black;"></video>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const localVideo = document.getElementById('localVideo');
+
+    let pc;
+    const signalingServerUrl = 'ws://localhost:3000'; // WebSocket sinyal sunucu adresi
+    const ws = new WebSocket(signalingServerUrl);
+
+    ws.onopen = () => {
+      console.log('WebSocket bağlantısı kuruldu');
+      ws.send(JSON.stringify({ type: 'publisher' }));
+    };
+
+    ws.onmessage = async (msg) => {
+      const data = JSON.parse(msg.data);
+
+      if (data.sdp) {
+        await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
+        if (data.sdp.type === 'offer') {
+          const answer = await pc.createAnswer();
+          await pc.setLocalDescription(answer);
+          ws.send(JSON.stringify({ to: 'viewer', sdp: pc.localDescription }));
+        }
+      }
+
+      if (data.ice) {
+        try {
+          await pc.addIceCandidate(data.ice);
+        } catch(e) {
+          console.error('ICE candidate eklenemedi', e);
+        }
+      }
+    };
+
+    startBtn.onclick = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: { frameRate: 30, width: 1280, height: 720 },
+          audio: false
+        });
+        localVideo.srcObject = stream;
+
+        pc = new RTCPeerConnection();
+
+        // Yayıncı stream'ini peer connection'a ekle
+        stream.getTracks().forEach(track => pc.addTrack(track, stream));
+
+        pc.onicecandidate = event => {
+          if (event.candidate) {
+            ws.send(JSON.stringify({ to: 'viewer', ice: event.candidate }));
+          }
+        };
+
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        ws.send(JSON.stringify({ to: 'viewer', sdp: pc.localDescription }));
+
+      } catch (err) {
+        alert('Ekran paylaşımı başlatılamadı: ' + err);
+      }
+    };
+  </script>
+</body>
+</html>
