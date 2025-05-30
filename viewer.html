@@ -1,60 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Canlı Yayın - İzleyici</title>
+  <title>Tek Ekran Paylaşımı (Yerel)</title>
 </head>
 <body>
-  <h2>Yayın İzleniyor</h2>
-  <video id="remoteVideo" autoplay playsinline controls style="width: 60%; border: 1px solid black;"></video>
+  <h2>Ekran Paylaşımı Başlat (Yerel Görüntü)</h2>
+  <button id="startBtn">Ekranı Paylaş</button>
+  <video id="screenVideo" autoplay playsinline controls style="width: 80%; border: 1px solid black;"></video>
 
   <script>
-    const remoteVideo = document.getElementById('remoteVideo');
+    const startBtn = document.getElementById('startBtn');
+    const screenVideo = document.getElementById('screenVideo');
 
-    let pc;
-    const signalingServerUrl = 'ws://localhost:3000'; // WebSocket sinyal sunucu adresi
-    const ws = new WebSocket(signalingServerUrl);
-
-    ws.onopen = () => {
-      console.log('WebSocket bağlantısı kuruldu');
-      ws.send(JSON.stringify({ type: 'viewer' }));
-    };
-
-    ws.onmessage = async (msg) => {
-      const data = JSON.parse(msg.data);
-
-      if (data.sdp) {
-        await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
-        if (data.sdp.type === 'answer') {
-          // cevap geldi, ek bir şey yok
-        }
-      }
-
-      if (data.ice) {
-        try {
-          await pc.addIceCandidate(data.ice);
-        } catch(e) {
-          console.error('ICE candidate eklenemedi', e);
-        }
+    startBtn.onclick = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: { frameRate: 30, width: 1280, height: 720 },
+          audio: false
+        });
+        screenVideo.srcObject = stream;
+      } catch (err) {
+        alert('Ekran paylaşımı başlatılamadı: ' + err);
       }
     };
-
-    pc = new RTCPeerConnection();
-
-    pc.ontrack = event => {
-      remoteVideo.srcObject = event.streams[0];
-    };
-
-    pc.onicecandidate = event => {
-      if (event.candidate) {
-        ws.send(JSON.stringify({ to: 'publisher', ice: event.candidate }));
-      }
-    };
-
-    (async () => {
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-      ws.send(JSON.stringify({ to: 'publisher', sdp: pc.localDescription }));
-    })();
   </script>
 </body>
 </html>
