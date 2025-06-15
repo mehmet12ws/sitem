@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enzil Haköse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating bubbles animation */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: rise 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-delay: 0.5s; }
+        .bubble:nth-child(3) { width: 60px; height: 60px; left: 35%; animation-delay: 1s; }
+        .bubble:nth-child(4) { width: 30px; height: 30px; left: 50%; animation-delay: 1.5s; }
+        .bubble:nth-child(5) { width: 50px; height: 50px; left: 70%; animation-delay: 2s; }
+        .bubble:nth-child(6) { width: 25px; height: 25px; left: 85%; animation-delay: 2.5s; }
+
+        @keyframes rise {
+            0% { 
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% { 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.9);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .instagram-button {
+            display: block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24, #ff9ff3, #54a0ff);
+            background-size: 300% 300%;
+            color: white;
+            text-decoration: none;
+            padding: 25px 50px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 3s ease-in-out infinite, bounce 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instagram-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .instagram-button:hover::before {
+            left: 100%;
+        }
+
+        .instagram-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+            animation-play-state: paused;
+        }
+
+        .instagram-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .instagram-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            display: inline-block;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Pulse effect around button */
+        .instagram-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Ripple effect on tap */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 50px 30px;
+                margin: 20px;
+                border-radius: 25px;
+            }
+            
+            .instagram-button {
+                padding: 22px 45px;
+                font-size: 18px;
+            }
+            
+            .instagram-icon {
+                font-size: 22px;
+                margin-right: 12px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .instagram-button:hover {
+                transform: none;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating bubbles -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <div class="container">
+        <a href="https://www.instagram.com/enzilhakose/" target="_blank" class="instagram-button" id="instagramBtn">
+            <span class="instagram-icon">📸</span>
+            Instagram
+        </a>
+    </div>
+
+    <script>
+        // Add ripple effect on button click
+        document.getElementById('instagramBtn').addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add vibration for mobile devices
+        if ('vibrate' in navigator) {
+            document.getElementById('instagramBtn').addEventListener('touchstart', function() {
+                navigator.vibrate(50);
+            });
+        }
+
+        // Prevent zoom on double tap for mobile
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
